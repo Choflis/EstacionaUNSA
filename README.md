@@ -1,230 +1,193 @@
 # 🚗 Estaciona UNSA
 
-**Estaciona UNSA** es una aplicación móvil desarrollada con **Flutter** que busca optimizar la gestión de los estacionamientos dentro de la **Universidad Nacional de San Agustín de Arequipa (UNSA)**.  
-La app permite a estudiantes, docentes y personal administrativo **visualizar, registrar y reservar espacios de estacionamiento** en tiempo real, ofreciendo una experiencia moderna, segura y eficiente.
+Estaciona UNSA es una aplicación móvil multiplataforma desarrollada con Flutter para optimizar la gestión de estacionamientos en la Universidad Nacional de San Agustín de Arequipa (UNSA). Permite a estudiantes, docentes y personal administrativo visualizar, registrar y reservar espacios en tiempo real, con autenticación institucional y registro de historial de uso.
 
 ---
 
-## 🌐 Descripción General
-
-El proyecto surge como una iniciativa tecnológica para mejorar la **movilidad interna y el control del flujo vehicular** dentro de los campus de la UNSA.  
-Con un diseño intuitivo y una arquitectura robusta, **Estaciona UNSA** permite que los usuarios puedan gestionar sus vehículos desde el móvil, garantizando transparencia y comodidad en el proceso de estacionamiento.
-
-La aplicación integra un **sistema visual dinámico**, complementado con **imágenes y recursos gráficos obtenidos de fuentes web (como Unsplash y Pexels)**, que aportan una estética moderna, limpia y representativa de la innovación universitaria.
-
----
-
-## 🧩 Características Principales
-
-- 📱 **Gestión de estacionamientos en tiempo real:** muestra los espacios disponibles y ocupados.  
-- 🚙 **Registro de vehículos** y vinculación con usuarios institucionales.  
-- 🔒 **Inicio de sesión seguro:** mediante autenticación con correos institucionales UNSA.  
-- 🗺️ **Visualización de zonas de parqueo:** interfaz amigable basada en mapas o cuadrículas.  
-- 🔔 **Notificaciones automáticas:** alertas sobre disponibilidad, horarios y reservas.  
-- 🧾 **Historial de uso:** registro de entradas, salidas y tiempos de estacionamiento.  
-- 💬 **Interfaz adaptable y moderna:** desarrollada con Material Design 3 y soporte multiplataforma.  
+## Índice
+- [Descripción](#descripción)
+- [Características principales](#características-principales)
+- [Tecnologías](#tecnologías)
+- [Arquitectura](#arquitectura)
+- [Instalación y ejecución](#instalación-y-ejecución)
+- [Configuración de Firebase](#configuración-de-firebase)
+- [Uso](#uso)
+- [Contribución](#contribución)
+- [Equipo](#equipo)
+- [Licencia](#licencia)
+- [Créditos y recursos visuales](#créditos-y-recursos-visuales)
 
 ---
 
-## 🛠️ Tecnologías Utilizadas
+## Descripción
+
+El objetivo de Estaciona UNSA es mejorar la movilidad interna y el control del flujo vehicular dentro de los campus universitarios, proporcionando una interfaz intuitiva y funciones de gestión en tiempo real. La solución está pensada como prototipo académico con posibilidades de extensión (IoT, integración con cámaras, reservas programadas, etc.).
+
+---
+
+## Características principales
+
+- Gestión en tiempo real de ocupación de espacios (disponible / ocupado).
+- Registro y asociación de vehículos a usuarios institucionales.
+- Autenticación segura con correos institucionales UNSA.
+- Visualización de zonas de parqueo mediante mapa o cuadrícula.
+- Sistema de reservas y notificaciones (Firebase Cloud Messaging).
+- Historial de entradas/salidas y tiempos de uso.
+- UI moderna basada en Material Design 3, responsive y multiplataforma.
+
+---
+
+## Tecnologías
 
 | Categoría | Tecnología |
-|------------|------------|
-| **Framework principal** | [Flutter](https://flutter.dev/) |
-| **Lenguaje** | Dart |
-| **Base de datos** | Firebase Firestore |
-| **Autenticación** | Firebase Auth (solo correos institucionales) |
-| **Notificaciones** | Firebase Cloud Messaging |
-| **Diseño UI/UX** | Material Design 3 + Assets Web |
-| **Control de versiones** | Git + GitHub |
-| **Entorno de desarrollo** | VS Code / Android Studio |
+|-----------:|-----------|
+| Framework  | Flutter |
+| Lenguaje   | Dart |
+| BBDD       | Firebase Firestore |
+| Auth       | Firebase Authentication |
+| Mensajería | Firebase Cloud Messaging |
+| Almacenamiento | Firebase Cloud Storage |
+| UI/UX      | Material Design 3 |
+| Control de versiones | Git / GitHub |
 
 ---
 
-## 🧱 Arquitectura del Proyecto
+## Arquitectura
 
 ```mermaid
-graph TD
-    A[Flutter Frontend] --> B[Firebase Auth]
-    A --> C[Firestore Database]
-    A --> D[Cloud Storage]
-    C --> E[Gestión de Reservas y Vehículos]
-    D --> F[Imágenes y Recursos Visuales]
-    B --> G[Usuarios Institucionales UNSA]
-🚀 Instalación y Ejecución
-Clona el repositorio:
+flowchart TD
+  Flutter_Frontend[Flutter Frontend] --> Firebase_Auth[Firebase Auth]
+  Flutter_Frontend --> Firestore[Firestore Database]
+  Flutter_Frontend --> Cloud_Storage[Cloud Storage]
+  Firestore --> Reservas[Gestión de reservas y vehículos]
+  Cloud_Storage --> Assets[Imágenes y recursos visuales]
+  Firebase_Auth --> Usuarios[Usuarios institucionales UNSA]
+```
 
-bash
-Copiar código
-git clone https://github.com/tuusuario/estaciona-unsa.git
-cd estaciona-unsa
-Instala las dependencias:
+---
 
-bash
-Copiar código
-flutter pub get
-Configura tu entorno Firebase:
+## Instalación y ejecución
 
-Ejecuta:
+### Requisitos previos
+- Flutter (última versión estable)
+- Android Studio o VS Code con extensiones Flutter/Dart
+- Cuenta de Firebase y proyecto creado
 
-bash
-Copiar código
-flutterfire configure
-Selecciona tu proyecto Firebase.
+### Pasos
+1. Clona el repositorio:
+   ```bash
+   git clone https://github.com/Choflis/EstacionaUNSA.git
+   cd EstacionaUNSA
+   ```
 
-Revisa que el archivo firebase_options.dart se haya generado correctamente.
+2. Instala dependencias:
+   ```bash
+   flutter pub get
+   ```
 
-Ejecuta la app:
+3. Configura Firebase para tu proyecto local:
+   - Ejecuta:
+     ```bash
+     flutterfire configure
+     ```
+   - Selecciona el proyecto Firebase que corresponda.
+   - Verifica que se haya generado `lib/firebase_options.dart` (o el path que use el proyecto).
 
-bash
-Copiar código
-flutter run
-⚠️ Importante (Windows):
-Flutter necesita soporte para symlinks.
-Activa el modo desarrollador ejecutando:
+4. Corre la app:
+   ```bash
+   flutter run
+   ```
 
-bash
-Copiar código
+Nota (Windows): Flutter requiere soporte para symlinks en algunos entornos. Habilita el modo desarrollador ejecutando:
+```bash
 start ms-settings:developers
-Luego reinicia tu PC o tu terminal.
-
-💡 Objetivos del Proyecto
-Mejorar la eficiencia y organización del estacionamiento en los campus universitarios.
-
-Promover la digitalización de procesos administrativos dentro de la UNSA.
-
-Ofrecer una experiencia de usuario moderna y confiable mediante Flutter.
-
-Servir como base para futuras integraciones con IoT o cámaras de detección automática.
-
-🧠 Impacto Esperado
-El sistema reduce los tiempos de búsqueda de estacionamiento, evita congestiones internas y mejora la seguridad del campus.
-Además, contribuye a la gestión sostenible de espacios y promueve la cultura de movilidad inteligente dentro de la universidad.
-
-🎨 Inspiración Visual
-El diseño del proyecto se apoya en una línea estética clara y tecnológica, utilizando imágenes de estacionamientos modernos, automóviles y entornos universitarios, obtenidas de bancos de imágenes web como Unsplash y Pexels.
-Estas imágenes permiten contextualizar el proyecto y reforzar su enfoque visual
-
-
-
-
-
-markdown
-Copiar código
-# 🚗 Estaciona UNSA
-
-**Estaciona UNSA** es una aplicación móvil desarrollada con **Flutter** que busca optimizar la gestión de los estacionamientos dentro de la **Universidad Nacional de San Agustín de Arequipa (UNSA)**.  
-La app permite a estudiantes, docentes y personal administrativo **visualizar, registrar y reservar espacios de estacionamiento** en tiempo real, ofreciendo una experiencia moderna, segura y eficiente.
+```
+Luego reinicia tu PC o terminal si es necesario.
 
 ---
 
-## 🌐 Descripción General
+## Configuración de Firebase (recomendaciones)
 
-El proyecto surge como una iniciativa tecnológica para mejorar la **movilidad interna y el control del flujo vehicular** dentro de los campus de la UNSA.  
-Con un diseño intuitivo y una arquitectura robusta, **Estaciona UNSA** permite que los usuarios puedan gestionar sus vehículos desde el móvil, garantizando transparencia y comodidad en el proceso de estacionamiento.
+- Authentication:
+  - Habilita el proveedor de correo electrónico (`Email/Password`) o el flujo que uses para las cuentas institucionales.
+  - Implementa control por dominio (ej. permitir solo correos con dominio `@unsa.edu.pe`). Esto puede hacerse a nivel de la aplicación (validación al registrar/iniciar sesión) y reforzarse en el backend (Cloud Functions / reglas de seguridad).
 
-La aplicación integra un **sistema visual dinámico**, complementado con **imágenes y recursos gráficos obtenidos de fuentes web (como Unsplash y Pexels)**, que aportan una estética moderna, limpia y representativa de la innovación universitaria.
+- Firestore:
+  - Diseña reglas de seguridad que restrinjan lecturas/escrituras según la autenticación del usuario y su rol.
+  - Ejemplo conceptual (no aplicar sin pruebas):
+    ```
+    service cloud.firestore {
+      match /databases/{database}/documents {
+        match /usuarios/{userId} {
+          allow read, write: if request.auth != null && request.auth.uid == userId;
+        }
+        match /reservas/{reservaId} {
+          allow create: if request.auth != null;
+          allow read: if request.auth != null;
+          allow update, delete: if request.auth != null && resource.data.propietario == request.auth.uid;
+        }
+      }
+    }
+    ```
 
----
+- Cloud Storage:
+  - Restringe el acceso a archivos por usuario y uso previsto.
+  - Firma URLs o usa reglas para controlar subida/lectura.
 
-## 🧩 Características Principales
-
-- 📱 **Gestión de estacionamientos en tiempo real:** muestra los espacios disponibles y ocupados.  
-- 🚙 **Registro de vehículos** y vinculación con usuarios institucionales.  
-- 🔒 **Inicio de sesión seguro:** mediante autenticación con correos institucionales UNSA.  
-- 🗺️ **Visualización de zonas de parqueo:** interfaz amigable basada en mapas o cuadrículas.  
-- 🔔 **Notificaciones automáticas:** alertas sobre disponibilidad, horarios y reservas.  
-- 🧾 **Historial de uso:** registro de entradas, salidas y tiempos de estacionamiento.  
-- 💬 **Interfaz adaptable y moderna:** desarrollada con Material Design 3 y soporte multiplataforma.  
-
----
-
-## 🛠️ Tecnologías Utilizadas
-
-| Categoría | Tecnología |
-|------------|------------|
-| **Framework principal** | [Flutter](https://flutter.dev/) |
-| **Lenguaje** | Dart |
-| **Base de datos** | Firebase Firestore |
-| **Autenticación** | Firebase Auth (solo correos institucionales) |
-| **Notificaciones** | Firebase Cloud Messaging |
-| **Diseño UI/UX** | Material Design 3 + Assets Web |
-| **Control de versiones** | Git + GitHub |
-| **Entorno de desarrollo** | VS Code / Android Studio |
+- Notificaciones:
+  - Configura Firebase Cloud Messaging y añade la implementación en la app para recibir notificaciones push.
 
 ---
 
-## 🧱 Arquitectura del Proyecto
+## Uso (breve)
 
-```mermaid
-graph TD
-    A[Flutter Frontend] --> B[Firebase Auth]
-    A --> C[Firestore Database]
-    A --> D[Cloud Storage]
-    C --> E[Gestión de Reservas y Vehículos]
-    D --> F[Imágenes y Recursos Visuales]
-    B --> G[Usuarios Institucionales UNSA]
-🚀 Instalación y Ejecución
-Clona el repositorio:
+- Registro / Inicio de sesión: usa una cuenta institucional UNSA.
+- Registrar vehículo: desde el perfil puedes añadir matrícula, modelo y foto (opcional).
+- Reservar espacio: selecciona zona y franja horaria en la interfaz de mapas o cuadrículas.
+- Historial: revisa entradas/salidas y tiempos en la sección de historial.
 
-bash
-Copiar código
-git clone https://github.com/tuusuario/estaciona-unsa.git
-cd estaciona-unsa
-Instala las dependencias:
+---
 
-bash
-Copiar código
-flutter pub get
-Configura tu entorno Firebase:
+## Contribución
 
-Ejecuta:
+Si quieres contribuir:
+1. Haz fork del repositorio.
+2. Crea una rama con la funcionalidad: `git checkout -b feat/nombre-funcion`
+3. Realiza tus cambios y pruebas locales.
+4. Abre un Pull Request describiendo el cambio y los pasos para testearlo.
 
-bash
-Copiar código
-flutterfire configure
-Selecciona tu proyecto Firebase.
+Por favor, abre issues describiendo bugs o propuestas de mejora antes de PR grandes. Añade pruebas y documentación cuando sea posible.
 
-Revisa que el archivo firebase_options.dart se haya generado correctamente.
+---
 
-Ejecuta la app:
+## Equipo
 
-bash
-Copiar código
-flutter run
-⚠️ Importante (Windows):
-Flutter necesita soporte para symlinks.
-Activa el modo desarrollador ejecutando:
+- Luis Guillermo Luque Condori — Líder de proyecto / Desarrollador Flutter  
+- Dennis Javier Quispe Saavedra — Diseño UI/UX  
+- Fernando Miguel Garambel Marín — Backend & Firebase
 
-bash
-Copiar código
-start ms-settings:developers
-Luego reinicia tu PC o tu terminal.
+(Actualiza los nombres y roles según corresponda.)
 
-💡 Objetivos del Proyecto
-Mejorar la eficiencia y organización del estacionamiento en los campus universitarios.
+---
 
-Promover la digitalización de procesos administrativos dentro de la UNSA.
+## Licencia
 
-Ofrecer una experiencia de usuario moderna y confiable mediante Flutter.
+Proyecto con fines académicos y educativos, desarrollado en la Universidad Nacional de San Agustín de Arequipa. El código puede usarse para aprendizaje y mejora tecnológica; para otros usos, solicita permiso a los autores.
 
-Servir como base para futuras integraciones con IoT o cámaras de detección automática.
+---
 
-🧠 Impacto Esperado
-El sistema reduce los tiempos de búsqueda de estacionamiento, evita congestiones internas y mejora la seguridad del campus.
-Además, contribuye a la gestión sostenible de espacios y promueve la cultura de movilidad inteligente dentro de la universidad.
+## Créditos y recursos visuales
 
-🎨 Inspiración Visual
-El diseño del proyecto se apoya en una línea estética clara y tecnológica, utilizando imágenes de estacionamientos modernos, automóviles y entornos universitarios, obtenidas de bancos de imágenes web como Unsplash y Pexels.
-Estas imágenes permiten contextualizar el proyecto y reforzar su enfoque visual.
+- Recursos de imágenes: Unsplash, Pexels y otros bancos libres (respecta las licencias y atribuciones cuando apliquen).
+- Iconografía y diseño: Material Design 3.
 
-<p align="center"> <img src="https://images.unsplash.com/photo-1506521781263-d8422e82f27a" width="70%" alt="Parking visualization example"> </p>
-👥 Equipo de Desarrollo
-Nombre	Rol	Descripción
-Luis Guillermo Luque Condori	🧠 Líder de Proyecto / Dev Flutter	Encargado de la arquitectura y despliegue.
-[Integrante 2]	🎨 UI/UX Designer	Diseña la experiencia visual del usuario.
-[Integrante 3]	🔧 Backend & Firebase	Configuración de base de datos y seguridad.
+<p align="center">
+  <img src="https://images.unsplash.com/photo-1506521781263-d8422e82f27a" alt="Ejemplo visual de parking" width="70%">
+</p>
 
-📚 Licencia
-Este proyecto es de carácter académico y educativo, desarrollado en el marco de la Universidad Nacional de San Agustín de Arequipa.
-El código fuente puede ser utilizado con fines de aprendizaje y mejora tecnológica.
+---
+
+Si quieres, puedo:
+- Preparar un archivo CONTRIBUTING.md y un ISSUE_TEMPLATE.md para estandarizar contribuciones.
+- Ajustar el README para incluir badges (build, license) si conectas CI o licencias concretas.
+- Hacer cambios directamente en el repositorio (crear PR) si me indicas que lo haga y confirmas la rama destino.
