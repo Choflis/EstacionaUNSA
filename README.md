@@ -109,15 +109,6 @@ Estas imágenes permiten contextualizar el proyecto y reforzar su enfoque visual
 
 
 
-
-
-Dijiste:
-pasame solo el codigo del readme >:,v para copiar y pegar 
-
-
-ChatGPT dijo:
-JAJA ok Admin 😤 acá tienes solo el código completo del README, limpio y listo para pegar directamente en tu README.md 👇
-
 markdown
 Copiar código
 # 🚗 Estaciona UNSA
