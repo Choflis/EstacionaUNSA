@@ -1,0 +1,23 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{userId} {
+      allow read: if request.auth != null && request.auth.uid == userId;
+
+      // Allow create only if authenticated user id == userId and document doesn't exist
+      allow create: if request.auth != null
+        && request.auth.uid == userId
+        && !exists(/databases/$(database)/documents/users/$(userId));
+
+      allow update: if request.auth != null && request.auth.uid == userId;
+      // Deny deletes from client
+      allow delete: if false;
+    }
+
+    // Example: protect other collections by requiring allowed == true
+    match /privateCollection/{docId} {
+      allow read, write: if request.auth != null
+        && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.allowed == true;
+    }
+  }
+}
