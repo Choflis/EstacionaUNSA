@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:firebase_core/firebase_core.dart';                        
 import 'firebase_options.dart';
 
@@ -6,10 +7,14 @@ void main() async {
   // IMPORTANTE: Necesario para inicializar Firebase                      
   WidgetsFlutterBinding.ensureInitialized();                              
                                                                               
-  // Inicializar Firebase                                                 
-  await Firebase.initializeApp(                                           
-      options: DefaultFirebaseOptions.currentPlatform,                      
-  );
+  // Inicializar Firebase solo en plataformas soportadas (Android, iOS, Web)
+  if (kIsWeb || 
+      defaultTargetPlatform == TargetPlatform.android || 
+      defaultTargetPlatform == TargetPlatform.iOS) {
+    await Firebase.initializeApp(                                           
+        options: DefaultFirebaseOptions.currentPlatform,                      
+    );
+  }
   
   runApp(const MyApp());
 }
