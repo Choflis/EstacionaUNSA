@@ -184,10 +184,3 @@ Proyecto con fines académicos y educativos, desarrollado en la Universidad Naci
 <p align="center">
   <img src="https://images.unsplash.com/photo-1506521781263-d8422e82f27a" alt="Ejemplo visual de parking" width="70%">
 </p>
-
----
-
-Si quieres, puedo:
-- Preparar un archivo CONTRIBUTING.md y un ISSUE_TEMPLATE.md para estandarizar contribuciones.
-- Ajustar el README para incluir badges (build, license) si conectas CI o licencias concretas.
-- Hacer cambios directamente en el repositorio (crear PR) si me indicas que lo haga y confirmas la rama destino.
