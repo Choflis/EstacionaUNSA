@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "53250810553",
+    "project_id": "estacionaunsa",
+    "storage_bucket": "estacionaunsa.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:53250810553:android:efceb2ce8f4cc7d967f168",
+        "android_client_info": {
+          "package_name": "com.example.estaciona_unsa"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASHVg2nejHLi-vkeGA-tSreAGUQmPmufc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
