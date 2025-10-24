@@ -14,6 +14,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "169600291245-2g19te7l8qrjfcjusaavf1uv308c787r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.estaciona_unsa",
+            "certificate_hash": "322be7a7127a14e70e71454cae4085342f753e3f"
+          }
+        },
+        {
+          "client_id": "169600291245-lsv81i7ennck6ffgbfp7ss75qujmb0n4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.estaciona_unsa",
+            "certificate_hash": "baca6b53a68d1525d65a9a1c12535f1925e380d3"
+          }
+        },
+        {
           "client_id": "169600291245-0ofnsflh0npo4tl3npp4a5m8nt8oac84.apps.googleusercontent.com",
           "client_type": 3
         }
