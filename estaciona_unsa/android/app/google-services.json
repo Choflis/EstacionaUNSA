@@ -1,26 +1,36 @@
 {
   "project_info": {
-    "project_number": "53250810553",
-    "project_id": "estacionaunsa",
-    "storage_bucket": "estacionaunsa.firebasestorage.app"
+    "project_number": "169600291245",
+    "project_id": "estaciona-unsa",
+    "storage_bucket": "estaciona-unsa.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:53250810553:android:efceb2ce8f4cc7d967f168",
+        "mobilesdk_app_id": "1:169600291245:android:4065408241cf18a6e61124",
         "android_client_info": {
           "package_name": "com.example.estaciona_unsa"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "169600291245-0ofnsflh0npo4tl3npp4a5m8nt8oac84.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyASHVg2nejHLi-vkeGA-tSreAGUQmPmufc"
+          "current_key": "AIzaSyDOV0lDj1dTdGTX7PJrrya_At5oIKv6l4g"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "169600291245-0ofnsflh0npo4tl3npp4a5m8nt8oac84.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

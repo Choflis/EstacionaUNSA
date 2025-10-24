@@ -24,28 +24,28 @@ class DefaultFirebaseOptions {
       }                                                                       
                                                                               
       static const FirebaseOptions web = FirebaseOptions(                     
-        apiKey: 'AIzaSyASHVg2nejHLi-vkeGA-tSreAGUQmPmufc',
-        appId: '1:53250810553:web:estacionaunsa',
-        messagingSenderId: '53250810553',
-        projectId: 'estacionaunsa',
-        authDomain: 'estacionaunsa.firebaseapp.com',
-        storageBucket: 'estacionaunsa.firebasestorage.app',
+        apiKey: 'AIzaSyDOV0lDj1dTdGTX7PJrrya_At5oIKv6l4g',
+        appId: '1:169600291245:web:estacionaunsa',
+        messagingSenderId: '169600291245',
+        projectId: 'estaciona-unsa',
+        authDomain: 'estaciona-unsa.firebaseapp.com',
+        storageBucket: 'estaciona-unsa.firebasestorage.app',
       );                                                                      
                                                                               
       static const FirebaseOptions android = FirebaseOptions(                 
-        apiKey: 'AIzaSyASHVg2nejHLi-vkeGA-tSreAGUQmPmufc',
-        appId: '1:53250810553:android:efceb2ce8f4cc7d967f168',
-        messagingSenderId: '53250810553',
-        projectId: 'estacionaunsa',
-        storageBucket: 'estacionaunsa.firebasestorage.app',
+        apiKey: 'AIzaSyDOV0lDj1dTdGTX7PJrrya_At5oIKv6l4g',
+        appId: '1:169600291245:android:4065408241cf18a6e61124',
+        messagingSenderId: '169600291245',
+        projectId: 'estaciona-unsa',
+        storageBucket: 'estaciona-unsa.firebasestorage.app',
       );                                                                      
                                                                               
       static const FirebaseOptions ios = FirebaseOptions(                     
-        apiKey: 'AIzaSyASHVg2nejHLi-vkeGA-tSreAGUQmPmufc',
-        appId: '1:53250810553:ios:estacionaunsa',
-        messagingSenderId: '53250810553',
-        projectId: 'estacionaunsa',
-        storageBucket: 'estacionaunsa.firebasestorage.app',
+        apiKey: 'AIzaSyDOV0lDj1dTdGTX7PJrrya_At5oIKv6l4g',
+        appId: '1:169600291245:ios:estacionaunsa',
+        messagingSenderId: '169600291245',
+        projectId: 'estaciona-unsa',
+        storageBucket: 'estaciona-unsa.firebasestorage.app',
         iosBundleId: 'com.example.estacionaUnsa',
       );                                                                      
 }
