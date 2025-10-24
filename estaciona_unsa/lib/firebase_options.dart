@@ -24,12 +24,13 @@ class DefaultFirebaseOptions {
       }                                                                       
                                                                               
       static const FirebaseOptions web = FirebaseOptions(                     
-        apiKey: 'AIzaSyDOV0lDj1dTdGTX7PJrrya_At5oIKv6l4g',
-        appId: '1:169600291245:web:estacionaunsa',
+        apiKey: 'AIzaSyDlUNsPhLT3W6DdBDYrL6Zh4i8zcClYYoE',
+        appId: '1:169600291245:web:857a289f4ccc96dee61124',
         messagingSenderId: '169600291245',
         projectId: 'estaciona-unsa',
         authDomain: 'estaciona-unsa.firebaseapp.com',
         storageBucket: 'estaciona-unsa.firebasestorage.app',
+        measurementId: 'G-288DZBEX3M',
       );                                                                      
                                                                               
       static const FirebaseOptions android = FirebaseOptions(                 
