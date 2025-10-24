@@ -34,6 +34,10 @@
 /functions/lib/
 /functions/.firebase/
 
+# Node.js (si existen en raíz)
+node_modules/
+package-lock.json
+
 # Misc
 *.log
 *.lock
