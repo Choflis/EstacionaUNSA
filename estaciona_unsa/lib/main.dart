@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'screens/login_screen.dart';
-import 'firebase_options.dart'; 
+import 'firebase_options.dart'; // se genera al configurar Firebase
 import 'config/theme.dart';
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -17,7 +16,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp( // Estructura correcta
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'EstacionaUNSA', // Argumento movido
       theme: appTheme,         // Argumento movido
@@ -25,3 +24,4 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
