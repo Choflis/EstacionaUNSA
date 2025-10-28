@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'screens/login_screen.dart';
-import 'firebase_options.dart'; // se genera al configurar Firebase
+import 'firebase_options.dart'; 
 import 'config/theme.dart';
 
 void main() async {
@@ -17,14 +17,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp( // Estructura correcta
       debugShowCheckedModeBanner: false,
+      title: 'EstacionaUNSA', // Argumento movido
+      theme: appTheme,         // Argumento movido
       home: const LoginScreen(),
     );
   }
 }
-MaterialApp(
-  title: 'EstacionaUNSA',
-  theme: appTheme,
-  home: const LoginScreen(),
-)
