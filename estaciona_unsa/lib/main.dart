@@ -3,11 +3,16 @@ import 'package:firebase_core/firebase_core.dart';
 import 'screens/login_screen.dart';
 import 'firebase_options.dart'; // se genera al configurar Firebase
 import 'config/theme.dart';
+import 'utils/firestore_seed.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  
+  // await runFirestoreSeed(); // Ya ejecutado, comentar para no re-seed
+  
   runApp(const MyApp());
 }
 

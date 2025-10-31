@@ -1,23 +1,154 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    function isAdmin() {
+      return isAuthenticated() && 
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    function isGuard() {
+      return isAuthenticated() && 
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'guard';
+    }
+    
+    function isGuardOrAdmin() {
+      return isGuard() || isAdmin();
+    }
+    
+    function isUNSAEmail(email) {
+      return email.matches('.*@unsa.edu.pe$');
+    }
+
+    // ===== USERS =====
     match /users/{userId} {
-      allow read: if request.auth != null && request.auth.uid == userId;
-
-      // Allow create only if authenticated user id == userId and document doesn't exist
-      allow create: if request.auth != null
+      // Anyone authenticated can read their own profile
+      allow read: if isOwner(userId) || isGuardOrAdmin();
+      
+      // Create: Only if authenticated and email is @unsa.edu.pe
+      allow create: if isAuthenticated() 
         && request.auth.uid == userId
+        && isUNSAEmail(request.resource.data.email)
         && !exists(/databases/$(database)/documents/users/$(userId));
-
-      allow update: if request.auth != null && request.auth.uid == userId;
-      // Deny deletes from client
+      
+      // Update: Only owner can update their own data (except role and stats)
+      allow update: if isOwner(userId) 
+        && request.resource.data.role == resource.data.role
+        && request.resource.data.email == resource.data.email;
+      
+      // Delete: Never allow from client
       allow delete: if false;
     }
 
-    // Example: protect other collections by requiring allowed == true
-    match /privateCollection/{docId} {
-      allow read, write: if request.auth != null
-        && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.allowed == true;
+    // ===== PARKING ZONES =====
+    match /parking_zones/{zoneId} {
+      // Anyone authenticated can read zones
+      allow read: if isAuthenticated();
+      
+      // Only admins can create/update/delete zones
+      allow write: if isAdmin();
+    }
+
+    // ===== PARKING SPOTS =====
+    match /parking_spots/{spotId} {
+      // Anyone authenticated can read spots
+      allow read: if isAuthenticated();
+      
+      // Only guards and admins can update spots
+      allow update: if isGuardOrAdmin();
+      
+      // Only admins can create/delete spots
+      allow create, delete: if isAdmin();
+    }
+
+    // ===== RESERVATIONS =====
+    match /reservations/{reservationId} {
+      // Users can read their own reservations, guards/admins can read all
+      allow read: if isAuthenticated() && 
+        (resource.data.userId == request.auth.uid || isGuardOrAdmin());
+      
+      // Users can create reservations for themselves
+      allow create: if isAuthenticated() 
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.status == 'active';
+      
+      // Users can update their own reservations (only status)
+      allow update: if isAuthenticated() 
+        && resource.data.userId == request.auth.uid
+        && (request.resource.data.status == 'cancelled' || isGuardOrAdmin());
+      
+      // No one can delete reservations from client
+      allow delete: if false;
+    }
+
+    // ===== ENTRY/EXIT LOGS =====
+    match /entry_exit_logs/{logId} {
+      // Users can read their own logs, guards/admins can read all
+      allow read: if isAuthenticated() &&
+        (resource.data.userId == request.auth.uid || isGuardOrAdmin());
+      
+      // Only guards and admins can create logs
+      allow create: if isGuardOrAdmin() 
+        && request.resource.data.guardId == request.auth.uid;
+      
+      // Only admins can update logs
+      allow update: if isAdmin();
+      
+      // No one can delete logs
+      allow delete: if false;
+    }
+
+    // ===== INCIDENTS =====
+    match /incidents/{incidentId} {
+      // Users can read incidents involving them, guards/admins can read all
+      allow read: if isAuthenticated() &&
+        (resource.data.userId == request.auth.uid || isGuardOrAdmin());
+      
+      // Guards and admins can create incidents
+      allow create: if isGuardOrAdmin() 
+        && request.resource.data.reportedBy == request.auth.uid;
+      
+      // Only admins can update/resolve incidents
+      allow update: if isAdmin();
+      
+      // No one can delete incidents
+      allow delete: if false;
+    }
+
+    // ===== APP SETTINGS =====
+    match /app_settings/{settingId} {
+      // Everyone authenticated can read settings
+      allow read: if isAuthenticated();
+      
+      // Only admins can write settings
+      allow write: if isAdmin();
+    }
+
+    // ===== NOTIFICATIONS =====
+    match /notifications/{notificationId} {
+      // Users can only read their own notifications
+      allow read: if isAuthenticated() && 
+        resource.data.userId == request.auth.uid;
+      
+      // Users can update their own notifications (mark as read)
+      allow update: if isAuthenticated() && 
+        resource.data.userId == request.auth.uid
+        && request.resource.data.keys().hasOnly(['isRead', 'updatedAt']);
+      
+      // System/admins can create notifications
+      allow create: if isGuardOrAdmin();
+      
+      // No one can delete notifications from client
+      allow delete: if false;
     }
   }
 }

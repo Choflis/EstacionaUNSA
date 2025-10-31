@@ -3,7 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'home_screen.dart';
+import '../models/user_model.dart';
+import '../services/firebase/firestore_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -18,6 +21,45 @@ class _LoginScreenState extends State<LoginScreen> {
     serverClientId: kIsWeb ? null : '169600291245-0ofnsflh0npo4tl3npp4a5m8nt8oac84.apps.googleusercontent.com',
   );
   bool _isLoading = false;
+
+  /// Crear o actualizar usuario en Firestore después del login
+  Future<void> _createOrUpdateUserInFirestore(User firebaseUser, GoogleSignInAccount googleUser) async {
+    final firestoreService = FirestoreService();
+    
+    try {
+      // Verificar si el usuario ya existe
+      final existingUser = await firestoreService.getUser(firebaseUser.uid);
+      
+      if (existingUser == null) {
+        // Usuario nuevo - crear documento
+        final newUser = UserModel(
+          uid: firebaseUser.uid,
+          email: firebaseUser.email ?? googleUser.email,
+          displayName: firebaseUser.displayName ?? googleUser.displayName ?? 'Usuario',
+          role: 'user', // Por defecto es usuario regular
+          vehicles: [],
+          stats: UserStats(), // Estadísticas iniciales en 0
+          createdAt: DateTime.now(),
+          updatedAt: DateTime.now(),
+          photoURL: firebaseUser.photoURL ?? googleUser.photoUrl,
+          isActive: true,
+        );
+        
+        await firestoreService.createUser(newUser);
+        print('✅ Usuario creado en Firestore: ${newUser.displayName}');
+      } else {
+        // Usuario existente - actualizar última conexión
+        await firestoreService.updateUser(firebaseUser.uid, {
+          'updatedAt': FieldValue.serverTimestamp(),
+          'photoURL': firebaseUser.photoURL ?? googleUser.photoUrl,
+        });
+        print('✅ Usuario actualizado en Firestore: ${existingUser.displayName}');
+      }
+    } catch (e) {
+      print('❌ Error al crear/actualizar usuario en Firestore: $e');
+      // No lanzar error para no bloquear el login
+    }
+  }
 
   Future<void> _signInWithGoogle() async {
     if (_isLoading) return;
@@ -59,7 +101,10 @@ class _LoginScreenState extends State<LoginScreen> {
         idToken: googleAuth.idToken,
       );
 
-      await FirebaseAuth.instance.signInWithCredential(credential);
+      final userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+      
+      // Crear o actualizar usuario en Firestore
+      await _createOrUpdateUserInFirestore(userCredential.user!, googleUser);
       
       if (!mounted) return;
       
