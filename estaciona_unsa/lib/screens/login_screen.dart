@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'home_screen.dart';
-import '../models/user_model.dart';
-import '../services/firebase/firestore_service.dart';
+import 'package:provider/provider.dart';
+import '../providers/auth_provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -16,171 +10,18 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final GoogleSignIn _googleSignIn = GoogleSignIn(
-    scopes: ['email'],
-    serverClientId: kIsWeb ? null : '169600291245-0ofnsflh0npo4tl3npp4a5m8nt8oac84.apps.googleusercontent.com',
-  );
-  bool _isLoading = false;
-
-  /// Crear o actualizar usuario en Firestore después del login
-  Future<void> _createOrUpdateUserInFirestore(User firebaseUser, GoogleSignInAccount googleUser) async {
-    final firestoreService = FirestoreService();
-    
-    try {
-      // Verificar si el usuario ya existe
-      final existingUser = await firestoreService.getUser(firebaseUser.uid);
-      
-      if (existingUser == null) {
-        // Usuario nuevo - crear documento
-        final newUser = UserModel(
-          uid: firebaseUser.uid,
-          email: firebaseUser.email ?? googleUser.email,
-          displayName: firebaseUser.displayName ?? googleUser.displayName ?? 'Usuario',
-          role: 'user', // Por defecto es usuario regular
-          vehicles: [],
-          stats: UserStats(), // Estadísticas iniciales en 0
-          createdAt: DateTime.now(),
-          updatedAt: DateTime.now(),
-          photoURL: firebaseUser.photoURL ?? googleUser.photoUrl,
-          isActive: true,
-        );
-        
-        await firestoreService.createUser(newUser);
-        print('✅ Usuario creado en Firestore: ${newUser.displayName}');
-      } else {
-        // Usuario existente - actualizar última conexión
-        await firestoreService.updateUser(firebaseUser.uid, {
-          'updatedAt': FieldValue.serverTimestamp(),
-          'photoURL': firebaseUser.photoURL ?? googleUser.photoUrl,
-        });
-        print('✅ Usuario actualizado en Firestore: ${existingUser.displayName}');
-      }
-    } catch (e) {
-      print('❌ Error al crear/actualizar usuario en Firestore: $e');
-      // No lanzar error para no bloquear el login
-    }
-  }
 
   Future<void> _signInWithGoogle() async {
-    if (_isLoading) return;
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
     
-    setState(() => _isLoading = true);
-
-    try {
-      await _googleSignIn.signOut();
-      
-      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-      
-      if (googleUser == null) {
-        setState(() => _isLoading = false);
-        return;
-      }
-
-      final email = googleUser.email;
-
-      if (!email.endsWith('@unsa.edu.pe')) {
-        await _googleSignIn.signOut();
-        if (!mounted) return;
-        
-        setState(() => _isLoading = false);
-        
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Solo se permiten correos institucionales UNSA (@unsa.edu.pe)'),
-            backgroundColor: Colors.red,
-            duration: Duration(seconds: 3),
-          ),
-        );
-        return;
-      }
-
-      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-
-      final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
-
-      final userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
-      
-      // Crear o actualizar usuario en Firestore
-      await _createOrUpdateUserInFirestore(userCredential.user!, googleUser);
-      
-      if (!mounted) return;
-      
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => const HomeScreen()),
-      );
-
-    } on PlatformException catch (e) {
-      if (!mounted) return;
-      setState(() => _isLoading = false);
-      
-      String errorMessage = 'Error al iniciar sesión con Google';
-      
-      if (e.code == 'sign_in_failed') {
-        errorMessage = 'Error al iniciar sesión. Verifica tu conexión e intenta nuevamente';
-      } else if (e.code == 'sign_in_canceled') {
-        errorMessage = 'Inicio de sesión cancelado';
-      } else if (e.code == 'network_error') {
-        errorMessage = 'Error de red. Verifica tu conexión';
-      } else {
-        errorMessage = 'Error: ${e.message ?? e.code}';
-      }
-      
+    final success = await authProvider.signInWithGoogle();
+    
+    if (!mounted) return;
+    
+    if (!success) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(errorMessage),
-          backgroundColor: Colors.red,
-          duration: const Duration(seconds: 4),
-        ),
-      );
-    } on FirebaseAuthException catch (e) {
-      if (!mounted) return;
-      setState(() => _isLoading = false);
-      
-      String errorMessage = 'Error al iniciar sesión';
-      
-      switch (e.code) {
-        case 'account-exists-with-different-credential':
-          errorMessage = 'Ya existe una cuenta con este correo';
-          break;
-        case 'invalid-credential':
-          errorMessage = 'Credenciales inválidas. Intenta nuevamente';
-          break;
-        case 'operation-not-allowed':
-          errorMessage = 'Operación no permitida. Contacta al administrador';
-          break;
-        case 'user-disabled':
-          errorMessage = 'Esta cuenta ha sido deshabilitada';
-          break;
-        case 'user-not-found':
-          errorMessage = 'Usuario no encontrado';
-          break;
-        case 'wrong-password':
-          errorMessage = 'Contraseña incorrecta';
-          break;
-        case 'network-request-failed':
-          errorMessage = 'Error de conexión. Verifica tu internet';
-          break;
-        default:
-          errorMessage = 'Error: ${e.message ?? e.code}';
-      }
-      
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(errorMessage),
-          backgroundColor: Colors.red,
-          duration: const Duration(seconds: 4),
-        ),
-      );
-    } catch (e) {
-      if (!mounted) return;
-      setState(() => _isLoading = false);
-      
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Error inesperado: ${e.toString()}'),
+          content: Text(authProvider.errorMessage ?? 'Error al iniciar sesión'),
           backgroundColor: Colors.red,
           duration: const Duration(seconds: 4),
         ),
@@ -190,7 +31,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Consumer<AuthProvider>(
+      builder: (context, authProvider, child) {
+        return Scaffold(
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -310,7 +153,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           width: double.infinity,
                           height: 56,
                           child: ElevatedButton(
-                            onPressed: _isLoading ? null : _signInWithGoogle,
+                            onPressed: authProvider.isLoading ? null : _signInWithGoogle,
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.white,
                               foregroundColor: const Color(0xFF1E3A8A),
@@ -326,7 +169,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                             ),
-                            child: _isLoading
+                            child: authProvider.isLoading
                                 ? const SizedBox(
                                     width: 24,
                                     height: 24,
@@ -418,6 +261,8 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
       ),
+    );
+      },
     );
   }
 }
