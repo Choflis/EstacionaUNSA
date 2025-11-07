@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'screens/login_screen.dart';
+import 'screens/main_nav_screen.dart';
 import 'firebase_options.dart'; // se genera al configurar Firebase
 import 'config/theme.dart';
 import 'utils/firestore_seed.dart';
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'EstacionaUNSA', // Argumento movido
       theme: appTheme,         // Argumento movido
-      home: const LoginScreen(),
+      home: const MainNavScreen(),
     );
   }
 }

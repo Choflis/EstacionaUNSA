@@ -10,7 +10,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _selectedIndex = 0;
+  // Navegación interna removida: la barra inferior ahora la gestiona MainNavScreen
 
   void _navigateToProfile() {
     Navigator.of(context).push(
@@ -195,33 +195,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       
-      // Bottom Navigation
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          color: isDark ? const Color(0xFF1C2A38) : Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.1),
-              blurRadius: 8,
-              offset: const Offset(0, -2),
-            ),
-          ],
-        ),
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                _buildNavItem(Icons.space_dashboard, 'Disponibilidad', 0),
-                _buildNavItem(Icons.map, 'Mapa', 1),
-                _buildNavItem(Icons.history, 'Historial', 2),
-                _buildNavItem(Icons.credit_card, 'Pagos', 3),
-              ],
-            ),
-          ),
-        ),
-      ),
+      // La barra inferior la maneja `MainNavScreen`. No se incluye aquí para evitar duplicados.
     );
   }
 
@@ -348,24 +322,5 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
-  Widget _buildNavItem(IconData icon, String label, int index) {
-    final isSelected = _selectedIndex == index;
-    final color = isSelected ? const Color(0xFF8A0000) : Colors.grey;
-    
-    return InkWell(
-      onTap: () => setState(() => _selectedIndex = index),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, color: color),
-          const SizedBox(height: 4),
-          Text(
-            label,
-            style: TextStyle(fontSize: 11, color: color, fontWeight: FontWeight.w500),
-          ),
-        ],
-      ),
-    );
-  }
+  // Nota: no hay método _buildNavItem porque la navegación inferior es responsabilidad de MainNavScreen.
 }
