@@ -49,13 +49,26 @@ service cloud.firestore {
       allow delete: if false;
     }
 
+    // ===== CAMPUS ===== (NUEVO)
+    match /campus/{campusId} {
+      // Everyone authenticated can read campus info
+      allow read: if isAuthenticated();
+      
+      // Only admins can create/update/delete campus
+      allow write: if isAdmin();
+    }
+
     // ===== PARKING ZONES =====
     match /parking_zones/{zoneId} {
       // Anyone authenticated can read zones
       allow read: if isAuthenticated();
       
       // Only admins can create/update/delete zones
-      allow write: if isAdmin();
+      // Validate that campusId exists when creating
+      allow create: if isAdmin() 
+        && exists(/databases/$(database)/documents/campus/$(request.resource.data.campusId));
+      
+      allow update, delete: if isAdmin();
     }
 
     // ===== PARKING SPOTS =====
