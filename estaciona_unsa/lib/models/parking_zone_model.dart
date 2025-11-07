@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class ParkingZoneModel {
   final String zoneId;
   final String name;
+  final String campusId; // ← NUEVO: Referencia al campus
   final LocationInfo location;
   final ZoneCapacity capacity;
   final Map<String, DaySchedule> schedule;
@@ -13,6 +14,7 @@ class ParkingZoneModel {
   ParkingZoneModel({
     required this.zoneId,
     required this.name,
+    required this.campusId, // ← NUEVO
     required this.location,
     required this.capacity,
     required this.schedule,
@@ -25,6 +27,7 @@ class ParkingZoneModel {
     return ParkingZoneModel(
       zoneId: zoneId,
       name: map['name'] ?? '',
+      campusId: map['campusId'] ?? '', // ← NUEVO
       location: LocationInfo.fromMap(map['location'] as Map<String, dynamic>),
       capacity: ZoneCapacity.fromMap(map['capacity'] as Map<String, dynamic>),
       schedule: (map['schedule'] as Map<String, dynamic>?)?.map(
@@ -45,6 +48,7 @@ class ParkingZoneModel {
   Map<String, dynamic> toMap() {
     return {
       'name': name,
+      'campusId': campusId, // ← NUEVO
       'location': location.toMap(),
       'capacity': capacity.toMap(),
       'schedule': schedule.map((key, value) => MapEntry(key, value.toMap())),
