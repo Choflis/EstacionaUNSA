@@ -69,44 +69,61 @@ flowchart TD
 ## Instalación y ejecución
 
 ### Requisitos previos
-- Flutter (última versión estable)
+- Flutter SDK (>=3.0.0)
 - Android Studio o VS Code con extensiones Flutter/Dart
 - Cuenta de Firebase y proyecto creado
+- Git
 
-### Pasos
-1. Clona el repositorio:
+### Pasos Rápidos
+
+1. **Clonar el repositorio:**
    ```bash
    git clone https://github.com/Choflis/EstacionaUNSA.git
-   cd EstacionaUNSA
+   cd EstacionaUNSA/estaciona_unsa
    ```
 
-2. Instala dependencias:
+2. **Instalar dependencias:**
    ```bash
    flutter pub get
    ```
 
-3. Configura Firebase para tu proyecto local:
-   - Ejecuta:
-     ```bash
-     flutterfire configure
-     ```
-   - Selecciona el proyecto Firebase que corresponda.
-   - Verifica que se haya generado `lib/firebase_options.dart` (o el path que use el proyecto).
+3. **Configurar Firebase:**
+   ```bash
+   flutterfire configure
+   ```
+   - Selecciona el proyecto Firebase "EstacionaUNSA"
+   - Verifica que se generó `lib/firebase_options.dart`
 
-4. Corre la app:
+4. **Ejecutar la app:**
    ```bash
    flutter run
    ```
 
-Nota (Windows): Flutter requiere soporte para symlinks en algunos entornos. Habilita el modo desarrollador ejecutando:
+> 📚 **Documentación detallada:** Ver [`documentacion/SETUP.md`](documentacion/SETUP.md) para instrucciones completas de configuración.
+
+**Nota (Windows):** Habilita el modo desarrollador para soporte de symlinks:
 ```bash
 start ms-settings:developers
 ```
-Luego reinicia tu PC o terminal si es necesario.
 
 ---
 
-## Configuración de Firebase (recomendaciones)
+## 📚 Documentación
+
+Toda la documentación técnica del proyecto está organizada en la carpeta [`documentacion/`](documentacion/):
+
+| Documento | Descripción |
+|-----------|-------------|
+| [`SETUP.md`](documentacion/SETUP.md) | Guía completa de configuración (Firebase, Google Sign-In, Firestore) |
+| [`DATABASE.md`](documentacion/DATABASE.md) | Estructura de la base de datos, modelos y relaciones |
+| [`DESARROLLO.md`](documentacion/DESARROLLO.md) | Guía de desarrollo, arquitectura y convenciones de código |
+| [`casosDeUso.md`](documentacion/casosDeUso.md) | Casos de uso y descripción funcional del sistema |
+| [`DATABASE_DESIGN.md`](documentacion/DATABASE_DESIGN.md) | Diseño detallado de la base de datos |
+| [`DATABASE_SUMMARY.md`](documentacion/DATABASE_SUMMARY.md) | Resumen visual de la base de datos |
+
+---
+
+## Configuración de Firebase (resumen)
 
 - Authentication:
   - Habilita el proveedor de correo electrónico (`Email/Password`) o el flujo que uses para las cuentas institucionales.
