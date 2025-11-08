@@ -1,5 +1,11 @@
 # 🗺️ ROADMAP DE DESARROLLO - ESTACIONA UNSA
 
+> **📅 Última actualización:** Noviembre 7, 2024  
+> **🎯 Progreso actual:** 5 de 8 fases completadas (62.5%)  
+> **✅ Estado:** Fase 6 en progreso - Sistema de reservas
+
+---
+
 ## 📅 CRONOGRAMA SUGERIDO (3-4 Semanas)
 
 ```
@@ -39,21 +45,23 @@ SEMANA 4: Pulido y Testing
 
 ---
 
-### FASE 1: CONFIGURACIÓN DE FIREBASE (2-3 días)
+### FASE 1: CONFIGURACIÓN DE FIREBASE (2-3 días) ✅ COMPLETADO
 
 #### Día 1: Crear Proyecto Firebase
-- [ ] Ir a https://console.firebase.google.com
-- [ ] Crear proyecto "EstacionaUNSA"
-- [ ] Habilitar Google Analytics
-- [ ] Agregar app Android
-- [ ] Descargar google-services.json
+- [x] Ir a https://console.firebase.google.com
+- [x] Crear proyecto "EstacionaUNSA"
+- [x] Habilitar Google Analytics
+- [x] Agregar app Android y Web
+- [x] Descargar google-services.json
 
 #### Día 2: Configurar en Flutter
-- [ ] Instalar Firebase CLI: `dart pub global activate flutterfire_cli`
-- [ ] Ejecutar: `flutterfire configure`
-- [ ] Verificar que se creó `lib/firebase_options.dart`
-- [ ] Modificar `main.dart` para inicializar Firebase
-- [ ] Ejecutar test de conexión
+- [x] Instalar Firebase CLI: `dart pub global activate flutterfire_cli`
+- [x] Ejecutar: `flutterfire configure`
+- [x] Verificar que se creó `lib/firebase_options.dart`
+- [x] Modificar `main.dart` para inicializar Firebase
+- [x] Ejecutar test de conexión
+- [x] Configurar soporte web adicional
+- [x] Cloud Functions configurado
 
 #### Verificación:
 ```bash
@@ -77,7 +85,7 @@ void main() async {
 
 ---
 
-### FASE 2: ESTRUCTURA DEL PROYECTO (1 día)
+### FASE 2: ESTRUCTURA DEL PROYECTO (1 día) ✅ COMPLETADO
 
 #### Crear estructura de carpetas
 ```bash
@@ -86,35 +94,43 @@ mkdir -p config models providers services/firebase screens/auth screens/home scr
 ```
 
 **Checklist de carpetas:**
-- [ ] lib/config/
-- [ ] lib/models/
-- [ ] lib/providers/
-- [ ] lib/services/firebase/
-- [ ] lib/screens/auth/
-- [ ] lib/screens/home/
-- [ ] lib/screens/parking/
-- [ ] lib/screens/profile/
-- [ ] lib/widgets/common/
-- [ ] lib/widgets/parking/
-- [ ] lib/utils/
+- [x] lib/config/
+- [x] lib/models/
+- [x] lib/providers/
+- [x] lib/services/firebase/
+- [x] lib/screens/auth/
+- [x] lib/screens/home/
+- [x] lib/screens/parking/
+- [x] lib/screens/profile/
+- [x] lib/widgets/common/
+- [x] lib/widgets/parking/
+- [x] lib/utils/
+
+**Archivos adicionales creados:**
+- [x] firestore.rules (reglas de seguridad)
+- [x] functions/ (Cloud Functions)
+- [x] Documentación completa de arquitectura
 
 ---
 
-### FASE 3: AUTENTICACIÓN (3-4 días)
+### FASE 3: AUTENTICACIÓN (3-4 días) ✅ COMPLETADO
 
 #### Día 3: Modelos y Servicios
 
 **1. Crear UserModel**
-- [ ] Crear `lib/models/user_model.dart`
-- [ ] Implementar `fromMap()` y `toMap()`
-- [ ] Agregar validaciones básicas
+- [x] Crear `lib/models/user_model.dart`
+- [x] Implementar `fromMap()` y `toMap()`
+- [x] Agregar validaciones básicas
+- [x] Soporte para múltiples roles
 
 **2. Crear AuthService**
-- [ ] Crear `lib/services/firebase/auth_service.dart`
-- [ ] Implementar `register()`
-- [ ] Implementar `login()`
-- [ ] Implementar `logout()`
-- [ ] Implementar `authStateChanges` stream
+- [x] Crear `lib/services/firebase/auth_service.dart`
+- [x] Implementar `register()`
+- [x] Implementar `login()`
+- [x] Implementar `logout()`
+- [x] Implementar `authStateChanges` stream
+- [x] **Implementar Google Sign-In**
+- [x] **Soporte multi-plataforma (Android + Web)**
 
 **Archivo:** `lib/models/user_model.dart`
 ```dart
@@ -161,10 +177,18 @@ class UserModel {
 #### Día 4: Provider
 
 **Crear AuthProvider**
-- [ ] Crear `lib/providers/auth_provider.dart`
-- [ ] Implementar ChangeNotifier
-- [ ] Agregar métodos login/logout/register
-- [ ] Implementar estados de loading y error
+- [x] Crear `lib/providers/auth_provider.dart`
+- [x] Implementar ChangeNotifier
+- [x] Agregar métodos login/logout/register
+- [x] Implementar estados de loading y error
+- [x] **Refactorización con arquitectura Services + Providers**
+- [x] Manejo robusto de errores
+
+**Mejoras implementadas:**
+- [x] Separación clara de responsabilidades
+- [x] Estado global de autenticación
+- [x] Sincronización automática con Firebase
+- [x] Cloud Function para creación automática de usuarios en Firestore
 
 **Archivo:** `lib/providers/auth_provider.dart`
 ```dart
@@ -206,21 +230,33 @@ class AuthProvider extends ChangeNotifier {
 #### Día 5-6: Pantallas de UI
 
 **1. Login Screen**
-- [ ] Crear `lib/screens/auth/login_screen.dart`
-- [ ] Diseñar formulario (email + password)
-- [ ] Agregar validaciones
-- [ ] Conectar con AuthProvider
-- [ ] Mostrar errores/loading
+- [x] Crear `lib/screens/login_screen.dart`
+- [x] Diseñar formulario (email + password)
+- [x] Agregar validaciones
+- [x] Conectar con AuthProvider
+- [x] Mostrar errores/loading
+- [x] **Diseño mejorado con UI moderna**
+- [x] **Botón de Google Sign-In integrado**
 
 **2. Register Screen**
-- [ ] Crear `lib/screens/auth/register_screen.dart`
-- [ ] Diseñar formulario (name, email, password, carPlate)
-- [ ] Agregar validaciones
-- [ ] Conectar con AuthProvider
+- [x] Formulario básico implementado
+- [x] Validaciones
+- [x] Conexión con AuthProvider
 
 **3. Configurar Provider en main.dart**
-- [ ] Envolver app con MultiProvider
-- [ ] Agregar AuthProvider
+- [x] Envolver app con MultiProvider
+- [x] Agregar AuthProvider
+- [x] **AuthWrapper para manejo automático de sesiones**
+
+#### Día 7: Testing de Autenticación
+- [x] Probar registro de usuario nuevo
+- [x] Probar login con usuario existente
+- [x] Probar Google Sign-In (Android + Web)
+- [x] Probar logout
+- [x] Verificar persistencia (cerrar y abrir app)
+- [x] Verificar datos en Firebase Console
+- [x] **Probar permisos y SHA en Android**
+- [x] **Verificar Cloud Functions**
 
 **Archivo:** `lib/main.dart`
 ```dart
@@ -265,42 +301,46 @@ class AuthWrapper extends StatelessWidget {
 }
 ```
 
-#### Día 7: Testing de Autenticación
-- [ ] Probar registro de usuario nuevo
-- [ ] Probar login con usuario existente
-- [ ] Probar logout
-- [ ] Verificar persistencia (cerrar y abrir app)
-- [ ] Verificar datos en Firebase Console
-
 ---
 
-### FASE 4: FIRESTORE - ESTRUCTURA DE DATOS (2-3 días)
+### FASE 4: FIRESTORE - ESTRUCTURA DE DATOS (2-3 días) ✅ COMPLETADO
 
 #### Día 8: Configurar Firestore
 
 **1. En Firebase Console:**
-- [ ] Firestore Database → Crear base de datos
-- [ ] Modo: "Comenzar en modo de prueba" (por ahora)
-- [ ] Ubicación: us-central1 (o la más cercana)
+- [x] Firestore Database → Crear base de datos
+- [x] Modo: "Comenzar en modo de prueba" (luego actualizado con reglas)
+- [x] Ubicación: us-central1
+- [x] **Reglas de seguridad personalizadas implementadas**
 
 **2. Crear Colecciones Base:**
-```
-Firestore Console → Iniciar colección
-
-Crear manualmente:
-- users (se creará automáticamente al registrarse)
-- parking_zones
-- parking_spots
-- reservations
-- notifications
-```
+- [x] users (creación automática con Cloud Functions)
+- [x] campuses (multi-campus implementado)
+- [x] parking_zones
+- [x] parking_spots
+- [x] reservations
+- [x] incidents
+- [x] entry_exit_logs
+- [x] **Script de seed para datos de prueba**
 
 #### Día 9: Modelos de Datos
 
 **Crear modelos:**
-- [ ] `lib/models/parking_zone_model.dart`
-- [ ] `lib/models/parking_spot_model.dart`
-- [ ] `lib/models/reservation_model.dart`
+- [x] `lib/models/parking_zone_model.dart`
+- [x] `lib/models/parking_spot_model.dart`
+- [x] `lib/models/reservation_model.dart`
+- [x] `lib/models/user_model.dart`
+- [x] **`lib/models/campus_model.dart` (multi-campus)**
+- [x] **`lib/models/incident_model.dart`**
+- [x] **`lib/models/entry_exit_log_model.dart`**
+
+**Características implementadas:**
+- [x] Métodos `fromMap()` y `toMap()` completos
+- [x] Validaciones de datos
+- [x] Soporte para timestamps
+- [x] GeoPoint para ubicaciones
+- [x] Relaciones entre modelos
+- [x] **Arquitectura escalable multi-campus**
 
 **Estructura de ParkingSpotModel:**
 ```dart
@@ -367,142 +407,115 @@ class ParkingSpot {
 #### Día 10: FirestoreService
 
 **Crear servicio:**
-- [ ] `lib/services/firebase/firestore_service.dart`
-- [ ] Implementar CRUD para parking_spots
-- [ ] Implementar CRUD para reservations
-- [ ] Agregar listeners en tiempo real
+- [x] `lib/services/firebase/firestore_service.dart`
+- [x] Implementar CRUD para parking_spots
+- [x] Implementar CRUD para reservations
+- [x] Agregar listeners en tiempo real
+- [x] **Implementar operaciones para campuses**
+- [x] **Implementar operaciones para zones**
+- [x] **Seed script completo con datos de prueba**
 
-**Métodos esenciales:**
-```dart
-class FirestoreService {
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
-  // Obtener espacios disponibles (Stream en tiempo real)
-  Stream<List<ParkingSpot>> getAvailableSpots() { }
-  
-  // Obtener espacios por zona
-  Stream<List<ParkingSpot>> getSpotsByZone(String zoneId) { }
-  
-  // Crear reserva
-  Future<String> createReservation({
-    required String userId,
-    required String spotId,
-    required DateTime startTime,
-    required DateTime endTime,
-  }) { }
-  
-  // Obtener reservas del usuario
-  Stream<List<Reservation>> getUserReservations(String userId) { }
-  
-  // Cancelar reserva
-  Future<void> cancelReservation(String reservationId) { }
-}
-```
+**Métodos implementados:**
+- [x] Obtener espacios disponibles (Stream en tiempo real)
+- [x] Obtener espacios por zona
+- [x] Crear/actualizar reservas
+- [x] Cancelar reservas
+- [x] Obtener reservas del usuario
+- [x] Operaciones CRUD completas
+- [x] **Queries optimizadas con índices**
+- [x] **Manejo de transacciones**
 
 ---
 
-### FASE 5: UI PRINCIPAL (4-5 días)
+### FASE 5: UI PRINCIPAL (4-5 días) ✅ COMPLETADO
 
 #### Día 11-12: HomeScreen
 
 **Crear pantalla principal:**
-- [ ] `lib/screens/home/home_screen.dart`
-- [ ] Diseñar AppBar con logo
-- [ ] Agregar BottomNavigationBar
-- [ ] Mostrar estadísticas básicas
-- [ ] Botón para ver espacios disponibles
+- [x] `lib/screens/home_screen.dart`
+- [x] Diseñar AppBar con logo
+- [x] Agregar BottomNavigationBar
+- [x] Mostrar estadísticas básicas
+- [x] Botón para ver espacios disponibles
+- [x] **Integración con MainNavScreen**
+- [x] **Diseño responsive y moderno**
 
-**Estructura:**
-```dart
-class HomeScreen extends StatefulWidget { }
-
-class _HomeScreenState extends State<HomeScreen> {
-  int _currentIndex = 0;
-  
-  final List<Widget> _pages = [
-    DashboardPage(),     // Vista general
-    ParkingListPage(),   // Lista de espacios
-    MyReservationsPage(),// Mis reservas
-    ProfilePage(),       // Perfil
-  ];
-  
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('EstacionaUNSA')),
-      body: _pages[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (index) => setState(() => _currentIndex = index),
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Inicio'),
-          BottomNavigationBarItem(icon: Icon(Icons.local_parking), label: 'Espacios'),
-          BottomNavigationBarItem(icon: Icon(Icons.calendar_today), label: 'Reservas'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Perfil'),
-        ],
-      ),
-    );
-  }
-}
-```
+**Estructura implementada:**
+- [x] MainNavScreen con navegación inferior
+- [x] DashboardPage (vista general)
+- [x] ParkingListPage (lista de espacios)
+- [x] MyReservationsPage (mis reservas)
+- [x] ProfilePage (perfil)
+- [x] **HistoryScreen**
+- [x] **MyVehicleScreen**
+- [x] **MapScreen**
 
 #### Día 13-14: ParkingListScreen
 
 **Crear lista de espacios:**
-- [ ] `lib/screens/parking/parking_list_screen.dart`
-- [ ] Mostrar espacios en tiempo real (StreamBuilder)
-- [ ] Filtros por zona
-- [ ] Indicadores de disponibilidad
-- [ ] Navegación a detalle
+- [x] `lib/widgets/parking/parking_list_screen.dart`
+- [x] Mostrar espacios en tiempo real (StreamBuilder)
+- [x] Filtros por zona
+- [x] Indicadores de disponibilidad
+- [x] Navegación a detalle
+- [x] **Diseño con cards responsive**
 
 **Widget Card reutilizable:**
-- [ ] `lib/widgets/parking/parking_card.dart`
-- [ ] Mostrar número, zona, estado
-- [ ] Botón "Reservar"
+- [x] `lib/widgets/parking/parking_card.dart`
+- [x] Mostrar número, zona, estado
+- [x] Botón "Reservar"
+- [x] **Indicadores visuales de estado**
+- [x] **Animaciones y transiciones**
+
+**Widgets comunes implementados:**
+- [x] `lib/widgets/common/custom_button.dart`
+- [x] `lib/widgets/common/custom_text_field.dart`
+- [x] `lib/widgets/common/loading_indicator.dart`
 
 #### Día 15: ParkingDetailScreen
 
 **Crear detalle del espacio:**
-- [ ] `lib/screens/parking/parking_detail_screen.dart`
-- [ ] Mostrar información completa
-- [ ] Mapa de ubicación
-- [ ] Formulario de reserva (fecha/hora)
-- [ ] Botón de confirmación
+- [x] Mostrar información completa
+- [x] Formulario de reserva (fecha/hora)
+- [x] Botón de confirmación
+- 🔄 Mapa de ubicación (en progreso)
+- 🔄 Integración completa con reservas
 
 ---
 
-### FASE 6: SISTEMA DE RESERVAS (3-4 días)
+### FASE 6: SISTEMA DE RESERVAS (3-4 días) 🔄 EN PROGRESO
 
 #### Día 16-17: Lógica de Reservas
 
 **Provider:**
-- [ ] `lib/providers/reservation_provider.dart`
-- [ ] Crear reserva
-- [ ] Listar reservas activas
-- [ ] Cancelar reserva
-- [ ] Historial de reservas
+- [x] Modelo de reserva completo
+- 🔄 `lib/providers/reservation_provider.dart` (en desarrollo)
+- ⬜ Crear reserva
+- ⬜ Listar reservas activas
+- ⬜ Cancelar reserva
+- ⬜ Historial de reservas
 
 **Validaciones:**
-- [ ] Usuario solo puede tener 1 reserva activa
-- [ ] Horario válido (no pasado)
-- [ ] Espacio disponible
-- [ ] Duración máxima (configurable)
+- ⬜ Usuario solo puede tener 1 reserva activa
+- ⬜ Horario válido (no pasado)
+- ⬜ Espacio disponible
+- ⬜ Duración máxima (configurable)
 
 #### Día 18: UI de Reservas
 
 **Pantallas:**
-- [ ] Formulario de nueva reserva
-- [ ] Lista de mis reservas
-- [ ] Detalle de reserva
-- [ ] Confirmación de cancelación
+- ⬜ Formulario de nueva reserva
+- ⬜ Lista de mis reservas
+- ⬜ Detalle de reserva
+- ⬜ Confirmación de cancelación
 
 #### Día 19: Disponibilidad en Tiempo Real
 
 **Implementar:**
-- [ ] Actualizar estado del espacio al reservar
-- [ ] Liberar espacio al cancelar/completar
-- [ ] Actualizar contador de espacios disponibles
-- [ ] Notificar cambios a todos los usuarios conectados
+- ⬜ Actualizar estado del espacio al reservar
+- ⬜ Liberar espacio al cancelar/completar
+- ⬜ Actualizar contador de espacios disponibles
+- ⬜ Notificar cambios a todos los usuarios conectados
 
 ---
 
@@ -586,20 +599,181 @@ Usa esta tabla para marcar tu progreso:
 | Fase | Descripción | Días | Estado |
 |------|-------------|------|--------|
 | 0 | Preparación | - | ✅ |
-| 1 | Firebase Config | 2-3 | ⬜ |
-| 2 | Estructura | 1 | ⬜ |
-| 3 | Autenticación | 3-4 | ⬜ |
-| 4 | Firestore | 2-3 | ⬜ |
-| 5 | UI Principal | 4-5 | ⬜ |
-| 6 | Reservas | 3-4 | ⬜ |
+| 1 | Firebase Config | 2-3 | ✅ |
+| 2 | Estructura | 1 | ✅ |
+| 3 | Autenticación | 3-4 | ✅ |
+| 4 | Firestore | 2-3 | ✅ |
+| 5 | UI Principal | 4-5 | ✅ |
+| 6 | Reservas | 3-4 | 🔄 |
 | 7 | Notificaciones | 2-3 | ⬜ |
-| 8 | Testing | 3-4 | ⬜ |
+| 8 | Testing | 3-4 | 🔄 |
 
 **Símbolos:**
 - ⬜ Por hacer
 - 🔄 En progreso
 - ✅ Completado
 - ❌ Bloqueado
+
+---
+
+## 📈 RESUMEN DE AVANCE
+
+**📊 Métricas del Proyecto:**
+- **Archivos Dart:** 27 archivos
+- **Commits:** 43+ commits
+- **Tiempo invertido:** ~2-3 semanas
+- **Líneas de código:** 2000+ líneas (aprox.)
+- **Cobertura:** 5 de 8 fases completadas
+
+### ✅ Completado (Fases 0-5)
+
+#### FASE 0: Preparación
+- ✅ Flutter instalado y configurado
+- ✅ Proyecto creado y ejecutando
+- ✅ Dispositivos de prueba configurados
+- ✅ Git inicializado con commits frecuentes
+
+#### FASE 1: Firebase Configurado
+- ✅ Proyecto Firebase creado
+- ✅ Firebase CLI configurado
+- ✅ Google Sign-In implementado
+- ✅ Autenticación web y Android funcionando
+- ✅ Cloud Functions para creación automática de usuarios
+
+#### FASE 2: Estructura del Proyecto
+- ✅ Arquitectura limpia implementada (Services + Providers)
+- ✅ Carpetas organizadas (models, services, screens, widgets, providers)
+- ✅ Documentación completa de estructura
+
+#### FASE 3: Autenticación Completa
+- ✅ AuthService implementado
+- ✅ AuthProvider con ChangeNotifier
+- ✅ Login Screen con diseño mejorado
+- ✅ Google Sign-In integrado
+- ✅ AuthWrapper para manejo de sesiones
+- ✅ Persistencia de sesión
+- ✅ Manejo de errores robusto
+
+#### FASE 4: Firestore Implementado
+- ✅ Base de datos Firestore configurada
+- ✅ Modelos de datos completos:
+  - ✅ UserModel
+  - ✅ ParkingSpotModel
+  - ✅ ParkingZoneModel
+  - ✅ ReservationModel
+  - ✅ CampusModel (multi-campus)
+  - ✅ IncidentModel
+  - ✅ EntryExitLogModel
+- ✅ FirestoreService implementado
+- ✅ Script de seed para datos de prueba
+- ✅ Reglas de seguridad Firestore configuradas
+- ✅ Arquitectura multi-campus escalable
+
+#### FASE 5: UI Principal
+- ✅ HomeScreen diseñado
+- ✅ MainNavScreen con navegación inferior
+- ✅ ProfileScreen implementado
+- ✅ ParkingListScreen básico
+- ✅ MapScreen iniciado
+- ✅ HistoryScreen
+- ✅ MyVehicleScreen
+- ✅ Widgets comunes:
+  - ✅ CustomButton
+  - ✅ CustomTextField
+  - ✅ LoadingIndicator
+  - ✅ ParkingCard
+- ✅ Tema personalizado configurado
+
+### 🔄 En Progreso (Fase 6)
+
+#### FASE 6: Sistema de Reservas
+- ✅ Modelos de reserva creados
+- 🔄 ReservationProvider en desarrollo
+- 🔄 Lógica de validaciones
+- ⬜ UI de reservas completa
+- ⬜ Integración con disponibilidad en tiempo real
+
+### ⬜ Pendiente (Fases 7-8)
+
+#### FASE 7: Notificaciones
+- ⬜ Firebase Cloud Messaging
+- ⬜ Configuración de permisos
+- ⬜ Tipos de notificaciones
+- ⬜ Recordatorios automáticos
+
+#### FASE 8: Testing y Optimización
+- 🔄 Pruebas manuales continuas
+- ⬜ Testing automatizado
+- ⬜ Optimización de consultas
+- ⬜ Documentación final
+
+---
+
+## 🎯 LOGROS DESTACADOS
+
+### Arquitectura Escalable
+- ✅ **Multi-campus**: Sistema preparado para múltiples campus universitarios
+- ✅ **Clean Architecture**: Separación clara entre servicios, providers y UI
+- ✅ **Cloud Functions**: Automatización de creación de usuarios
+- ✅ **Seguridad**: Reglas de Firestore robustas implementadas
+
+### Funcionalidades Implementadas
+- ✅ Autenticación con Google (Web + Android)
+- ✅ Gestión de perfiles de usuario
+- ✅ Base de datos multi-campus
+- ✅ Navegación fluida entre pantallas
+- ✅ Diseño responsive y moderno
+- ✅ Seed script para datos de prueba
+
+### Documentación
+- ✅ README completo con arquitectura
+- ✅ Guías de configuración para el equipo
+- ✅ Diseño de base de datos documentado
+- ✅ Diseño de menú y navegación
+- ✅ Firestore rules documentadas
+
+---
+
+## 📋 PRÓXIMOS PASOS INMEDIATOS
+
+### Prioridad Alta (Esta semana)
+1. **Completar Sistema de Reservas**
+   - Implementar ReservationProvider completo
+   - Crear UI de formulario de reserva
+   - Validaciones de horarios y disponibilidad
+   - Integrar con FirestoreService
+
+2. **Disponibilidad en Tiempo Real**
+   - StreamBuilder para actualización automática
+   - Sincronización entre usuarios
+   - Indicadores visuales de estado
+
+3. **Testing de Flujo Completo**
+   - Probar crear/cancelar reservas
+   - Validar permisos y reglas
+   - Pruebas con múltiples usuarios
+
+### Prioridad Media (Próximas 2 semanas)
+1. **Notificaciones Push**
+   - Configurar FCM
+   - Implementar recordatorios
+   - Notificaciones de liberación
+
+2. **Optimización**
+   - Revisar y optimizar consultas
+   - Implementar caché donde sea necesario
+   - Mejorar performance
+
+3. **Documentación de Usuario**
+   - Manual de usuario
+   - Screenshots actualizados
+   - Video tutorial básico
+
+### Prioridad Baja (Futuro)
+- Mapa interactivo mejorado
+- Estadísticas de uso
+- Panel de administrador
+- Código QR para check-in
 
 ---
 
