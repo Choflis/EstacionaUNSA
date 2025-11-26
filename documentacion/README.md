@@ -1,152 +1,115 @@
 # 📚 Documentación - EstacionaUNSA
 
-Índice completo de la documentación técnica del proyecto.
+Esta carpeta contiene toda la documentación técnica y de desarrollo del proyecto.
 
 ---
 
-## 🚀 Guías Principales
+## 📁 Estructura
 
-### [SETUP.md](SETUP.md)
-**Guía de Configuración Completa**
-- Instalación de Flutter y Firebase
-- Configuración de Google Sign-In
-- Setup de Firestore
-- Configuración para el equipo de desarrollo
+```
+documentacion/
+├── README.md                              # Este archivo (índice)
+│
+├── 🚀 CONFIGURACIÓN
+│   └── SETUP.md                           # Guía de configuración Firebase
+│
+├── 🗄️ BASE DE DATOS
+│   └── DATABASE.md                        # Estructura Firestore completa
+│
+├── 💻 DESARROLLO
+│   ├── DESARROLLO.md                      # Arquitectura y convenciones
+│   ├── GUIA_INTEGRACION_PROVIDERS.md      # Guía de uso de providers
+│   └── PROVIDERS_SERVICES_COMPLETADOS.md  # Estado de implementación
+│
+├── 📊 PROGRESO
+│   └── INFORME_PROGRESO.md                # Informe de avance del proyecto
+│
+├── 🎨 DISEÑO
+│   └── DISENO_MENU.md                     # Diseño del menú de navegación
+│
+└── 📦 COMPONENTES
+    ├── providers/README.md                # Documentación de providers
+    └── services/README.md                 # Documentación de services
+```
+
+---
+
+## 📖 Guía de Documentos
+
+### 🚀 Para Empezar
+**[SETUP.md](SETUP.md)** - Lee esto primero
+- Configuración de Firebase
+- Google Sign-In (Android + Web)
+- Firestore y reglas de seguridad
 - Solución de problemas comunes
 
-**Para:** Todos los desarrolladores (configuración inicial)
-
----
-
-### [DATABASE.md](DATABASE.md)
-**Documentación de Base de Datos**
-- Diagrama entidad-relación
-- Estructura de colecciones
-- Modelos de datos detallados
-- Flujo de datos del sistema
+### 🗄️ Base de Datos
+**[DATABASE.md](DATABASE.md)** - Referencia completa
+- Estructura de colecciones Firestore
+- Modelos de datos con campos
+- Relaciones entre colecciones
 - Reglas de seguridad
-- Índices recomendados
+- Ejemplos de queries
 
-**Para:** Backend developers, diseño de base de datos
-
----
-
-### [DESARROLLO.md](DESARROLLO.md)
-**Guía de Desarrollo**
-- Arquitectura del proyecto (Clean Architecture + Provider)
+### 💻 Desarrollo
+**[DESARROLLO.md](DESARROLLO.md)** - Guía del desarrollador
+- Arquitectura del proyecto
 - Convenciones de código
-- Implementación de servicios (AuthService, FirestoreService)
-- Implementación de providers
-- Ejemplos de UI
-- Testing
+- Estructura de carpetas
+- Patrones de diseño utilizados
 
-**Para:** Desarrolladores Flutter, implementación de features
+**[GUIA_INTEGRACION_PROVIDERS.md](GUIA_INTEGRACION_PROVIDERS.md)** - Uso de providers
+- Configuración en main.dart
+- Ejemplos de uso de cada provider
+- Integración entre providers
+- Código completo de pantallas ejemplo
 
----
+**[PROVIDERS_SERVICES_COMPLETADOS.md](PROVIDERS_SERVICES_COMPLETADOS.md)** - Estado actual
+- Resumen de implementación
+- Providers y services completados
+- Funcionalidades implementadas
+- Próximos pasos
 
-## 📖 Documentación de Diseño
+### 📊 Seguimiento
+**[INFORME_PROGRESO.md](INFORME_PROGRESO.md)** - Informe de avance
+- Estado general del proyecto
+- Progreso por fases
+- Logros alcanzados
+- Métricas y estadísticas
 
-### [casosDeUso.md](casosDeUso.md)
-**Casos de Uso del Sistema**
-- Descripción general del sistema
-- Actores (Usuario, Vigilante, Admin)
-- Casos de uso detallados (CU01-CU11)
-- Mapeo con requisitos funcionales
-- Diagramas UML
-
-**Para:** Análisis de requisitos, diseño de sistema
-
----
-
-### [DATABASE_DESIGN.md](DATABASE_DESIGN.md)
-**Diseño Detallado de Base de Datos**
-- Versión extendida de la documentación de BD
-- Diagramas ER detallados
-- Especificaciones completas de campos
-- Restricciones y validaciones
-- Casos de uso de la BD
-
-**Para:** Referencia técnica completa
+### 🎨 Diseño
+**[DISENO_MENU.md](DISENO_MENU.md)** - Navegación de la app
+- Estructura del menú
+- Pantallas principales
+- Flujo de navegación
 
 ---
 
-### [DATABASE_SUMMARY.md](DATABASE_SUMMARY.md)
-**Resumen Visual de Base de Datos**
-- Vista general del sistema
-- Resumen de colecciones
-- Flujo principal de uso
-- Guía rápida de consulta
+## 🎯 Lectura Recomendada por Rol
 
-**Para:** Referencia rápida, nuevos miembros del equipo
+### Si eres nuevo en el proyecto:
+1. Leer [README principal](../README.md)
+2. Seguir [SETUP.md](SETUP.md)
+3. Revisar [DESARROLLO.md](DESARROLLO.md)
+4. Ver [DATABASE.md](DATABASE.md)
 
----
+### Si vas a programar providers/services:
+1. [GUIA_INTEGRACION_PROVIDERS.md](GUIA_INTEGRACION_PROVIDERS.md)
+2. [providers/README.md](providers/README.md)
+3. [services/README.md](services/README.md)
 
-## 🗺️ Orden de Lectura Recomendado
-
-### Para Nuevos Desarrolladores:
-
-1. **[SETUP.md](SETUP.md)** - Configurar tu entorno
-2. **[DATABASE_SUMMARY.md](DATABASE_SUMMARY.md)** - Entender el sistema
-3. **[casosDeUso.md](casosDeUso.md)** - Conocer funcionalidades
-4. **[DESARROLLO.md](DESARROLLO.md)** - Empezar a codear
-5. **[DATABASE.md](DATABASE.md)** - Referencia mientras desarrollas
-
-### Para Backend/Database:
-
-1. **[casosDeUso.md](casosDeUso.md)** - Requisitos del sistema
-2. **[DATABASE_DESIGN.md](DATABASE_DESIGN.md)** - Diseño completo
-3. **[DATABASE.md](DATABASE.md)** - Implementación
-4. **[SETUP.md](SETUP.md)** - Configurar Firestore
-
-### Para Frontend/UI:
-
-1. **[casosDeUso.md](casosDeUso.md)** - Entender funcionalidades
-2. **[DESARROLLO.md](DESARROLLO.md)** - Arquitectura y código
-3. **[DATABASE_SUMMARY.md](DATABASE_SUMMARY.md)** - Datos que consumirás
-4. **[SETUP.md](SETUP.md)** - Configuración
+### Si necesitas información de la BD:
+1. [DATABASE.md](DATABASE.md)
+2. Ver modelos en `../estaciona_unsa/lib/models/`
 
 ---
 
-## 📊 Resumen de Contenidos
+## 📌 Enlaces Útiles
 
-| Archivo | Líneas | Temas Principales |
-|---------|--------|-------------------|
-| SETUP.md | ~250 | Firebase, Google Sign-In, Instalación |
-| DATABASE.md | ~500 | Firestore, Modelos, Reglas |
-| DESARROLLO.md | ~700 | Arquitectura, Providers, Servicios |
-| casosDeUso.md | ~280 | Requisitos, Casos de uso |
-| DATABASE_DESIGN.md | ~1500 | Diseño BD completo |
-| DATABASE_SUMMARY.md | ~400 | Resumen visual |
+- [README Principal](../README.md) - Información general del proyecto
+- [ROADMAP](../ROADMAP.md) - Plan de desarrollo y progreso
+- [Código Fuente](../estaciona_unsa/) - Código de la aplicación
 
 ---
 
-## 🔗 Links Útiles
-
-**Proyecto:**
-- [README Principal](../README.md)
-- [Roadmap](../ROADMAP.md)
-
-**Recursos Externos:**
-- [Flutter Docs](https://docs.flutter.dev/)
-- [Firebase Docs](https://firebase.google.com/docs)
-- [Firestore Docs](https://firebase.google.com/docs/firestore)
-- [Provider Package](https://pub.dev/packages/provider)
-
----
-
-## 🆘 ¿Necesitas Ayuda?
-
-**Si tienes dudas sobre:**
-- ⚙️ Configuración → Ver [SETUP.md](SETUP.md)
-- 🗄️ Base de datos → Ver [DATABASE.md](DATABASE.md)
-- 💻 Código → Ver [DESARROLLO.md](DESARROLLO.md)
-- 📋 Funcionalidades → Ver [casosDeUso.md](casosDeUso.md)
-
-**Contacto del equipo:**
-- Luis - Líder / Flutter Dev
-- Dennis - UI/UX
-- Fernando - Backend / Firebase
-
----
-
-**Última actualización:** Noviembre 2024
+**Última actualización:** Noviembre 26, 2024
