@@ -14,6 +14,217 @@
 
 ---
 
+## 📋 DISTRIBUCIÓN POR FASES OFICIALES
+
+### FASE 1: Análisis del Proyecto y Detección Inicial de Errores
+
+**Requisitos:**
+- ✅ Análisis estático con herramienta (Dart Analyzer)
+- ✅ Revisión de estándares de codificación
+- ✅ Identificación de errores: variables sin usar, duplicación, malas prácticas
+- ✅ Tabla de hallazgos clasificada por severidad (Crítico, Alto, Medio, Bajo)
+
+**Responsable:** 💻 **Fernando** (4h - Día 1 tarde)
+- Ejecutar `flutter analyze > analisis.txt`
+- Revisar código manualmente (code smells)
+- Crear tabla Excel de hallazgos clasificados
+- Identificar 10-15 problemas principales
+
+**Apoyo:** 👨‍💼 Luis (30 min - Día 1 mañana)
+- Ejecutar análisis rápido inicial
+- Consolidar hallazgos en el plan
+
+---
+
+### FASE 2: Diseño del Plan de Pruebas
+
+**Requisitos:**
+- ✅ Alcance y objetivos del plan
+- ✅ Módulos, componentes y funciones a probar
+- ✅ Tipos de pruebas (unitarias, integración, componentes, funcionales, sistema, UAT)
+- ✅ Roles del equipo asignados
+- ✅ Herramientas a usar (justificadas)
+
+**Responsable:** 👨‍💼 **Luis** (3h - Día 1 mañana)
+- Escribir Plan de Pruebas EXPRESS (2-3 páginas)
+- Definir alcance limitado (funcionalidad core)
+- Asignar roles del equipo
+- Listar y justificar herramientas
+
+**Apoyo:** 🎨 Dennis + 💻 Fernando
+- Dennis: Definir módulos UI a probar
+- Fernando: Definir estrategia de integración
+
+---
+
+### FASE 3: Diseño de Casos de Prueba
+
+**Requisitos:**
+- ✅ Formato completo: ID, Función, Resumen, Precondiciones, Pasos, Datos, Resultado esperado/obtenido, Estado
+- ✅ Pruebas Unitarias (funciones críticas, validaciones, reglas de negocio)
+- ✅ Pruebas de Integración (API ↔ BD, Frontend ↔ Backend, Servicios internos)
+- ✅ Pruebas de Componentes (UI)
+- ✅ Pruebas Funcionales (casos de uso reales)
+- ✅ Pruebas de Sistema (operación completa)
+- ✅ Pruebas de Aceptación UAT (Given-When-Then)
+
+**Distribución:**
+
+**💻 Fernando** (4h - Día 1 mañana + 4h - Día 2 mañana):
+- **5 Pruebas Unitarias** (críticas):
+  1. AuthService.signInWithGoogle()
+  2. FirestoreService.createReservation()
+  3. ParkingProvider.loadZones()
+  4. ReservationProvider.validateReservation()
+  5. UserModel.toMap()/fromMap()
+
+- **3 Pruebas de Integración**:
+  1. AuthProvider → AuthService → Firebase
+  2. ReservationProvider → FirestoreService → Firestore
+  3. UI → Provider → Service (flujo completo)
+
+**🎨 Dennis** (4h - Día 1 mañana + 4h - Día 2 mañana):
+- **5 Pruebas de Componentes UI**:
+  1. LoginScreen - Validación de formulario
+  2. MainNavScreen - Navegación
+  3. ProfileScreen - Mostrar datos
+  4. ParkingListScreen - Renderizado
+  5. CustomButton - Funcionalidad
+
+- **3 Pruebas Funcionales** (casos de uso):
+  1. Validación de formulario de login
+  2. Navegación entre pantallas
+  3. Feedback de errores
+
+**👨‍💼 Luis** (4h - Día 1 tarde):
+- **3 Pruebas de Sistema** (end-to-end):
+  1. Login → Home → Perfil
+  2. Login → Ver zonas → Listar espacios
+  3. Login → Crear reserva → Cancelar
+
+- **2 Pruebas UAT** (Given-When-Then):
+  1. Usuario reserva espacio exitosamente
+  2. Usuario cancela reserva
+
+**Total: 22 casos de prueba**
+
+---
+
+### FASE 4: Ejecución de Pruebas y Evidencias
+
+**Requisitos:**
+- ✅ Capturas de pantalla
+- ✅ Logs de ejecución
+- ✅ Extractos de consola
+- ✅ Videos cortos
+- ✅ Reportes automáticos (Coverage, etc.)
+- ✅ Re-ejecución de pruebas fallidas (si hay tiempo)
+
+**Distribución:**
+
+**🎨 Dennis** (4h - Día 1 tarde):
+- Ejecutar los 5 casos de componentes UI
+- Capturar 5-10 screenshots
+- Grabar 1 video del flujo completo (2-3 min)
+- Documentar resultados en Excel
+
+**💻 Fernando** (2h - Día 1 noche - OPCIONAL):
+- Escribir código de 3-5 tests unitarios ejecutables
+- Ejecutar tests y capturar output
+- Generar reporte de coverage (si es posible)
+
+**👨‍💼 Luis** (4h - Día 2 mañana):
+- Ejecutar los 5 casos de Sistema/UAT
+- Documentar resultados
+- Capturar evidencias principales
+
+**🎨 Dennis** (incluido en casos funcionales - Día 2):
+- Ejecutar los 3 casos funcionales
+- Más screenshots/evidencias
+
+**💻 Fernando** (incluido en integración - Día 2):
+- Ejecutar los 3 casos de integración
+- Documentar con logs/capturas
+
+---
+
+### FASE 5: Gestión de Defectos y Reporte Final
+
+**Requisitos:**
+
+**5.1. Registro de Defectos** (para cada uno):
+- ✅ ID, Descripción, Severidad, Prioridad
+- ✅ Pasos para reproducir
+- ✅ Evidencias
+- ✅ Módulo afectado, Responsable
+- ✅ Estado (Nuevo/En proceso/Resuelto/Cerrado)
+
+**5.2. Matriz de Trazabilidad:**
+- ✅ Requisitos → Casos de Prueba → Evidencia → Estado
+
+**5.3. Informe Final PDF:**
+- ✅ Plan de pruebas
+- ✅ Casos de prueba
+- ✅ Evidencias
+- ✅ Registro de defectos
+- ✅ Trazabilidad
+- ✅ Mejoras aplicadas
+- ✅ Conclusiones del grupo
+
+**Distribución:**
+
+**💻 Fernando** (4h - Día 2 tarde - CRÍTICO):
+- **Registro de Defectos Backend** (10-15 defectos):
+  - Hallazgos del análisis estático
+  - Errores de pruebas unitarias
+  - Problemas de integración
+  - Code smells críticos
+- Clasificar por Severidad y Prioridad
+- Documentar pasos para reproducir
+- **Archivo:** `REGISTRO_DEFECTOS.xlsx`
+
+**🎨 Dennis** (4h - Día 2 tarde):
+- **Registro de Defectos UI** (5-8 defectos):
+  - Problemas visuales
+  - Inconsistencias de diseño
+  - Problemas de usabilidad
+  - Errores de validación
+- **Archivo:** `DEFECTOS_UI.xlsx`
+
+**👨‍💼 Luis** (4h - Día 2 mañana + 4h - Día 2 tarde - CRÍTICO):
+- **Matriz de Trazabilidad**: Tabla en Excel
+- **Consolidar Informe Final PDF**:
+  1. Portada
+  2. Plan de Pruebas
+  3. Análisis Estático (tabla de Fernando)
+  4. Casos de Prueba (todos los Excel)
+  5. Evidencias (screenshots, videos)
+  6. Registro de Defectos (Fernando + Dennis)
+  7. Matriz de Trazabilidad
+  8. Mejoras aplicadas (si hubo correcciones)
+  9. Conclusiones del grupo
+- **Archivo:** `INFORME_TESTING_FINAL.pdf` (20-30 páginas)
+
+**👥 Todo el equipo** (2h - Día 2 noche):
+- Revisión final del PDF
+- Verificar cumplimiento de TODOS los requisitos
+- Ajustes finales
+- **ENTREGAR**
+
+---
+
+## 📊 RESUMEN DE RESPONSABILIDADES POR FASE
+
+| Fase | Luis | Dennis | Fernando |
+|------|------|--------|----------|
+| **FASE 1** | Análisis inicial (30min) | - | **Análisis completo (4h)** |
+| **FASE 2** | **Plan completo (3h)** | Módulos UI | Estrategia integración |
+| **FASE 3** | Sistema + UAT (4h) | **Componentes + Funcionales (8h)** | **Unitarias + Integración (8h)** |
+| **FASE 4** | **Ejecutar Sistema/UAT (4h)** | **Ejecutar UI + Videos (4h)** | **Tests código + logs (2h)** |
+| **FASE 5** | **PDF Final + Matriz (8h)** | Defectos UI (4h) | **Defectos Backend (4h)** |
+
+---
+
 ## ⚡ DÍA 1 (27 NOV) - 8-10 HORAS
 
 ### 🌅 MAÑANA (8:00 AM - 12:00 PM) - 4 HORAS
