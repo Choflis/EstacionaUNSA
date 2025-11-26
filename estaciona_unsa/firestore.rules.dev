@@ -1,0 +1,13 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // REGLAS TEMPORALES PARA DESARROLLO Y SEED
+    // ⚠️ NUNCA USAR EN PRODUCCIÓN
+    // Estas reglas permiten leer/escribir sin autenticación
+    // Solo usar durante el seed inicial
+    
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}
