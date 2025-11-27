@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/auth_provider.dart';
+import '../history_screen.dart';
+import '../my_vehicle_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -48,75 +50,64 @@ class _ProfileScreenState extends State<ProfileScreen> {
       backgroundColor: isDark ? const Color(0xFF101922) : const Color(0xFFF6F7F8),
       body: CustomScrollView(
         slivers: [
-          // App Bar con imagen de perfil
+          // Header simple y limpio
           SliverAppBar(
             expandedHeight: 200,
             pinned: true,
-            backgroundColor: const Color(0xFF8A0000),
+            backgroundColor: isDark ? const Color(0xFF101922) : Colors.white,
             flexibleSpace: FlexibleSpaceBar(
               background: Container(
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [Color(0xFF8A0000), Color(0xFFB71C1C)],
-                  ),
+                decoration: BoxDecoration(
+                  color: isDark ? const Color(0xFF101922) : Colors.white,
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const SizedBox(height: 60),
-                    // Avatar
-                    Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(color: Colors.white, width: 4),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withValues(alpha: 0.3),
-                            blurRadius: 10,
-                            offset: const Offset(0, 5),
+                child: SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const SizedBox(height: 20),
+                        // Avatar más pequeño y simple
+                        CircleAvatar(
+                          radius: 40,
+                          backgroundColor: const Color(0xFF8A0000).withValues(alpha: 0.1),
+                          backgroundImage: user?.photoURL != null 
+                            ? NetworkImage(user!.photoURL!)
+                            : null,
+                          child: user?.photoURL == null
+                            ? Text(
+                                user?.displayName?.substring(0, 1).toUpperCase() ?? 
+                                user?.email?.substring(0, 1).toUpperCase() ?? 
+                                'U',
+                                style: const TextStyle(
+                                  fontSize: 32,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFF8A0000),
+                                ),
+                              )
+                            : null,
+                        ),
+                        const SizedBox(height: 12),
+                        Text(
+                          user?.displayName ?? 'Usuario',
+                          style: TextStyle(
+                            color: isDark ? Colors.white : Colors.black87,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
                           ),
-                        ],
-                      ),
-                      child: CircleAvatar(
-                        radius: 50,
-                        backgroundColor: Colors.white,
-                        backgroundImage: user?.photoURL != null 
-                          ? NetworkImage(user!.photoURL!)
-                          : null,
-                        child: user?.photoURL == null
-                          ? Text(
-                              user?.displayName?.substring(0, 1).toUpperCase() ?? 
-                              user?.email?.substring(0, 1).toUpperCase() ?? 
-                              'U',
-                              style: const TextStyle(
-                                fontSize: 40,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xFF8A0000),
-                              ),
-                            )
-                          : null,
-                      ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          user?.email ?? '',
+                          style: TextStyle(
+                            color: Colors.grey[600],
+                            fontSize: 13,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
                     ),
-                    const SizedBox(height: 12),
-                    Text(
-                      user?.displayName ?? 'Usuario',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      user?.email ?? '',
-                      style: TextStyle(
-                        color: Colors.white.withValues(alpha: 0.9),
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
             ),
@@ -129,43 +120,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Información Personal
-                  _buildSectionTitle('Información Personal'),
-                  const SizedBox(height: 12),
-                  _buildInfoCard(
-                    icon: Icons.person_outline,
-                    title: 'Nombre Completo',
-                    subtitle: user?.displayName ?? 'No disponible',
-                  ),
-                  const SizedBox(height: 8),
-                  _buildInfoCard(
-                    icon: Icons.email_outlined,
-                    title: 'Correo Electrónico',
-                    subtitle: user?.email ?? 'No disponible',
-                  ),
-                  const SizedBox(height: 8),
-                  _buildInfoCard(
-                    icon: Icons.verified_user_outlined,
-                    title: 'Estado de Verificación',
-                    subtitle: user?.emailVerified == true ? 'Verificado' : 'No verificado',
-                    trailing: user?.emailVerified == true
-                      ? const Icon(Icons.check_circle, color: Color(0xFF28A745), size: 20)
-                      : const Icon(Icons.warning, color: Color(0xFFFFC107), size: 20),
-                  ),
-
-                  const SizedBox(height: 24),
-
-                  // Estadísticas
-                  _buildSectionTitle('Estadísticas'),
+                  // Estadísticas de Uso
+                  _buildSectionTitle('Resumen de Actividad'),
                   const SizedBox(height: 12),
                   Row(
                     children: [
                       Expanded(
-                        child: _buildStatCard('0', 'Reservas\nActivas', Icons.bookmark_outline),
+                        child: _buildStatCard('0', 'Reservas\nActivas', Icons.bookmark_add_outlined),
                       ),
                       const SizedBox(width: 12),
                       Expanded(
-                        child: _buildStatCard('0', 'Reservas\nTotales', Icons.history),
+                        child: _buildStatCard('0', 'Historial\nTotal', Icons.history),
                       ),
                     ],
                   ),
@@ -173,38 +138,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Row(
                     children: [
                       Expanded(
-                        child: _buildStatCard('0', 'Horas\nEstacionado', Icons.access_time),
+                        child: _buildStatCard('0h', 'Tiempo\nEstacionado', Icons.access_time),
                       ),
                       const SizedBox(width: 12),
                       Expanded(
-                        child: _buildStatCard('\$0', 'Total\nGastado', Icons.attach_money),
+                        child: _buildStatCard('0', 'Zonas\nUsadas', Icons.location_on_outlined),
                       ),
                     ],
                   ),
 
                   const SizedBox(height: 24),
 
-                  // Opciones
+                  // Opciones principales
                   _buildSectionTitle('Configuración'),
                   const SizedBox(height: 12),
                   _buildOptionCard(
                     icon: Icons.directions_car_outlined,
                     title: 'Mis Vehículos',
-                    subtitle: 'Administra tus vehículos',
+                    subtitle: 'Gestiona los vehículos registrados',
                     onTap: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Próximamente: Mis Vehículos')),
-                      );
-                    },
-                  ),
-                  const SizedBox(height: 8),
-                  _buildOptionCard(
-                    icon: Icons.credit_card_outlined,
-                    title: 'Métodos de Pago',
-                    subtitle: 'Gestiona tus tarjetas',
-                    onTap: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Próximamente: Métodos de Pago')),
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (_) => const MyVehicleScreen()),
                       );
                     },
                   ),
@@ -212,10 +166,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   _buildOptionCard(
                     icon: Icons.history,
                     title: 'Historial de Reservas',
-                    subtitle: 'Ver todas tus reservas',
+                    subtitle: 'Ver todas las reservas realizadas',
                     onTap: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Próximamente: Historial')),
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (_) => const HistoryScreen()),
                       );
                     },
                   ),
@@ -223,12 +177,43 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   _buildOptionCard(
                     icon: Icons.notifications_outlined,
                     title: 'Notificaciones',
-                    subtitle: 'Configura tus alertas',
+                    subtitle: 'Configura alertas y recordatorios',
                     onTap: () {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Próximamente: Notificaciones')),
+                        const SnackBar(content: Text('Próximamente: Configuración de Notificaciones')),
                       );
                     },
+                  ),
+                  const SizedBox(height: 8),
+                  _buildOptionCard(
+                    icon: Icons.help_outline,
+                    title: 'Ayuda y Soporte',
+                    subtitle: 'Preguntas frecuentes y contacto',
+                    onTap: () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Próximamente: Centro de Ayuda')),
+                      );
+                    },
+                  ),
+
+                  const SizedBox(height: 24),
+
+                  // Información de la cuenta
+                  _buildSectionTitle('Información de Cuenta'),
+                  const SizedBox(height: 12),
+                  _buildInfoCard(
+                    icon: Icons.email_outlined,
+                    title: 'Correo Institucional',
+                    subtitle: user?.email ?? 'No disponible',
+                  ),
+                  const SizedBox(height: 8),
+                  _buildInfoCard(
+                    icon: Icons.verified_user_outlined,
+                    title: 'Estado de Cuenta',
+                    subtitle: user?.emailVerified == true ? 'Verificado ✓' : 'No verificado',
+                    subtitleColor: user?.emailVerified == true 
+                      ? const Color(0xFF28A745) 
+                      : const Color(0xFFFFC107),
                   ),
 
                   const SizedBox(height: 24),
@@ -236,7 +221,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   // Botón de Cerrar Sesión
                   _buildLogoutButton(),
 
-                  const SizedBox(height: 80),
+                  const SizedBox(height: 40),
                 ],
               ),
             ),
@@ -247,11 +232,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Widget _buildSectionTitle(String title) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Text(
       title,
-      style: const TextStyle(
-        fontSize: 18,
+      style: TextStyle(
+        fontSize: 16,
         fontWeight: FontWeight.bold,
+        color: isDark ? Colors.white : Colors.black87,
       ),
     );
   }
@@ -260,7 +247,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     required IconData icon,
     required String title,
     required String subtitle,
-    Widget? trailing,
+    Color? subtitleColor,
   }) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     
@@ -270,7 +257,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
+            color: Colors.black.withValues(alpha: 0.08),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -285,7 +272,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               color: const Color(0xFF8A0000).withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(10),
             ),
-            child: Icon(icon, color: const Color(0xFF8A0000), size: 24),
+            child: Icon(icon, color: const Color(0xFF8A0000), size: 22),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -302,15 +289,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 const SizedBox(height: 4),
                 Text(
                   subtitle,
-                  style: const TextStyle(
-                    fontSize: 15,
+                  style: TextStyle(
+                    fontSize: 14,
                     fontWeight: FontWeight.w600,
+                    color: subtitleColor ?? (isDark ? Colors.white : Colors.black87),
                   ),
                 ),
               ],
             ),
           ),
-          if (trailing != null) trailing,
         ],
       ),
     );
@@ -325,33 +312,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
+            color: Colors.black.withValues(alpha: 0.08),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
         ],
       ),
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, color: const Color(0xFF8A0000), size: 32),
-          const SizedBox(height: 8),
+          Icon(icon, color: const Color(0xFF8A0000), size: 26),
+          const SizedBox(height: 6),
           Text(
             value,
             style: const TextStyle(
-              fontSize: 24,
+              fontSize: 20,
               fontWeight: FontWeight.bold,
               color: Color(0xFF8A0000),
             ),
           ),
-          const SizedBox(height: 4),
+          const SizedBox(height: 2),
           Text(
             label,
             textAlign: TextAlign.center,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
             style: TextStyle(
-              fontSize: 12,
+              fontSize: 10,
               color: Colors.grey[600],
-              height: 1.2,
+              height: 1.1,
             ),
           ),
         ],
@@ -376,7 +366,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withValues(alpha: 0.05),
+              color: Colors.black.withValues(alpha: 0.08),
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),
@@ -391,7 +381,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 color: const Color(0xFF8A0000).withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Icon(icon, color: const Color(0xFF8A0000), size: 24),
+              child: Icon(icon, color: const Color(0xFF8A0000), size: 22),
             ),
             const SizedBox(width: 16),
             Expanded(
@@ -400,9 +390,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 children: [
                   Text(
                     title,
-                    style: const TextStyle(
-                      fontSize: 15,
+                    style: TextStyle(
+                      fontSize: 14,
                       fontWeight: FontWeight.w600,
+                      color: isDark ? Colors.white : Colors.black87,
                     ),
                   ),
                   const SizedBox(height: 2),
@@ -416,7 +407,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ],
               ),
             ),
-            Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey[400]),
+            Icon(Icons.arrow_forward_ios, size: 14, color: Colors.grey[400]),
           ],
         ),
       ),
@@ -426,26 +417,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget _buildLogoutButton() {
     return SizedBox(
       width: double.infinity,
-      child: ElevatedButton(
+      child: ElevatedButton.icon(
         onPressed: _signOut,
+        icon: const Icon(Icons.logout),
+        label: const Text(
+          'Cerrar Sesión',
+          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+        ),
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.red,
           foregroundColor: Colors.white,
-          padding: const EdgeInsets.symmetric(vertical: 16),
+          padding: const EdgeInsets.symmetric(vertical: 14),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Icon(Icons.logout),
-            SizedBox(width: 8),
-            Text(
-              'Cerrar Sesión',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-          ],
         ),
       ),
     );
