@@ -4,10 +4,10 @@ import 'package:flutter/foundation.dart';
 /// Este provider maneja notificaciones in-app y se puede extender
 /// con Firebase Cloud Messaging para notificaciones push
 class NotificationProvider extends ChangeNotifier {
-  List<AppNotification> _notifications = [];
-  List<AppNotification> _unreadNotifications = [];
+  final List<AppNotification> _notifications = [];
+  final List<AppNotification> _unreadNotifications = [];
   
-  bool _isLoading = false;
+  final bool _isLoading = false;
   String? _errorMessage;
 
   // Configuración de notificaciones
