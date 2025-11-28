@@ -1,0 +1,144 @@
+Resolving dependencies...
+Downloading packages...
+  characters 1.4.0 (1.4.1 available)
+  flutter_launcher_icons 0.13.1 (0.14.4 available)
+  google_sign_in 6.3.0 (7.2.0 available)
+  google_sign_in_android 6.2.1 (7.2.6 available)
+  google_sign_in_ios 5.9.0 (6.2.4 available)
+  google_sign_in_platform_interface 2.5.0 (3.1.0 available)
+  google_sign_in_web 0.12.4+4 (1.1.0 available)
+  http 1.5.0 (1.6.0 available)
+  matcher 0.12.17 (0.12.18 available)
+  material_color_utilities 0.11.1 (0.13.0 available)
+  meta 1.16.0 (1.17.0 available)
+  test_api 0.7.6 (0.7.8 available)
+Got dependencies!
+12 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+Analyzing estaciona_unsa...                                     
+
+   info • Don't invoke 'print' in production code • lib/providers/auth_provider.dart:47:7 • avoid_print
+   info • The private field _notifications could be 'final' • lib/providers/notification_provider.dart:7:25 • prefer_final_fields
+   info • The private field _unreadNotifications could be 'final' • lib/providers/notification_provider.dart:8:25 • prefer_final_fields
+   info • The private field _isLoading could be 'final' • lib/providers/notification_provider.dart:10:8 • prefer_final_fields
+   info • Don't invoke 'print' in production code • lib/providers/parking_provider.dart:55:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/providers/parking_provider.dart:74:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/providers/parking_provider.dart:93:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/providers/parking_provider.dart:113:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/providers/parking_provider.dart:153:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/providers/reservation_provider.dart:99:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/providers/reservation_provider.dart:127:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/providers/reservation_provider.dart:146:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/providers/reservation_provider.dart:182:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/providers/reservation_provider.dart:222:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/providers/reservation_provider.dart:251:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/providers/reservation_provider.dart:352:7 • avoid_print
+warning • Unused import: 'package:firebase_auth/firebase_auth.dart' • lib/screens/home_screen.dart:2:8 • unused_import
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/screens/login_screen.dart:64:47 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/screens/login_screen.dart:102:43 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/screens/login_screen.dart:113:43 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/screens/login_screen.dart:117:47 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/screens/login_screen.dart:219:62 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/screens/login_screen.dart:254:43 • deprecated_member_use
+   info • Don't invoke 'print' in production code • lib/services/firebase/auth_service.dart:60:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/auth_service.dart:74:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/auth_service.dart:102:9 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/auth_service.dart:109:9 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/auth_service.dart:112:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/auth_service.dart:132:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/firestore_service.dart:20:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/firestore_service.dart:29:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/firestore_service.dart:41:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/firestore_service.dart:64:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/firestore_service.dart:75:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/firestore_service.dart:96:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/firestore_service.dart:112:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/firestore_service.dart:125:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/firestore_service.dart:136:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/firestore_service.dart:158:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/firestore_service.dart:170:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/firestore_service.dart:181:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/firestore_service.dart:195:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/firestore_service.dart:210:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/firestore_service.dart:232:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/firestore_service.dart:241:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/firestore_service.dart:253:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/firestore_service.dart:268:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/firestore_service.dart:283:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/firestore_service.dart:295:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/firestore_service.dart:309:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/firestore_service.dart:323:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/firestore_service.dart:335:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/firestore_service.dart:362:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/firestore_service.dart:376:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/firestore_service.dart:408:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/firestore_service.dart:425:7 • avoid_print
+   info • The imported package 'flutter_local_notifications' isn't a dependency of the importing package • lib/services/firebase/messaging_service.dart:2:8 • depend_on_referenced_packages
+  error • Target of URI doesn't exist: 'package:flutter_local_notifications/flutter_local_notifications.dart' • lib/services/firebase/messaging_service.dart:2:8 • uri_does_not_exist
+  error • Undefined class 'FlutterLocalNotificationsPlugin' • lib/services/firebase/messaging_service.dart:15:9 • undefined_class
+  error • The method 'FlutterLocalNotificationsPlugin' isn't defined for the type 'MessagingService' • lib/services/firebase/messaging_service.dart:16:7 • undefined_method
+   info • Don't invoke 'print' in production code • lib/services/firebase/messaging_service.dart:42:9 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/messaging_service.dart:44:9 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/messaging_service.dart:46:9 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/messaging_service.dart:52:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/messaging_service.dart:64:9 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/messaging_service.dart:69:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/messaging_service.dart:71:7 • avoid_print
+  error • Const variables must be initialized with a constant value • lib/services/firebase/messaging_service.dart:79:29 • const_initialized_with_non_constant_value
+  error • The method 'AndroidInitializationSettings' isn't defined for the type 'MessagingService' • lib/services/firebase/messaging_service.dart:79:29 • undefined_method
+  error • Const variables must be initialized with a constant value • lib/services/firebase/messaging_service.dart:80:25 • const_initialized_with_non_constant_value
+  error • The method 'DarwinInitializationSettings' isn't defined for the type 'MessagingService' • lib/services/firebase/messaging_service.dart:80:25 • undefined_method
+  error • Const variables must be initialized with a constant value • lib/services/firebase/messaging_service.dart:86:26 • const_initialized_with_non_constant_value
+  error • The method 'InitializationSettings' isn't defined for the type 'MessagingService' • lib/services/firebase/messaging_service.dart:86:26 • undefined_method
+  error • Const variables must be initialized with a constant value • lib/services/firebase/messaging_service.dart:97:28 • const_initialized_with_non_constant_value
+  error • The method 'AndroidNotificationChannel' isn't defined for the type 'MessagingService' • lib/services/firebase/messaging_service.dart:97:28 • undefined_method
+  error • Undefined name 'Importance' • lib/services/firebase/messaging_service.dart:101:19 • undefined_identifier
+  error • The name 'AndroidFlutterLocalNotificationsPlugin' isn't a type, so it can't be used as a type argument • lib/services/firebase/messaging_service.dart:106:13 • non_type_as_type_argument
+   info • Don't invoke 'print' in production code • lib/services/firebase/messaging_service.dart:114:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/messaging_service.dart:125:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/messaging_service.dart:138:7 • avoid_print
+  error • The method 'NotificationDetails' isn't defined for the type 'MessagingService' • lib/services/firebase/messaging_service.dart:154:9 • undefined_method
+  error • The method 'AndroidNotificationDetails' isn't defined for the type 'MessagingService' • lib/services/firebase/messaging_service.dart:155:20 • undefined_method
+  error • Undefined name 'Importance' • lib/services/firebase/messaging_service.dart:160:25 • undefined_identifier
+  error • Undefined name 'Priority' • lib/services/firebase/messaging_service.dart:161:23 • undefined_identifier
+  error • The name 'DarwinNotificationDetails' isn't a class • lib/services/firebase/messaging_service.dart:163:22 • creation_with_non_type
+  error • Undefined class 'NotificationResponse' • lib/services/firebase/messaging_service.dart:172:30 • undefined_class
+   info • Don't invoke 'print' in production code • lib/services/firebase/messaging_service.dart:173:5 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/messaging_service.dart:179:5 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/messaging_service.dart:193:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/messaging_service.dart:195:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/messaging_service.dart:205:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/messaging_service.dart:207:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/messaging_service.dart:247:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/messaging_service.dart:249:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/messaging_service.dart:259:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/messaging_service.dart:261:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/messaging_service.dart:270:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/messaging_service.dart:273:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/messaging_service.dart:288:3 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/messaging_service.dart:289:3 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/messaging_service.dart:290:3 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/firebase/messaging_service.dart:291:3 • avoid_print
+   info • Don't invoke 'print' in production code • lib/utils/firestore_seed.dart:12:5 • avoid_print
+   info • Don't invoke 'print' in production code • lib/utils/firestore_seed.dart:20:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/utils/firestore_seed.dart:21:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/utils/firestore_seed.dart:23:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/utils/firestore_seed.dart:32:5 • avoid_print
+   info • Don't invoke 'print' in production code • lib/utils/firestore_seed.dart:128:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/utils/firestore_seed.dart:130:5 • avoid_print
+   info • Don't invoke 'print' in production code • lib/utils/firestore_seed.dart:135:5 • avoid_print
+   info • Don't invoke 'print' in production code • lib/utils/firestore_seed.dart:348:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/utils/firestore_seed.dart:350:5 • avoid_print
+   info • Don't invoke 'print' in production code • lib/utils/firestore_seed.dart:355:5 • avoid_print
+   info • Don't invoke 'print' in production code • lib/utils/firestore_seed.dart:380:5 • avoid_print
+   info • Don't invoke 'print' in production code • lib/utils/firestore_seed.dart:381:5 • avoid_print
+   info • Don't invoke 'print' in production code • lib/utils/firestore_seed.dart:420:5 • avoid_print
+   info • Don't invoke 'print' in production code • lib/utils/firestore_seed.dart:425:5 • avoid_print
+   info • Don't invoke 'print' in production code • lib/utils/firestore_seed.dart:452:5 • avoid_print
+   info • Don't invoke 'print' in production code • lib/utils/firestore_seed.dart:457:5 • avoid_print
+   info • Don't invoke 'print' in production code • lib/utils/firestore_seed.dart:458:5 • avoid_print
+   info • Don't invoke 'print' in production code • lib/utils/firestore_seed.dart:469:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/utils/firestore_seed.dart:471:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/utils/firestore_seed.dart:496:5 • avoid_print
+
+123 issues found. (ran in 7.0s)
