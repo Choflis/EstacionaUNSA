@@ -1,0 +1,48 @@
+ID,Archivo,Línea,Descripción,Tipo de Error,Severidad,Prioridad,Categoría
+E001,lib/services/firebase/messaging_service.dart,2,Target of URI doesn't exist: 'package:flutter_local_notifications/flutter_local_notifications.dart',uri_does_not_exist,Crítico,Alta,Dependencia faltante
+E002,lib/services/firebase/messaging_service.dart,15,Undefined class 'FlutterLocalNotificationsPlugin',undefined_class,Crítico,Alta,Clase no definida
+E003,lib/services/firebase/messaging_service.dart,16,The method 'FlutterLocalNotificationsPlugin' isn't defined,undefined_method,Crítico,Alta,Método no definido
+E004,lib/services/firebase/messaging_service.dart,79,Const variables must be initialized with a constant value (AndroidInitializationSettings),const_initialized_with_non_constant_value,Crítico,Alta,Inicialización incorrecta
+E005,lib/services/firebase/messaging_service.dart,80,Const variables must be initialized with a constant value (DarwinInitializationSettings),const_initialized_with_non_constant_value,Crítico,Alta,Inicialización incorrecta
+E006,lib/services/firebase/messaging_service.dart,86,Const variables must be initialized with a constant value (InitializationSettings),const_initialized_with_non_constant_value,Crítico,Alta,Inicialización incorrecta
+E007,lib/services/firebase/messaging_service.dart,88,The method 'AndroidInitializationSettings' isn't defined,undefined_method,Crítico,Alta,Método no definido
+E008,lib/services/firebase/messaging_service.dart,90,The method 'DarwinInitializationSettings' isn't defined,undefined_method,Crítico,Alta,Método no definido
+E009,lib/services/firebase/messaging_service.dart,92,The method 'InitializationSettings' isn't defined,undefined_method,Crítico,Alta,Método no definido
+E010,lib/services/firebase/messaging_service.dart,94,The method 'AndroidNotificationChannel' isn't defined,undefined_method,Crítico,Alta,Método no definido
+E011,lib/services/firebase/messaging_service.dart,95,Undefined name 'Importance',undefined_identifier,Crítico,Alta,Identificador no definido
+E012,lib/services/firebase/messaging_service.dart,96,The name 'AndroidFlutterLocalNotificationsPlugin' isn't a type,non_type_as_type_argument,Crítico,Alta,Tipo incorrecto
+E013,lib/services/firebase/messaging_service.dart,100,The method 'NotificationDetails' isn't defined,undefined_method,Crítico,Alta,Método no definido
+E014,lib/services/firebase/messaging_service.dart,101,The method 'AndroidNotificationDetails' isn't defined,undefined_method,Crítico,Alta,Método no definido
+E015,lib/services/firebase/messaging_service.dart,102,Undefined name 'Importance',undefined_identifier,Crítico,Alta,Identificador no definido
+E016,lib/services/firebase/messaging_service.dart,103,Undefined name 'Priority',undefined_identifier,Crítico,Alta,Identificador no definido
+E017,lib/services/firebase/messaging_service.dart,104,The name 'DarwinNotificationDetails' isn't a class,creation_with_non_type,Crítico,Alta,Clase no definida
+E018,lib/services/firebase/messaging_service.dart,105,Undefined class 'NotificationResponse',undefined_class,Crítico,Alta,Clase no definida
+E019,lib/services/firebase/messaging_service.dart,2,The imported package 'flutter_local_notifications' isn't a dependency,depend_on_referenced_packages,Crítico,Alta,Dependencia faltante
+W001,lib/screens/home_screen.dart,2,Unused import: 'package:firebase_auth/firebase_auth.dart',unused_import,Alto,Media,Import sin usar
+I001,lib/providers/notification_provider.dart,7,The private field _notifications could be 'final',prefer_final_fields,Medio,Baja,Optimización
+I002,lib/providers/notification_provider.dart,8,The private field _unreadNotifications could be 'final',prefer_final_fields,Medio,Baja,Optimización
+I003,lib/providers/notification_provider.dart,10,The private field _isLoading could be 'final',prefer_final_fields,Medio,Baja,Optimización
+I004,lib/screens/login_screen.dart,64,withOpacity is deprecated - Use .withValues(),deprecated_member_use,Medio,Media,API deprecada
+I005,lib/screens/login_screen.dart,102,withOpacity is deprecated - Use .withValues(),deprecated_member_use,Medio,Media,API deprecada
+I006,lib/screens/login_screen.dart,113,withOpacity is deprecated - Use .withValues(),deprecated_member_use,Medio,Media,API deprecada
+I007,lib/screens/login_screen.dart,117,withOpacity is deprecated - Use .withValues(),deprecated_member_use,Medio,Media,API deprecada
+I008,lib/screens/login_screen.dart,219,withOpacity is deprecated - Use .withValues(),deprecated_member_use,Medio,Media,API deprecada
+I009,lib/screens/login_screen.dart,254,withOpacity is deprecated - Use .withValues(),deprecated_member_use,Medio,Media,API deprecada
+I010,lib/providers/auth_provider.dart,47,Don't invoke 'print' in production code,avoid_print,Bajo,Baja,Mala práctica
+I011,lib/providers/parking_provider.dart,55,Don't invoke 'print' in production code,avoid_print,Bajo,Baja,Mala práctica
+I012,lib/providers/parking_provider.dart,74,Don't invoke 'print' in production code,avoid_print,Bajo,Baja,Mala práctica
+I013,lib/providers/parking_provider.dart,93,Don't invoke 'print' in production code,avoid_print,Bajo,Baja,Mala práctica
+I014,lib/providers/parking_provider.dart,113,Don't invoke 'print' in production code,avoid_print,Bajo,Baja,Mala práctica
+I015,lib/providers/parking_provider.dart,153,Don't invoke 'print' in production code,avoid_print,Bajo,Baja,Mala práctica
+I016,lib/providers/reservation_provider.dart,99,Don't invoke 'print' in production code,avoid_print,Bajo,Baja,Mala práctica
+I017,lib/providers/reservation_provider.dart,127,Don't invoke 'print' in production code,avoid_print,Bajo,Baja,Mala práctica
+I018,lib/providers/reservation_provider.dart,146,Don't invoke 'print' in production code,avoid_print,Bajo,Baja,Mala práctica
+I019,lib/services/firebase/auth_service.dart,60,Don't invoke 'print' in production code,avoid_print,Bajo,Baja,Mala práctica
+I020,lib/services/firebase/auth_service.dart,74,Don't invoke 'print' in production code,avoid_print,Bajo,Baja,Mala práctica
+I021,lib/services/firebase/firestore_service.dart,20,Don't invoke 'print' in production code,avoid_print,Bajo,Baja,Mala práctica
+I022,lib/services/firebase/firestore_service.dart,29,Don't invoke 'print' in production code,avoid_print,Bajo,Baja,Mala práctica
+I023,lib/services/firebase/firestore_service.dart,41,Don't invoke 'print' in production code,avoid_print,Bajo,Baja,Mala práctica
+I024,lib/services/firebase/messaging_service.dart,42,Don't invoke 'print' in production code,avoid_print,Bajo,Baja,Mala práctica
+I025,lib/services/firebase/messaging_service.dart,44,Don't invoke 'print' in production code,avoid_print,Bajo,Baja,Mala práctica
+I026,lib/utils/firestore_seed.dart,12,Don't invoke 'print' in production code,avoid_print,Bajo,Baja,Mala práctica
+I027,lib/utils/firestore_seed.dart,20,Don't invoke 'print' in production code,avoid_print,Bajo,Baja,Mala práctica
