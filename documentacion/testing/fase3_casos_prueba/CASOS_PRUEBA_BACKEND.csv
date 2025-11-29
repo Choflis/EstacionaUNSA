@@ -1,0 +1,101 @@
+ID,Tipo,Función/Módulo,Archivo,Prioridad,Severidad,Resumen,Precondiciones,Pasos de Ejecución,Datos de Prueba,Resultado Esperado,Resultado Obtenido,Estado,Notas
+UNIT-001,Unitaria,AuthService.signInWithGoogle(),lib/services/firebase/auth_service.dart,Alta,Crítica,"Validar el proceso de autenticación con Google, incluyendo la validación de correos institucionales @unsa.edu.pe y el manejo de errores","- Firebase Auth configurado correctamente
+- Google Sign In configurado con clientId
+- Usuario no autenticado previamente
+- Conexión a internet activa","1. Llamar a AuthService.signInWithGoogle()
+2. Seleccionar cuenta de Google en el diálogo
+3. Observar el proceso de autenticación
+4. Verificar creación/actualización de usuario en Firestore","Caso 1: fernando.test@unsa.edu.pe
+Caso 2: fernando.test@gmail.com (debe fallar)
+Caso 3: Usuario cancela login","Caso 1: Autenticación exitosa, UserCredential retornado, Usuario creado en Firestore
+Caso 2: Exception con mensaje de correo no institucional
+Caso 3: Exception de login cancelado",,Pendiente,"Verificar que _createOrUpdateUserInFirestore() se ejecute correctamente. Validar que usuarios existentes solo actualicen updatedAt y photoURL"
+UNIT-002,Unitaria,FirestoreService.createReservation(),lib/services/firebase/firestore_service.dart,Alta,Crítica,Validar la creación de documentos de reserva en Firestore con la estructura de datos correcta,"- Firestore configurado y accesible
+- Usuario autenticado con uid válido
+- Spot disponible en la base de datos
+- Zona válida existente","1. Crear objeto ReservationModel con datos válidos
+2. Llamar a FirestoreService.createReservation(reservation)
+3. Verificar que retorna un ID de documento
+4. Consultar Firestore para verificar que el documento existe
+5. Validar estructura de datos del documento","userId: test_user_123
+spotId: spot_A1
+zoneId: zone_central
+status: active
+durationMinutes: 120","Función retorna String con ID del documento. Documento creado en collection reservations con todos los campos del modelo correctamente mapeados",,Pendiente,"Verificar que toMap() de ReservationModel funcione correctamente. Validar que los Timestamps se conviertan correctamente"
+UNIT-003,Unitaria,ParkingProvider.loadZones(),lib/providers/parking_provider.dart,Media,Alta,Validar la carga de zonas de estacionamiento desde Firestore y la actualización del estado del provider,"- Firestore contiene al menos 2 zonas de estacionamiento
+- FirestoreService configurado correctamente
+- Provider inicializado","1. Verificar estado inicial: _isLoading = false, _zones = []
+2. Llamar a loadZones()
+3. Verificar que _isLoading = true durante la carga
+4. Esperar a que la operación complete
+5. Verificar estado final: _isLoading = false, _zones contiene datos
+6. Verificar que notifyListeners() se llamó","Zona 1: id=zone_central, name=Zona Central, totalSpots=50
+Zona 2: id=zone_norte, name=Zona Norte, totalSpots=30","_isLoading = true al inicio. _zones se llena con lista de ParkingZoneModel. _zones.length >= 2. _isLoading = false al finalizar. _errorMessage = null. notifyListeners() llamado al menos 2 veces",,Pendiente,"Simular error de red desconectando internet. Verificar que el estado se actualiza correctamente en cada paso"
+UNIT-004,Unitaria,ReservationProvider.validateReservation(),lib/providers/reservation_provider.dart,Alta,Crítica,Validar las reglas de negocio para permitir o denegar una reserva según el estado del usuario y del spot,"- Usuario autenticado con uid válido
+- Spots disponibles en Firestore
+- Firestore accesible","1. Llamar a validateReservation(userId: user1, spotId: spot1)
+2. Verificar respuesta con estructura Map<String, dynamic>
+3. Validar campo canReserve (bool)
+4. Validar campo reason (String?)","Escenario 1: Usuario sin reservas, spot disponible
+Escenario 2: Usuario con reserva activa
+Escenario 3: Spot no disponible
+Escenario 4: Spot no existe","Escenario 1: {canReserve: true, reason: null}
+Escenario 2: {canReserve: false, reason: Ya tienes una reserva activa}
+Escenario 3: {canReserve: false, reason: El espacio no está disponible}
+Escenario 4: {canReserve: false, reason: El espacio no existe}",,Pendiente,"Esta función es crítica para evitar dobles reservas. Validar que todas las reglas de negocio se cumplan"
+UNIT-005,Unitaria,UserModel.toMap() / fromMap(),lib/models/user_model.dart,Media,Media,Validar la serialización y deserialización correcta del modelo de usuario para persistencia en Firestore,Ninguna (prueba de lógica pura),"Test 1: Crear UserModel, llamar toMap(), verificar estructura
+Test 2: Crear Map, llamar fromMap(), verificar objeto
+Test 3: Round-trip (toMap → fromMap), comparar objetos","UserModel con: uid=test_123, email=test@unsa.edu.pe, displayName=Test User, role=user, vehicles=[VehicleInfo], stats=UserStats, fechas, etc.","toMap() retorna Map con estructura correcta y tipos de datos válidos. fromMap() crea objeto UserModel con todos los campos correctos. Round-trip: objeto original == objeto recreado",,Pendiente,"Validar manejo de campos opcionales (null safety). Verificar conversión correcta de Timestamps. Validar serialización de objetos anidados"
+INT-001,Integración,AuthProvider → AuthService → Firebase,"AuthProvider, AuthService, Firebase Auth, FirestoreService",Alta,Crítica,Validar el flujo completo de autenticación desde el Provider hasta la persistencia en Firestore,"- Firebase Auth configurado
+- Firestore configurado
+- Google Sign In configurado
+- Usuario no autenticado
+- Conexión a internet","1. UI: Usuario presiona botón Iniciar sesión
+2. AuthProvider: Llamar signInWithGoogle()
+3. AuthProvider: Verificar _isLoading = true
+4. AuthService: Ejecutar flujo de Google Sign In
+5. AuthService: Validar correo @unsa.edu.pe
+6. Firebase Auth: Autenticar
+7. FirestoreService: Crear/actualizar usuario
+8. AuthProvider: Escuchar authStateChanges
+9. AuthProvider: Cargar datos de Firestore
+10. AuthProvider: Actualizar estado y notifyListeners()
+11. UI: Navegar a HomeScreen","Email: fernando.test@unsa.edu.pe
+Nombre: Fernando Test","Flujo exitoso: _isLoading = true durante proceso, UserCredential retornado, Documento creado en Firestore users/{uid}, AuthProvider actualizado con datos, UI navega a HomeScreen. Flujo con correo no institucional: Exception lanzada, errorMessage actualizado, UI muestra error",,Pendiente,"Verificar que el listener de authStateChanges se active. Validar que _loadUserData() se ejecute automáticamente. Evidencias: Screenshots de Google Sign In, Firestore, HomeScreen, logs"
+INT-002,Integración,ReservationProvider → FirestoreService → Firestore,"ReservationProvider, FirestoreService, Firestore Transacciones",Alta,Crítica,Validar el flujo completo de creación de reserva con transacciones atómicas,"- Usuario autenticado
+- Spot disponible
+- Zona válida
+- Usuario sin reservas activas
+- Firestore accesible","1. UI: Usuario selecciona spot
+2. ReservationProvider: validateReservation()
+3. ReservationProvider: Verificar canReserve = true
+4. ReservationProvider: createReservation()
+5. FirestoreService: Ejecutar transacción (crear reserva + actualizar spot + actualizar stats)
+6. ReservationProvider: Actualizar listas locales
+7. ReservationProvider: notifyListeners()
+8. UI: Mostrar confirmación","userId: test_user_123
+spotId: spot_A1
+zoneId: zone_central
+durationMinutes: 120
+latitude: -16.4090
+longitude: -71.5375","validateReservation() retorna canReserve: true. Documento creado en reservations. Spot actualizado a status: reserved. Stats del usuario incrementados. UI muestra confirmación. Spot no aparece más como disponible",,Pendiente,"CRÍTICO: Verificar atomicidad de la transacción. Si falla actualización del spot, la reserva NO debe crearse. Evidencias: Screenshots de Firestore, UI, logs de transacción"
+INT-003,Integración,UI → Provider → Service (Flujo Completo),"ParkingListScreen, ParkingProvider, FirestoreService, Firestore Streams",Media,Alta,Validar la sincronización en tiempo real entre Firestore y la UI,"- Usuario autenticado
+- Al menos 2 zonas con spots
+- Firestore accesible
+- Conexión a internet estable","Parte 1: Carga inicial
+1. UI: Abrir ParkingListScreen
+2. ParkingProvider: loadZones()
+3. FirestoreService: Consultar zones
+4. UI: Renderizar lista
+
+Parte 2: Suscripción a streams
+5. ParkingProvider: Suscribirse a zonesStream()
+6. UI: Mostrar datos en tiempo real
+
+Parte 3: Cambio externo
+7. Simulación: Otro usuario reserva spot
+8. Firestore: Emite actualización
+9. ParkingProvider: Actualiza _zones
+10. UI: Re-renderiza automáticamente","Estado inicial: Zona Central 10 spots, Zona Norte 5 spots
+Cambio: Otro usuario reserva spot_A1
+Resultado: Zona Central 9 spots","Carga inicial: UI muestra loading, lista se carga correctamente. Sincronización: Stream establecido, cambio externo detectado, UI actualizada automáticamente sin refresh manual, delay < 2 segundos. Manejo de errores: Mensaje de error si pierde conexión, reconexión automática",,Pendiente,"Usar Firebase Console para simular cambios externos. Verificar que no haya memory leaks. Validar que listeners se cancelen al salir. Evidencias: Video de actualización en tiempo real, screenshots antes/después"
