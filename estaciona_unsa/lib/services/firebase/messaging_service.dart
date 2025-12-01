@@ -1,5 +1,6 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import '../../utils/logger.dart';
 
 /// Servicio para Firebase Cloud Messaging (notificaciones push)
 /// Este servicio maneja las notificaciones push de Firebase
@@ -39,17 +40,17 @@ class MessagingService {
       );
 
       if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-        print('✅ Permisos de notificaciones concedidos');
+        logger.d('✅ Permisos de notificaciones concedidos');
       } else if (settings.authorizationStatus == AuthorizationStatus.provisional) {
-        print('⚠️ Permisos provisionales concedidos');
+        logger.d('⚠️ Permisos provisionales concedidos');
       } else {
-        print('❌ Permisos de notificaciones denegados');
+        logger.d('❌ Permisos de notificaciones denegados');
         return;
       }
 
       // Obtener token FCM
       _fcmToken = await _firebaseMessaging.getToken();
-      print('📱 FCM Token: $_fcmToken');
+      logger.d('📱 FCM Token: $_fcmToken');
 
       // Configurar notificaciones locales
       await _initializeLocalNotifications();
@@ -61,14 +62,14 @@ class MessagingService {
       // Listener para refresh de token
       _firebaseMessaging.onTokenRefresh.listen((newToken) {
         _fcmToken = newToken;
-        print('🔄 FCM Token actualizado: $newToken');
+        logger.d('🔄 FCM Token actualizado: $newToken');
         // TODO: Enviar nuevo token al backend
       });
 
       _isInitialized = true;
-      print('✅ MessagingService inicializado');
+      logger.d('✅ MessagingService inicializado');
     } catch (e) {
-      print('❌ Error inicializando MessagingService: $e');
+      logger.d('❌ Error inicializando MessagingService: $e');
       rethrow;
     }
   }
@@ -111,7 +112,7 @@ class MessagingService {
 
   void _configureForegroundMessageHandler() {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      print('📨 Mensaje recibido en primer plano: ${message.messageId}');
+      logger.d('📨 Mensaje recibido en primer plano: ${message.messageId}');
       
       // Mostrar notificación local cuando la app está en primer plano
       _showLocalNotification(message);
@@ -122,7 +123,7 @@ class MessagingService {
 
   void _configureBackgroundMessageHandler() {
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      print('📬 Notificación abierta: ${message.messageId}');
+      logger.d('📬 Notificación abierta: ${message.messageId}');
       _handleMessageTap(message);
     });
 
@@ -135,7 +136,7 @@ class MessagingService {
   Future<void> _checkForInitialMessage() async {
     final initialMessage = await _firebaseMessaging.getInitialMessage();
     if (initialMessage != null) {
-      print('🚀 App abierta desde notificación: ${initialMessage.messageId}');
+      logger.d('🚀 App abierta desde notificación: ${initialMessage.messageId}');
       _handleMessageTap(initialMessage);
     }
   }
@@ -170,13 +171,13 @@ class MessagingService {
   // ========== MANEJAR TAP EN NOTIFICACIÓN ==========
 
   void _onNotificationTapped(NotificationResponse response) {
-    print('👆 Notificación tocada: ${response.payload}');
+    logger.d('👆 Notificación tocada: ${response.payload}');
     // TODO: Navegar a pantalla específica según el payload
   }
 
   void _handleMessageTap(RemoteMessage message) {
     final data = message.data;
-    print('📲 Datos del mensaje: $data');
+    logger.d('📲 Datos del mensaje: $data');
     
     // TODO: Manejar navegación según el tipo de notificación
     // Ejemplo:
@@ -190,9 +191,9 @@ class MessagingService {
   Future<void> subscribeToTopic(String topic) async {
     try {
       await _firebaseMessaging.subscribeToTopic(topic);
-      print('✅ Suscrito al topic: $topic');
+      logger.d('✅ Suscrito al topic: $topic');
     } catch (e) {
-      print('❌ Error suscribiéndose al topic $topic: $e');
+      logger.d('❌ Error suscribiéndose al topic $topic: $e');
       rethrow;
     }
   }
@@ -202,9 +203,9 @@ class MessagingService {
   Future<void> unsubscribeFromTopic(String topic) async {
     try {
       await _firebaseMessaging.unsubscribeFromTopic(topic);
-      print('✅ Desuscrito del topic: $topic');
+      logger.d('✅ Desuscrito del topic: $topic');
     } catch (e) {
-      print('❌ Error desuscribiéndose del topic $topic: $e');
+      logger.d('❌ Error desuscribiéndose del topic $topic: $e');
       rethrow;
     }
   }
@@ -244,9 +245,9 @@ class MessagingService {
       //     .doc(userId)
       //     .update({'fcmToken': _fcmToken});
       
-      print('📤 Token enviado al servidor para user: $userId');
+      logger.d('📤 Token enviado al servidor para user: $userId');
     } catch (e) {
-      print('❌ Error enviando token al servidor: $e');
+      logger.d('❌ Error enviando token al servidor: $e');
     }
   }
 
@@ -256,9 +257,9 @@ class MessagingService {
     try {
       await _firebaseMessaging.deleteToken();
       _fcmToken = null;
-      print('🗑️ Token FCM eliminado');
+      logger.d('🗑️ Token FCM eliminado');
     } catch (e) {
-      print('❌ Error eliminando token: $e');
+      logger.d('❌ Error eliminando token: $e');
     }
   }
 
@@ -267,10 +268,10 @@ class MessagingService {
   Future<String?> refreshToken() async {
     try {
       _fcmToken = await _firebaseMessaging.getToken();
-      print('🔄 Token FCM refrescado: $_fcmToken');
+      logger.d('🔄 Token FCM refrescado: $_fcmToken');
       return _fcmToken;
     } catch (e) {
-      print('❌ Error refrescando token: $e');
+      logger.d('❌ Error refrescando token: $e');
       return null;
     }
   }
@@ -285,10 +286,10 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // Inicializar Firebase si es necesario
   // await Firebase.initializeApp();
   
-  print('🔔 Mensaje recibido en background: ${message.messageId}');
-  print('Título: ${message.notification?.title}');
-  print('Cuerpo: ${message.notification?.body}');
-  print('Datos: ${message.data}');
+  logger.d('🔔 Mensaje recibido en background: ${message.messageId}');
+  logger.d('Título: ${message.notification?.title}');
+  logger.d('Cuerpo: ${message.notification?.body}');
+  logger.d('Datos: ${message.data}');
 }
 
 /*

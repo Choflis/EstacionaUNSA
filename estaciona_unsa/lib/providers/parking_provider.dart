@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import '../models/parking_zone_model.dart';
 import '../models/parking_spot_model.dart';
 import '../services/firebase/firestore_service.dart';
+import '../utils/logger.dart';
 
 class ParkingProvider extends ChangeNotifier {
   final FirestoreService _firestoreService = FirestoreService();
@@ -52,7 +53,7 @@ class ParkingProvider extends ChangeNotifier {
       _isLoading = false;
       _errorMessage = 'Error al cargar zonas: $e';
       notifyListeners();
-      print('Error loading zones: $e');
+      logger.e('Error loading zones: $e');
     }
   }
 
@@ -71,7 +72,7 @@ class ParkingProvider extends ChangeNotifier {
       _isLoading = false;
       _errorMessage = 'Error al cargar espacios: $e';
       notifyListeners();
-      print('Error loading spots: $e');
+      logger.e('Error loading spots: $e');
     }
   }
 
@@ -90,7 +91,7 @@ class ParkingProvider extends ChangeNotifier {
       _isLoading = false;
       _errorMessage = 'Error al cargar espacios disponibles: $e';
       notifyListeners();
-      print('Error loading available spots: $e');
+      logger.e('Error loading available spots: $e');
     }
   }
 
@@ -110,7 +111,7 @@ class ParkingProvider extends ChangeNotifier {
       _isLoading = false;
       _errorMessage = 'Error al seleccionar zona: $e';
       notifyListeners();
-      print('Error selecting zone: $e');
+      logger.e('Error selecting zone: $e');
     }
   }
 
@@ -150,7 +151,7 @@ class ParkingProvider extends ChangeNotifier {
     } catch (e) {
       _errorMessage = 'Error al actualizar espacio: $e';
       notifyListeners();
-      print('Error updating spot status: $e');
+      logger.e('Error updating spot status: $e');
       rethrow;
     }
   }

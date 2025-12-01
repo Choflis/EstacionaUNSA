@@ -5,6 +5,7 @@ import '../../models/parking_spot_model.dart';
 import '../../models/reservation_model.dart';
 import '../../models/entry_exit_log_model.dart';
 import '../../models/incident_model.dart';
+import '../../utils/logger.dart';
 
 class FirestoreService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -17,7 +18,7 @@ class FirestoreService {
       if (!doc.exists) return null;
       return UserModel.fromDocument(doc);
     } catch (e) {
-      print('Error getting user: $e');
+      logger.e('Error getting user: $e');
       rethrow;
     }
   }
@@ -26,7 +27,7 @@ class FirestoreService {
     try {
       await _firestore.collection('users').doc(user.uid).set(user.toMap());
     } catch (e) {
-      print('Error creating user: $e');
+      logger.e('Error creating user: $e');
       rethrow;
     }
   }
@@ -38,7 +39,7 @@ class FirestoreService {
         'updatedAt': FieldValue.serverTimestamp(),
       });
     } catch (e) {
-      print('Error updating user: $e');
+      logger.e('Error updating user: $e');
       rethrow;
     }
   }
@@ -61,7 +62,7 @@ class FirestoreService {
           .get();
       return snapshot.docs.map((doc) => ParkingZoneModel.fromDocument(doc)).toList();
     } catch (e) {
-      print('Error getting zones: $e');
+      logger.e('Error getting zones: $e');
       rethrow;
     }
   }
@@ -72,7 +73,7 @@ class FirestoreService {
       if (!doc.exists) return null;
       return ParkingZoneModel.fromDocument(doc);
     } catch (e) {
-      print('Error getting zone: $e');
+      logger.e('Error getting zone: $e');
       rethrow;
     }
   }
@@ -93,7 +94,7 @@ class FirestoreService {
         'updatedAt': FieldValue.serverTimestamp(),
       });
     } catch (e) {
-      print('Error updating zone capacity: $e');
+      logger.e('Error updating zone capacity: $e');
       rethrow;
     }
   }
@@ -109,7 +110,7 @@ class FirestoreService {
           .get();
       return snapshot.docs.map((doc) => ParkingSpotModel.fromDocument(doc)).toList();
     } catch (e) {
-      print('Error getting available spots: $e');
+      logger.e('Error getting available spots: $e');
       rethrow;
     }
   }
@@ -122,7 +123,7 @@ class FirestoreService {
           .get();
       return snapshot.docs.map((doc) => ParkingSpotModel.fromDocument(doc)).toList();
     } catch (e) {
-      print('Error getting spots by zone: $e');
+      logger.e('Error getting spots by zone: $e');
       rethrow;
     }
   }
@@ -133,7 +134,7 @@ class FirestoreService {
       if (!doc.exists) return null;
       return ParkingSpotModel.fromDocument(doc);
     } catch (e) {
-      print('Error getting spot: $e');
+      logger.e('Error getting spot: $e');
       rethrow;
     }
   }
@@ -155,7 +156,7 @@ class FirestoreService {
         'updatedAt': FieldValue.serverTimestamp(),
       });
     } catch (e) {
-      print('Error updating spot status: $e');
+      logger.e('Error updating spot status: $e');
       rethrow;
     }
   }
@@ -167,7 +168,7 @@ class FirestoreService {
       final docRef = await _firestore.collection('reservations').add(reservation.toMap());
       return docRef.id;
     } catch (e) {
-      print('Error creating reservation: $e');
+      logger.e('Error creating reservation: $e');
       rethrow;
     }
   }
@@ -178,7 +179,7 @@ class FirestoreService {
       if (!doc.exists) return null;
       return ReservationModel.fromDocument(doc);
     } catch (e) {
-      print('Error getting reservation: $e');
+      logger.e('Error getting reservation: $e');
       rethrow;
     }
   }
@@ -192,7 +193,7 @@ class FirestoreService {
           .get();
       return snapshot.docs.map((doc) => ReservationModel.fromDocument(doc)).toList();
     } catch (e) {
-      print('Error getting active reservations: $e');
+      logger.e('Error getting active reservations: $e');
       rethrow;
     }
   }
@@ -207,7 +208,7 @@ class FirestoreService {
           .get();
       return snapshot.docs.map((doc) => ReservationModel.fromDocument(doc)).toList();
     } catch (e) {
-      print('Error getting reservation history: $e');
+      logger.e('Error getting reservation history: $e');
       rethrow;
     }
   }
@@ -229,7 +230,7 @@ class FirestoreService {
         'updatedAt': FieldValue.serverTimestamp(),
       });
     } catch (e) {
-      print('Error updating reservation status: $e');
+      logger.e('Error updating reservation status: $e');
       rethrow;
     }
   }
@@ -238,7 +239,7 @@ class FirestoreService {
     try {
       await updateReservationStatus(reservationId, 'cancelled');
     } catch (e) {
-      print('Error cancelling reservation: $e');
+      logger.e('Error cancelling reservation: $e');
       rethrow;
     }
   }
@@ -250,7 +251,7 @@ class FirestoreService {
       final docRef = await _firestore.collection('entry_exit_logs').add(log.toMap());
       return docRef.id;
     } catch (e) {
-      print('Error creating entry log: $e');
+      logger.e('Error creating entry log: $e');
       rethrow;
     }
   }
@@ -265,7 +266,7 @@ class FirestoreService {
           .get();
       return snapshot.docs.map((doc) => EntryExitLogModel.fromDocument(doc)).toList();
     } catch (e) {
-      print('Error getting logs by user: $e');
+      logger.e('Error getting logs by user: $e');
       rethrow;
     }
   }
@@ -280,7 +281,7 @@ class FirestoreService {
           .get();
       return snapshot.docs.map((doc) => EntryExitLogModel.fromDocument(doc)).toList();
     } catch (e) {
-      print('Error getting logs by spot: $e');
+      logger.e('Error getting logs by spot: $e');
       rethrow;
     }
   }
@@ -292,7 +293,7 @@ class FirestoreService {
       final docRef = await _firestore.collection('incidents').add(incident.toMap());
       return docRef.id;
     } catch (e) {
-      print('Error creating incident: $e');
+      logger.e('Error creating incident: $e');
       rethrow;
     }
   }
@@ -306,7 +307,7 @@ class FirestoreService {
           .get();
       return snapshot.docs.map((doc) => IncidentModel.fromDocument(doc)).toList();
     } catch (e) {
-      print('Error getting pending incidents: $e');
+      logger.e('Error getting pending incidents: $e');
       rethrow;
     }
   }
@@ -320,7 +321,7 @@ class FirestoreService {
           .get();
       return snapshot.docs.map((doc) => IncidentModel.fromDocument(doc)).toList();
     } catch (e) {
-      print('Error getting user incidents: $e');
+      logger.e('Error getting user incidents: $e');
       rethrow;
     }
   }
@@ -332,7 +333,7 @@ class FirestoreService {
         'updatedAt': FieldValue.serverTimestamp(),
       });
     } catch (e) {
-      print('Error updating incident: $e');
+      logger.e('Error updating incident: $e');
       rethrow;
     }
   }
@@ -359,7 +360,7 @@ class FirestoreService {
           .get();
       return snapshot.docs.isNotEmpty;
     } catch (e) {
-      print('Error checking active reservation: $e');
+      logger.e('Error checking active reservation: $e');
       return false;
     }
   }
@@ -373,7 +374,7 @@ class FirestoreService {
           .get();
       return snapshot.docs.length;
     } catch (e) {
-      print('Error getting available spots count: $e');
+      logger.e('Error getting available spots count: $e');
       return 0;
     }
   }
@@ -405,7 +406,7 @@ class FirestoreService {
         });
       });
     } catch (e) {
-      print('Error in reserve transaction: $e');
+      logger.e('Error in reserve transaction: $e');
       rethrow;
     }
   }
@@ -422,7 +423,7 @@ class FirestoreService {
         });
       });
     } catch (e) {
-      print('Error in release transaction: $e');
+      logger.e('Error in release transaction: $e');
       rethrow;
     }
   }

@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import '../models/reservation_model.dart';
 import '../models/parking_spot_model.dart';
 import '../services/firebase/firestore_service.dart';
+import '../utils/logger.dart';
 
 class ReservationProvider extends ChangeNotifier {
   final FirestoreService _firestoreService = FirestoreService();
@@ -96,7 +97,7 @@ class ReservationProvider extends ChangeNotifier {
       _isLoading = false;
       _errorMessage = 'Error al crear reserva: $e';
       notifyListeners();
-      print('Error creating reservation: $e');
+      logger.e('Error creating reservation: $e');
       return null;
     }
   }
@@ -124,7 +125,7 @@ class ReservationProvider extends ChangeNotifier {
       _isLoading = false;
       _errorMessage = 'Error al cargar reservas activas: $e';
       notifyListeners();
-      print('Error loading active reservations: $e');
+      logger.e('Error loading active reservations: $e');
     }
   }
 
@@ -143,7 +144,7 @@ class ReservationProvider extends ChangeNotifier {
       _isLoading = false;
       _errorMessage = 'Error al cargar historial: $e';
       notifyListeners();
-      print('Error loading reservation history: $e');
+      logger.e('Error loading reservation history: $e');
     }
   }
 
@@ -179,7 +180,7 @@ class ReservationProvider extends ChangeNotifier {
       _isLoading = false;
       _errorMessage = 'Error al cancelar reserva: $e';
       notifyListeners();
-      print('Error cancelling reservation: $e');
+      logger.e('Error cancelling reservation: $e');
       return false;
     }
   }
@@ -219,7 +220,7 @@ class ReservationProvider extends ChangeNotifier {
       _isLoading = false;
       _errorMessage = 'Error al usar reserva: $e';
       notifyListeners();
-      print('Error using reservation: $e');
+      logger.e('Error using reservation: $e');
       return false;
     }
   }
@@ -248,7 +249,7 @@ class ReservationProvider extends ChangeNotifier {
       notifyListeners();
       return true;
     } catch (e) {
-      print('Error expiring reservation: $e');
+      logger.e('Error expiring reservation: $e');
       return false;
     }
   }
@@ -349,7 +350,7 @@ class ReservationProvider extends ChangeNotifier {
     try {
       return await _firestoreService.getReservation(reservationId);
     } catch (e) {
-      print('Error getting reservation: $e');
+      logger.e('Error getting reservation: $e');
       return null;
     }
   }

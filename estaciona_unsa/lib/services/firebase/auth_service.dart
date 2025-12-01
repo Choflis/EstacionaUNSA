@@ -3,6 +3,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../models/user_model.dart';
+import '../../utils/logger.dart';
 import 'firestore_service.dart';
 
 class AuthService {
@@ -57,7 +58,7 @@ class AuthService {
       
       return userCredential;
     } catch (e) {
-      print('Error en signInWithGoogle: $e');
+      logger.e('Error en signInWithGoogle: $e');
       rethrow;
     }
   }
@@ -71,7 +72,7 @@ class AuthService {
         _googleSignIn.signOut(),
       ]);
     } catch (e) {
-      print('Error en signOut: $e');
+      logger.e('Error en signOut: $e');
       rethrow;
     }
   }
@@ -99,17 +100,17 @@ class AuthService {
         );
         
         await _firestoreService.createUser(newUser);
-        print('✅ Usuario creado en Firestore: ${newUser.displayName}');
+        logger.e('✅ Usuario creado en Firestore: ${newUser.displayName}');
       } else {
         // Usuario existente - actualizar última conexión
         await _firestoreService.updateUser(firebaseUser.uid, {
           'updatedAt': FieldValue.serverTimestamp(),
           'photoURL': firebaseUser.photoURL ?? googleUser.photoUrl,
         });
-        print('✅ Usuario actualizado en Firestore: ${existingUser.displayName}');
+        logger.e('✅ Usuario actualizado en Firestore: ${existingUser.displayName}');
       }
     } catch (e) {
-      print('❌ Error al crear/actualizar usuario en Firestore: $e');
+      logger.e('❌ Error al crear/actualizar usuario en Firestore: $e');
       // No lanzar error para no bloquear el login
     }
   }
@@ -129,7 +130,7 @@ class AuthService {
     try {
       return await _firestoreService.getUser(user.uid);
     } catch (e) {
-      print('Error obteniendo datos del usuario: $e');
+      logger.e('Error obteniendo datos del usuario: $e');
       return null;
     }
   }

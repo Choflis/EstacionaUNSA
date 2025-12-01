@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../models/user_model.dart';
 import '../services/firebase/auth_service.dart';
+import '../utils/logger.dart';
 
 class AuthProvider extends ChangeNotifier {
   final AuthService _authService = AuthService();
@@ -44,7 +45,7 @@ class AuthProvider extends ChangeNotifier {
     try {
       _currentUserData = await _authService.getCurrentUserData();
     } catch (e) {
-      print('Error cargando datos del usuario: $e');
+      logger.d('Error cargando datos del usuario: $e');
       _currentUserData = null;
     }
   }
