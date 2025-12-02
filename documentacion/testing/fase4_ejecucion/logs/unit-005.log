@@ -1,0 +1,78 @@
+Resolving dependencies...
+Downloading packages...
+  characters 1.4.0 (1.4.1 available)
+  flutter_launcher_icons 0.13.1 (0.14.4 available)
+  flutter_local_notifications 18.0.1 (19.5.0 available)
+  flutter_local_notifications_linux 5.0.0 (6.0.0 available)
+  flutter_local_notifications_platform_interface 8.0.0 (9.1.0 available)
+  google_sign_in 6.3.0 (7.2.0 available)
+  google_sign_in_android 6.2.1 (7.2.7 available)
+  google_sign_in_ios 5.9.0 (6.2.4 available)
+  google_sign_in_platform_interface 2.5.0 (3.1.0 available)
+  google_sign_in_web 0.12.4+4 (1.1.0 available)
+  http 1.5.0 (1.6.0 available)
+  matcher 0.12.17 (0.12.18 available)
+  material_color_utilities 0.11.1 (0.13.0 available)
+  meta 1.16.0 (1.17.0 available)
+  test_api 0.7.6 (0.7.8 available)
+Got dependencies!
+15 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading /home/fernando/universidad/construccionDeSoftware/EstacionaUNSA/estaciona_unsa/test/unit/user_model_test.dart                                                                        00:01 +0: loading /home/fernando/universidad/construccionDeSoftware/EstacionaUNSA/estaciona_unsa/test/unit/user_model_test.dart                                                                        00:02 +0: loading /home/fernando/universidad/construccionDeSoftware/EstacionaUNSA/estaciona_unsa/test/unit/user_model_test.dart                                                                        00:03 +0: loading /home/fernando/universidad/construccionDeSoftware/EstacionaUNSA/estaciona_unsa/test/unit/user_model_test.dart                                                                        00:04 +0: loading /home/fernando/universidad/construccionDeSoftware/EstacionaUNSA/estaciona_unsa/test/unit/user_model_test.dart                                                                        00:05 +0: loading /home/fernando/universidad/construccionDeSoftware/EstacionaUNSA/estaciona_unsa/test/unit/user_model_test.dart                                                                        00:05 +0: loading /home/fernando/universidad/construccionDeSoftware/EstacionaUNSA/estaciona_unsa/test/unit/user_model_test.dart                                                                        
+
+========================================
+✅ TODOS LOS TESTS COMPLETADOS
+========================================
+
+00:05 +0: UserModel - Serialización TEST 1: toMap() genera estructura correcta                                                                                                                         00:05 +0: UserModel - Serialización TEST 1: toMap() genera estructura correcta                                                                                                                         
+
+========================================
+🧪 TEST 1: toMap() estructura correcta
+========================================
+✅ toMap() ejecutado exitosamente
+
+📋 Map generado:
+  email: fernando.test@unsa.edu.pe
+  displayName: Fernando Test
+  role: user
+  vehicles: [{licensePlate: ABC-123, brand: Toyota, model: Corolla, color: Azul, isPrimary: true}]
+  stats: {totalReservations: 5, completedReservations: 4, cancelledReservations: 1, noShowCount: 0, lastReservation: null, suspensionUntil: null, isBanned: false}
+  phoneNumber: 959123456
+  photoURL: https://example.com/photo.jpg
+  isActive: true
+✅ Todas las validaciones pasadas
+
+00:05 +1: UserModel - Serialización TEST 1: toMap() genera estructura correcta                                                                                                                         00:05 +1: UserModel - Serialización TEST 2: fromMap() reconstruye objeto correctamente                                                                                                                 00:05 +1: UserModel - Serialización TEST 2: fromMap() reconstruye objeto correctamente                                                                                                                 
+
+========================================
+🧪 TEST 2: fromMap() reconstruye objeto
+========================================
+📥 Reconstruyendo objeto desde Map...
+✅ fromMap() ejecutado exitosamente
+
+📋 Objeto reconstruido:
+  uid: reconstructed_uid
+  email: test@unsa.edu.pe
+  displayName: Test User
+  role: admin
+  vehicles: 1 vehículo(s)
+  stats.total: 10
+  phoneNumber: 987654321
+  isActive: true
+✅ Todas las validaciones pasadas
+
+00:05 +2: UserModel - Serialización TEST 2: fromMap() reconstruye objeto correctamente                                                                                                                 00:05 +2: UserModel - Serialización TEST 3: Round-trip (toMap → fromMap) preserva datos                                                                                                                00:05 +2: UserModel - Serialización TEST 3: Round-trip (toMap → fromMap) preserva datos                                                                                                                
+
+========================================
+🧪 TEST 3: Round-trip preserva datos
+========================================
+📤 Paso 1: Convertir objeto original a Map
+📥 Paso 2: Reconstruir objeto desde Map
+00:05 +2 -1: UserModel - Serialización TEST 3: Round-trip (toMap → fromMap) preserva datos [E]                                                                                                         
+  type 'FieldValue' is not a subtype of type 'Timestamp' in type cast
+  package:estaciona_unsa/models/user_model.dart 42:36  new UserModel.fromMap
+  test/unit/user_model_test.dart 139:39                main.<fn>.<fn>
+  
+
+To run this test again: /home/fernando/flutter/bin/cache/dart-sdk/bin/dart test /home/fernando/universidad/construccionDeSoftware/EstacionaUNSA/estaciona_unsa/test/unit/user_model_test.dart -p vm --plain-name 'UserModel - Serialización TEST 3: Round-trip (toMap → fromMap) preserva datos'
+00:05 +2 -1: Some tests failed.                                                                                                                                                                        
