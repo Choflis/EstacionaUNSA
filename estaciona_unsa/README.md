@@ -4,6 +4,14 @@ Aplicación móvil para la gestión inteligente de espacios de estacionamiento e
 
 ---
 
+## 📥 Descargar APK
+
+**[⬇️ Descargar EstacionaUNSA APK](./estaciona-unsa.apk)**
+
+Descarga directamente el archivo APK para instalar en dispositivos Android.
+
+---
+
 ## 🚀 Inicio Rápido
 
 ### Requisitos Previos
