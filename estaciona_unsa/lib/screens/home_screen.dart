@@ -158,30 +158,33 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Column(
                       children: [
                         _buildParkingCard(
-                          'Estacionamiento Paucarpata',
-                          75,
+                          'Zona A - Entrada Principal Ingenierías',
+                          50,
                           23,
                           const Color(0xFF28A745),
                           'Disponible',
                           Icons.check_circle,
+                          zoneId: 'ing_zone_a',
                         ),
                         const SizedBox(height: 12),
                         _buildParkingCard(
-                          'Estacionamiento Av. Independencia',
-                          120,
+                          'Zona B - Biblioteca Ingenierías',
+                          30,
                           8,
                           const Color(0xFFFFC107),
                           'Plazas limitadas',
                           Icons.error,
+                          zoneId: 'ing_zone_b',
                         ),
                         const SizedBox(height: 12),
                         _buildParkingCard(
-                          'Estacionamiento Av. Venezuela',
-                          50,
+                          'Zona C - Pabellón Central Ingenierías',
+                          40,
                           0,
                           const Color(0xFFDC3545),
                           'Completo',
                           Icons.cancel,
+                          zoneId: 'ing_zone_c',
                         ),
                         const SizedBox(height: 80),
                       ],
@@ -250,23 +253,35 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildParkingCard(String name, int total, int available, Color statusColor, String statusText, IconData icon) {
+  Widget _buildParkingCard(String name, int total, int available, Color statusColor, String statusText, IconData icon, {String? zoneId}) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final percentage = (available / total * 100).clamp(0, 100);
     
-    return Container(
-      decoration: BoxDecoration(
-        color: isDark ? const Color(0xFF1C2A38) : Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.08),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      padding: const EdgeInsets.all(20),
+    return InkWell(
+      onTap: zoneId != null ? () {
+        Navigator.pushNamed(
+          context,
+          '/parking-zone-detail',
+          arguments: {
+            'zoneId': zoneId,
+            'zoneName': name,
+          },
+        );
+      } : null,
+      borderRadius: BorderRadius.circular(12),
+      child: Container(
+        decoration: BoxDecoration(
+          color: isDark ? const Color(0xFF1C2A38) : Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.08),
+              blurRadius: 8,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        padding: const EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -318,6 +333,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ],
+        ),
       ),
     );
   }
