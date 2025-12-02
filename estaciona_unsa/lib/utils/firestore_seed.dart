@@ -39,8 +39,8 @@ class FirestoreSeed {
         'description': 'Campus de la Facultad de Ingeniería de Producción y Servicios',
         'location': {
           'latitude': -16.4065,
-          'longitude': -71.5380,
-          'address': 'Av. Ejército s/n, Arequipa',
+          'longitude': -71.538,
+          'address': 'Av. Independencia s/n, Arequipa',
           'district': 'Cercado',
           'city': 'Arequipa',
         },
@@ -144,8 +144,8 @@ class FirestoreSeed {
         'name': 'Zona A - Entrada Principal Ingenierías',
         'location': {
           'latitude': -16.4065,
-          'longitude': -71.5380,
-          'address': 'Av. Ejército - Entrada Principal',
+          'longitude': -71.538,
+          'address': 'Entrada Principal - Ingenierías UNSA',
           'building': 'Zona A',
           'floor': 'Exterior',
         },
@@ -160,11 +160,11 @@ class FirestoreSeed {
       {
         'zoneId': 'ing_zone_b',
         'campusId': 'ingenierias',
-        'name': 'Zona B - Biblioteca Ingenierías',
+        'name': 'Zona B - Estacionamiento Central',
         'location': {
-          'latitude': -16.4067,
-          'longitude': -71.5382,
-          'address': 'Biblioteca Central de Ingenierías',
+          'latitude': -16.4065,
+          'longitude': -71.538,
+          'address': 'Estacionamiento Central - Ingenierías UNSA',
           'building': 'Zona B',
           'floor': 'Exterior',
         },
@@ -179,11 +179,11 @@ class FirestoreSeed {
       {
         'zoneId': 'ing_zone_c',
         'campusId': 'ingenierias',
-        'name': 'Zona C - Pabellón Central Ingenierías',
+        'name': 'Zona C - Pabellón Principal',
         'location': {
-          'latitude': -16.4070,
-          'longitude': -71.5385,
-          'address': 'Pabellón de Aulas - Ingenierías',
+          'latitude': -16.4065,
+          'longitude': -71.538,
+          'address': 'Pabellón Principal - Ingenierías UNSA',
           'building': 'Zona C',
           'floor': 'Exterior',
         },

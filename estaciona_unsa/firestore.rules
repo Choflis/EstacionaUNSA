@@ -76,8 +76,15 @@ service cloud.firestore {
       // Anyone authenticated can read spots
       allow read: if isAuthenticated();
       
-      // Only guards and admins can update spots
-      allow update: if isGuardOrAdmin();
+      // Users can update spots when reserving (change status to reserved)
+      // Guards and admins can update spots freely
+      allow update: if isAuthenticated() && (
+        // User reserving: can only change to 'reserved' status
+        (request.resource.data.status == 'reserved' && 
+         request.resource.data.currentOccupancy.userId == request.auth.uid) ||
+        // Guards and admins can do anything
+        isGuardOrAdmin()
+      );
       
       // Only admins can create/delete spots
       allow create, delete: if isAdmin();
