@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/auth_provider.dart';
+import '../../providers/reservation_provider.dart';
 import '../history_screen.dart';
 import '../my_vehicle_screen.dart';
 import '../../tests/manual_test_unit_002.dart';
@@ -15,6 +16,21 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+
+  @override
+  void initState() {
+    super.initState();
+    // Cargar datos al iniciar
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final authProvider = context.read<AuthProvider>();
+      final reservationProvider = context.read<ReservationProvider>();
+      
+      if (authProvider.isAuthenticated) {
+        reservationProvider.loadActiveReservations(authProvider.firebaseUser!.uid);
+        reservationProvider.loadReservationHistory(authProvider.firebaseUser!.uid);
+      }
+    });
+  }
 
   Future<void> _signOut() async {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
@@ -169,28 +185,67 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   // Estadísticas de Uso
                   _buildSectionTitle('Resumen de Actividad'),
                   const SizedBox(height: 12),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: _buildStatCard('0', 'Reservas\nActivas', Icons.bookmark_add_outlined),
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: _buildStatCard('0', 'Historial\nTotal', Icons.history),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 12),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: _buildStatCard('0h', 'Tiempo\nEstacionado', Icons.access_time),
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: _buildStatCard('0', 'Zonas\nUsadas', Icons.location_on_outlined),
-                      ),
-                    ],
+                  Consumer<ReservationProvider>(
+                    builder: (context, reservationProvider, child) {
+                      final stats = reservationProvider.getReservationStatistics();
+                      final activeCount = stats['active'] ?? 0;
+                      final totalCount = stats['total'] ?? 0;
+                      final completedCount = stats['completed'] ?? 0;
+                      
+                      // Calcular zonas únicas usadas
+                      final uniqueZones = <String>{};
+                      for (var reservation in reservationProvider.reservationHistory) {
+                        uniqueZones.add(reservation.zoneId);
+                      }
+                      
+                      return Column(
+                        children: [
+                          Row(
+                            children: [
+                              Expanded(
+                                child: _buildStatCard(
+                                  '$activeCount',
+                                  'Reservas\nActivas',
+                                  Icons.bookmark_add_outlined,
+                                  const Color(0xFF3B82F6),
+                                ),
+                              ),
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: _buildStatCard(
+                                  '$totalCount',
+                                  'Historial\nTotal',
+                                  Icons.history,
+                                  const Color(0xFF8A0000),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 12),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: _buildStatCard(
+                                  '$completedCount',
+                                  'Reservas\nCompletadas',
+                                  Icons.check_circle_outline,
+                                  const Color(0xFF10B981),
+                                ),
+                              ),
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: _buildStatCard(
+                                  '${uniqueZones.length}',
+                                  'Zonas\nUsadas',
+                                  Icons.location_on_outlined,
+                                  const Color(0xFFF59E0B),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      );
+                    },
                   ),
 
                   const SizedBox(height: 24),
@@ -349,45 +404,58 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget _buildStatCard(String value, String label, IconData icon) {
+  Widget _buildStatCard(String value, String label, IconData icon, Color color) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     
     return Container(
       decoration: BoxDecoration(
         color: isDark ? const Color(0xFF1C2A38) : Colors.white,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: color.withValues(alpha: 0.3),
+          width: 1.5,
+        ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.08),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
+            color: color.withValues(alpha: 0.1),
+            blurRadius: 12,
+            offset: const Offset(0, 4),
           ),
         ],
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+      padding: const EdgeInsets.all(16),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, color: const Color(0xFF8A0000), size: 26),
-          const SizedBox(height: 6),
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: color.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(icon, color: color, size: 28),
+          ),
+          const SizedBox(height: 12),
           Text(
             value,
-            style: const TextStyle(
-              fontSize: 20,
+            style: TextStyle(
+              fontSize: 24,
               fontWeight: FontWeight.bold,
-              color: Color(0xFF8A0000),
+              color: color,
+              letterSpacing: -0.5,
             ),
           ),
-          const SizedBox(height: 2),
+          const SizedBox(height: 4),
           Text(
             label,
             textAlign: TextAlign.center,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
-              fontSize: 10,
+              fontSize: 11,
               color: Colors.grey[600],
-              height: 1.1,
+              height: 1.2,
+              fontWeight: FontWeight.w500,
             ),
           ),
         ],
