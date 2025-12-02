@@ -8,6 +8,7 @@ import 'providers/auth_provider.dart';
 import 'providers/parking_provider.dart';
 import 'providers/reservation_provider.dart';
 import 'providers/notification_provider.dart';
+import 'widgets/common/expiration_checker_wrapper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,15 +33,16 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ReservationProvider()),
         ChangeNotifierProvider(create: (_) => NotificationProvider()),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'EstacionaUNSA',
-        theme: appTheme,
-        initialRoute: AppRoutes.authWrapper,
-        routes: AppRoutes.routes,
-        onGenerateRoute: AppRoutes.onGenerateRoute,
+      child: ExpirationCheckerWrapper(
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'EstacionaUNSA',
+          theme: appTheme,
+          initialRoute: AppRoutes.authWrapper,
+          routes: AppRoutes.routes,
+          onGenerateRoute: AppRoutes.onGenerateRoute,
+        ),
       ),
     );
   }
 }
-

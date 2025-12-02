@@ -76,12 +76,28 @@ service cloud.firestore {
       // Anyone authenticated can read spots
       allow read: if isAuthenticated();
       
-      // Users can update spots when reserving (change status to reserved)
+      // Users can update spots when reserving or cancelling
       // Guards and admins can update spots freely
       allow update: if isAuthenticated() && (
-        // User reserving: can only change to 'reserved' status
-        (request.resource.data.status == 'reserved' && 
+        // User reserving: can change from 'available' to 'reserved'
+        (resource.data.status == 'available' && 
+         request.resource.data.status == 'reserved' &&
+         request.resource.data.currentOccupancy != null &&
          request.resource.data.currentOccupancy.userId == request.auth.uid) ||
+        
+        // User cancelling: can change from 'reserved' to 'available'
+        // Check that the current occupancy belongs to the user
+        (resource.data.status == 'reserved' &&
+         request.resource.data.status == 'available' &&
+         resource.data.currentOccupancy != null &&
+         resource.data.currentOccupancy.userId == request.auth.uid) ||
+        
+        // User using reservation: can change from 'reserved' to 'occupied'
+        (resource.data.status == 'reserved' &&
+         request.resource.data.status == 'occupied' &&
+         resource.data.currentOccupancy != null &&
+         resource.data.currentOccupancy.userId == request.auth.uid) ||
+        
         // Guards and admins can do anything
         isGuardOrAdmin()
       );

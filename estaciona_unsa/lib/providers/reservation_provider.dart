@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/foundation.dart';
 import '../models/reservation_model.dart';
 import '../models/parking_spot_model.dart';
@@ -13,6 +14,9 @@ class ReservationProvider extends ChangeNotifier {
   
   bool _isLoading = false;
   String? _errorMessage;
+  
+  // Timer para verificar expiración automática
+  Timer? _expirationTimer;
 
   // Getters
   List<ReservationModel> get activeReservations => _activeReservations;
@@ -41,16 +45,26 @@ class ReservationProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
+      print('🔵 [DEBUG] Iniciando createReservation');
+      print('🔵 [DEBUG] userId: $userId');
+      print('🔵 [DEBUG] spotId: $spotId');
+      print('🔵 [DEBUG] zoneId: $zoneId');
+      
       // Validar que no tenga reservas activas
+      print('🔵 [DEBUG] Verificando reservas activas...');
       final activeReservations = await _firestoreService.getUserActiveReservations(userId);
+      print('🔵 [DEBUG] Reservas activas encontradas: ${activeReservations.length}');
+      
       if (activeReservations.isNotEmpty) {
         _isLoading = false;
         _errorMessage = 'Ya tienes una reserva activa. Cancélala primero.';
         notifyListeners();
+        print('❌ [DEBUG] Usuario ya tiene reserva activa');
         return null;
       }
 
       // Crear la reserva
+      print('🔵 [DEBUG] Creando modelo de reserva...');
       final now = DateTime.now();
       final expiresAt = now.add(Duration(minutes: durationMinutes));
 
@@ -74,9 +88,12 @@ class ReservationProvider extends ChangeNotifier {
         updatedAt: now,
       );
 
+      print('🔵 [DEBUG] Guardando reserva en Firestore...');
       final reservationId = await _firestoreService.createReservation(reservation);
+      print('✅ [DEBUG] Reserva creada con ID: $reservationId');
 
       // Actualizar estado del espacio a "reserved"
+      print('🔵 [DEBUG] Actualizando estado del spot a reserved...');
       await _firestoreService.updateSpotStatus(
         spotId,
         'reserved',
@@ -86,18 +103,24 @@ class ReservationProvider extends ChangeNotifier {
           reservedUntil: expiresAt,
         ),
       );
+      print('✅ [DEBUG] Spot actualizado correctamente');
 
       // Recargar reservas activas
+      print('🔵 [DEBUG] Recargando reservas activas...');
       await loadActiveReservations(userId);
+      print('✅ [DEBUG] Reservas recargadas');
 
       _isLoading = false;
       notifyListeners();
+      print('✅ [DEBUG] createReservation completado exitosamente');
       return reservationId;
     } catch (e) {
       _isLoading = false;
       _errorMessage = 'Error al crear reserva: $e';
       notifyListeners();
       logger.e('Error creating reservation: $e');
+      print('❌ [DEBUG] ERROR en createReservation: $e');
+      print('❌ [DEBUG] Stack trace: ${StackTrace.current}');
       return null;
     }
   }
@@ -383,5 +406,34 @@ class ReservationProvider extends ChangeNotifier {
       'cancelled': _reservationHistory.where((r) => r.isCancelled).length,
       'expired': _reservationHistory.where((r) => r.isExpired).length,
     };
+  }
+  
+  // ========== EXPIRACIÓN AUTOMÁTICA ==========
+  
+  /// Inicia un timer que verifica cada 30 segundos si hay reservas expiradas
+  void startExpirationChecker(String userId) {
+    // Cancelar timer anterior si existe
+    _expirationTimer?.cancel();
+    
+    print('⏰ Iniciando verificador de expiración automática');
+    
+    // Verificar cada 30 segundos
+    _expirationTimer = Timer.periodic(Duration(seconds: 30), (timer) async {
+      print('⏰ Verificando reservas expiradas...');
+      await checkAndExpireReservations(userId);
+    });
+  }
+  
+  /// Detiene el timer de verificación de expiración
+  void stopExpirationChecker() {
+    _expirationTimer?.cancel();
+    _expirationTimer = null;
+    print('⏰ Verificador de expiración detenido');
+  }
+  
+  @override
+  void dispose() {
+    stopExpirationChecker();
+    super.dispose();
   }
 }

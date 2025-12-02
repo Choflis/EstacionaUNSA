@@ -150,13 +150,29 @@ class FirestoreService {
 
   Future<void> updateSpotStatus(String spotId, String status, {CurrentOccupancy? occupancy}) async {
     try {
-      await _firestore.collection('parking_spots').doc(spotId).update({
+      print('🔵 [DEBUG updateSpotStatus] spotId: $spotId, status: $status');
+      print('🔵 [DEBUG updateSpotStatus] occupancy: ${occupancy?.toMap()}');
+      
+      final Map<String, dynamic> updateData = {
         'status': status,
-        if (occupancy != null) 'currentOccupancy': occupancy.toMap(),
         'updatedAt': FieldValue.serverTimestamp(),
-      });
+      };
+      
+      // Si occupancy es null, eliminar el campo; si no, actualizarlo
+      if (occupancy != null) {
+        updateData['currentOccupancy'] = occupancy.toMap();
+        print('🔵 [DEBUG updateSpotStatus] Agregando currentOccupancy');
+      } else {
+        updateData['currentOccupancy'] = FieldValue.delete();
+        print('🔵 [DEBUG updateSpotStatus] Eliminando currentOccupancy');
+      }
+      
+      print('🔵 [DEBUG updateSpotStatus] updateData: $updateData');
+      await _firestore.collection('parking_spots').doc(spotId).update(updateData);
+      print('✅ [DEBUG updateSpotStatus] Spot actualizado exitosamente');
     } catch (e) {
       logger.e('Error updating spot status: $e');
+      print('❌ [DEBUG updateSpotStatus] ERROR: $e');
       rethrow;
     }
   }
