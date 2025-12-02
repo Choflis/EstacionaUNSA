@@ -3,6 +3,9 @@ import 'package:provider/provider.dart';
 import '../../providers/auth_provider.dart';
 import '../history_screen.dart';
 import '../my_vehicle_screen.dart';
+import '../../tests/manual_test_unit_002.dart';
+import '../../tests/manual_test_unit_003.dart';
+import '../../tests/manual_test_unit_004.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -48,6 +51,49 @@ class _ProfileScreenState extends State<ProfileScreen> {
     
     return Scaffold(
       backgroundColor: isDark ? const Color(0xFF101922) : const Color(0xFFF6F7F8),
+      floatingActionButton: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          FloatingActionButton.extended(
+            onPressed: () async {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Ejecutando UNIT-004... Ver consola')),
+              );
+              await ManualTestUnit004.runTests();
+            },
+            label: const Text('TEST UNIT-004'),
+            icon: const Icon(Icons.check_circle),
+            backgroundColor: Colors.blue,
+            heroTag: 'unit004',
+          ),
+          const SizedBox(height: 8),
+          FloatingActionButton.extended(
+            onPressed: () async {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Ejecutando UNIT-003... Ver consola')),
+              );
+              await ManualTestUnit003.runTests();
+            },
+            label: const Text('TEST UNIT-003'),
+            icon: const Icon(Icons.storage),
+            backgroundColor: Colors.green,
+            heroTag: 'unit003',
+          ),
+          const SizedBox(height: 8),
+          FloatingActionButton.extended(
+            onPressed: () async {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Ejecutando UNIT-002... Ver consola')),
+              );
+              await ManualTestUnit002.runTests();
+            },
+            label: const Text('TEST UNIT-002'),
+            icon: const Icon(Icons.science),
+            backgroundColor: Colors.orange,
+            heroTag: 'unit002',
+          ),
+        ],
+      ),
       body: CustomScrollView(
         slivers: [
           // Header simple y limpio
