@@ -769,57 +769,39 @@ class _HomeScreenState extends State<HomeScreen> {
           
           const SizedBox(height: 16),
           
-          Row(
-            children: [
-              if (!isUsed)
-                Expanded(
-                  child: ElevatedButton.icon(
-                    onPressed: _useReservation,
-                    icon: const Icon(Icons.check_circle, size: 20),
-                    label: const Text('Ya me estacioné'),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                      foregroundColor: const Color(0xFF3B82F6),
-                      padding: const EdgeInsets.symmetric(vertical: 12),
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                  ),
+          // Botón de acción según el estado
+          if (!isUsed)
+            ElevatedButton.icon(
+              onPressed: _useReservation,
+              icon: const Icon(Icons.check_circle, size: 20),
+              label: const Text('Ya me estacioné'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white,
+                foregroundColor: const Color(0xFF3B82F6),
+                padding: const EdgeInsets.symmetric(vertical: 14),
+                elevation: 0,
+                minimumSize: const Size(double.infinity, 48),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
                 ),
-              if (isUsed)
-                Expanded(
-                  child: ElevatedButton.icon(
-                    onPressed: _completeReservation,
-                    icon: const Icon(Icons.exit_to_app, size: 20),
-                    label: const Text('Ya me salí'),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                      foregroundColor: const Color(0xFF10B981),
-                      padding: const EdgeInsets.symmetric(vertical: 12),
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                  ),
-                ),
-              const SizedBox(width: 12),
-              OutlinedButton(
-                onPressed: () => Navigator.pushNamed(context, '/my-reservation'),
-                style: OutlinedButton.styleFrom(
-                  foregroundColor: Colors.white,
-                  side: const BorderSide(color: Colors.white, width: 1.5),
-                  padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-                child: const Icon(Icons.arrow_forward, size: 20),
               ),
-            ],
-          ),
+            ),
+          if (isUsed)
+            ElevatedButton.icon(
+              onPressed: _completeReservation,
+              icon: const Icon(Icons.exit_to_app, size: 20),
+              label: const Text('Ya me salí'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white,
+                foregroundColor: const Color(0xFF10B981),
+                padding: const EdgeInsets.symmetric(vertical: 14),
+                elevation: 0,
+                minimumSize: const Size(double.infinity, 48),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
         ],
       ),
     );
