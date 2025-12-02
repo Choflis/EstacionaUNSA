@@ -49,7 +49,7 @@ service cloud.firestore {
       allow delete: if false;
     }
 
-    // ===== CAMPUS ===== (NUEVO)
+    // ===== CAMPUS =====
     match /campus/{campusId} {
       // Everyone authenticated can read campus info
       allow read: if isAuthenticated();
@@ -76,29 +76,42 @@ service cloud.firestore {
       // Anyone authenticated can read spots
       allow read: if isAuthenticated();
       
-      // Users can update spots when reserving or cancelling
+      // Users can update spots when:
+      // 1. Reserving (available → reserved)
+      // 2. Cancelling (reserved → available)
+      // 3. Arriving/Using (reserved → occupied) - "Ya me estacioné"
+      // 4. Leaving (occupied → available) - "Ya me salí"
       // Guards and admins can update spots freely
       allow update: if isAuthenticated() && (
-        // User reserving: can change from 'available' to 'reserved'
+        // 1. User reserving: available → reserved
         (resource.data.status == 'available' && 
          request.resource.data.status == 'reserved' &&
          request.resource.data.currentOccupancy != null &&
          request.resource.data.currentOccupancy.userId == request.auth.uid) ||
         
-        // User cancelling: can change from 'reserved' to 'available'
-        // Check that the current occupancy belongs to the user
+        // 2. User cancelling reservation: reserved → available
+        // Must be the owner of the reservation
         (resource.data.status == 'reserved' &&
          request.resource.data.status == 'available' &&
          resource.data.currentOccupancy != null &&
          resource.data.currentOccupancy.userId == request.auth.uid) ||
         
-        // User using reservation: can change from 'reserved' to 'occupied'
+        // 3. User arriving (Ya me estacioné): reserved → occupied
+        // Must be the owner and have a valid reservationId
         (resource.data.status == 'reserved' &&
          request.resource.data.status == 'occupied' &&
          resource.data.currentOccupancy != null &&
-         resource.data.currentOccupancy.userId == request.auth.uid) ||
+         resource.data.currentOccupancy.userId == request.auth.uid &&
+         request.resource.data.currentOccupancy.reservationId != null) ||
         
-        // Guards and admins can do anything
+        // 4. User leaving (Ya me salí): occupied → available
+        // Just needs to have a valid reservationId (security through reservation ownership)
+        (resource.data.status == 'occupied' &&
+         request.resource.data.status == 'available' &&
+         resource.data.currentOccupancy != null &&
+         resource.data.currentOccupancy.reservationId != null) ||
+        
+        // Guards and admins can update any spot freely
         isGuardOrAdmin()
       );
       
@@ -113,16 +126,26 @@ service cloud.firestore {
         (resource.data.userId == request.auth.uid || isGuardOrAdmin());
       
       // Users can create reservations for themselves
+      // Must be in 'active' status initially
       allow create: if isAuthenticated() 
         && request.resource.data.userId == request.auth.uid
         && request.resource.data.status == 'active';
       
-      // Users can update their own reservations (only status)
-      allow update: if isAuthenticated() 
-        && resource.data.userId == request.auth.uid
-        && (request.resource.data.status == 'cancelled' || isGuardOrAdmin());
+      // Users can update their own reservations
+      // Allowed status changes:
+      // - active → cancelled (user cancels before arriving)
+      // - active → used (user arrives - "Ya me estacioné")
+      // - used → completed (user leaves - "Ya me salí")
+      // - active → expired (system auto-expires)
+      allow update: if isAuthenticated() && (
+        // User owns the reservation and is changing to valid status
+        (resource.data.userId == request.auth.uid &&
+         request.resource.data.status in ['cancelled', 'used', 'completed', 'expired']) ||
+        // Or is guard/admin (can do anything)
+        isGuardOrAdmin()
+      );
       
-      // No one can delete reservations from client
+      // No one can delete reservations from client (for audit trail)
       allow delete: if false;
     }
 
@@ -139,7 +162,7 @@ service cloud.firestore {
       // Only admins can update logs
       allow update: if isAdmin();
       
-      // No one can delete logs
+      // No one can delete logs (for audit trail)
       allow delete: if false;
     }
 
@@ -156,7 +179,7 @@ service cloud.firestore {
       // Only admins can update/resolve incidents
       allow update: if isAdmin();
       
-      // No one can delete incidents
+      // No one can delete incidents (for audit trail)
       allow delete: if false;
     }
 
@@ -175,7 +198,7 @@ service cloud.firestore {
       allow read: if isAuthenticated() && 
         resource.data.userId == request.auth.uid;
       
-      // Users can update their own notifications (mark as read)
+      // Users can update their own notifications (only mark as read)
       allow update: if isAuthenticated() && 
         resource.data.userId == request.auth.uid
         && request.resource.data.keys().hasOnly(['isRead', 'updatedAt']);

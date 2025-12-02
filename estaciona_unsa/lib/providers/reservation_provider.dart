@@ -208,16 +208,19 @@ class ReservationProvider extends ChangeNotifier {
     }
   }
 
-  // ========== MARCAR RESERVA COMO USADA ==========
+  // ========== MARCAR RESERVA COMO USADA (YA ME ESTACIONÉ) ==========
 
-  Future<bool> useReservation(String reservationId, String spotId) async {
+  Future<bool> useReservation(String reservationId, String spotId, String userId) async {
     _isLoading = true;
     _errorMessage = null;
     notifyListeners();
 
     try {
+      print('🟢 Actualizando reserva a used: $reservationId');
+      
       // Actualizar estado de la reserva a "used"
       await _firestoreService.updateReservationStatus(reservationId, 'used');
+      print('✅ Reserva actualizada en Firestore');
 
       // Actualizar el espacio a "occupied"
       await _firestoreService.updateSpotStatus(
@@ -228,13 +231,11 @@ class ReservationProvider extends ChangeNotifier {
           occupiedSince: DateTime.now(),
         ),
       );
+      print('✅ Espacio actualizado a occupied');
 
-      // Actualizar lista local
-      _activeReservations.removeWhere((r) => r.reservationId == reservationId);
-      
-      if (_currentReservation?.reservationId == reservationId) {
-        _currentReservation = null;
-      }
+      // Recargar las reservas desde Firebase para tener el estado más actual
+      await loadActiveReservations(userId);
+      print('✅ Reservas recargadas desde Firebase');
 
       _isLoading = false;
       notifyListeners();
@@ -244,6 +245,46 @@ class ReservationProvider extends ChangeNotifier {
       _errorMessage = 'Error al usar reserva: $e';
       notifyListeners();
       logger.e('Error using reservation: $e');
+      print('❌ Error al usar reserva: $e');
+      return false;
+    }
+  }
+
+  // ========== COMPLETAR RESERVA (YA ME SALÍ) ==========
+
+  Future<bool> completeReservation(String reservationId, String spotId, String userId) async {
+    _isLoading = true;
+    _errorMessage = null;
+    notifyListeners();
+
+    try {
+      print('🟢 Completando reserva: $reservationId');
+      
+      // Actualizar estado de la reserva a "completed"
+      await _firestoreService.updateReservationStatus(reservationId, 'completed');
+      print('✅ Reserva marcada como completed');
+
+      // Liberar el espacio
+      await _firestoreService.updateSpotStatus(
+        spotId,
+        'available',
+        occupancy: null,
+      );
+      print('✅ Espacio liberado');
+
+      // Recargar las reservas desde Firebase
+      await loadActiveReservations(userId);
+      print('✅ Reservas recargadas desde Firebase');
+
+      _isLoading = false;
+      notifyListeners();
+      return true;
+    } catch (e) {
+      _isLoading = false;
+      _errorMessage = 'Error al completar reserva: $e';
+      notifyListeners();
+      logger.e('Error completing reservation: $e');
+      print('❌ Error al completar reserva: $e');
       return false;
     }
   }

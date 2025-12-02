@@ -8,7 +8,8 @@ class ParkingProvider extends ChangeNotifier {
   final FirestoreService _firestoreService = FirestoreService();
 
   List<ParkingZoneModel> _zones = [];
-  List<ParkingSpotModel> _spots = [];
+  List<ParkingSpotModel> _spots = []; // TODOS los spots de TODAS las zonas
+  List<ParkingSpotModel> _currentZoneSpots = []; // Solo los spots de la zona actual
   ParkingZoneModel? _selectedZone;
   ParkingSpotModel? _selectedSpot;
   
@@ -17,23 +18,24 @@ class ParkingProvider extends ChangeNotifier {
 
   // Getters
   List<ParkingZoneModel> get zones => _zones;
-  List<ParkingSpotModel> get spots => _spots;
+  List<ParkingSpotModel> get spots => _currentZoneSpots; // Devuelve los de la zona actual
+  List<ParkingSpotModel> get allSpots => _spots; // Nuevo getter para todos los spots
   ParkingZoneModel? get selectedZone => _selectedZone;
   ParkingSpotModel? get selectedSpot => _selectedSpot;
   bool get isLoading => _isLoading;
   String? get errorMessage => _errorMessage;
 
-  // Filtrados
+  // Filtrados (usan _currentZoneSpots para la zona actual)
   List<ParkingSpotModel> get availableSpots =>
-      _spots.where((spot) => spot.isAvailable).toList();
+      _currentZoneSpots.where((spot) => spot.isAvailable).toList();
 
   List<ParkingSpotModel> get occupiedSpots =>
-      _spots.where((spot) => spot.isOccupied).toList();
+      _currentZoneSpots.where((spot) => spot.isOccupied).toList();
 
   List<ParkingSpotModel> get reservedSpots =>
-      _spots.where((spot) => spot.isReserved).toList();
+      _currentZoneSpots.where((spot) => spot.isReserved).toList();
 
-  int get totalSpots => _spots.length;
+  int get totalSpots => _currentZoneSpots.length;
   int get availableSpotsCount => availableSpots.length;
   int get occupiedSpotsCount => occupiedSpots.length;
   int get reservedSpotsCount => reservedSpots.length;
@@ -65,7 +67,14 @@ class ParkingProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      _spots = await _firestoreService.getSpotsByZone(zoneId);
+      final zoneSpots = await _firestoreService.getSpotsByZone(zoneId);
+      _currentZoneSpots = zoneSpots;
+      
+      // Actualizar también en _spots (todos los spots)
+      // Remover los spots viejos de esta zona y agregar los nuevos
+      _spots.removeWhere((spot) => spot.zoneId == zoneId);
+      _spots.addAll(zoneSpots);
+      
       _isLoading = false;
       notifyListeners();
     } catch (e) {
@@ -73,6 +82,19 @@ class ParkingProvider extends ChangeNotifier {
       _errorMessage = 'Error al cargar espacios: $e';
       notifyListeners();
       logger.e('Error loading spots: $e');
+    }
+  }
+
+  // ========== CARGAR TODOS LOS ESPACIOS ==========
+
+  Future<void> loadAllSpots() async {
+    try {
+      _spots = await _firestoreService.getAllSpots();
+      notifyListeners();
+    } catch (e) {
+      _errorMessage = 'Error al cargar todos los espacios: $e';
+      notifyListeners();
+      logger.e('Error loading all spots: $e');
     }
   }
 
@@ -84,7 +106,7 @@ class ParkingProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      _spots = await _firestoreService.getAvailableSpots(zoneId);
+      _currentZoneSpots = await _firestoreService.getAvailableSpots(zoneId);
       _isLoading = false;
       notifyListeners();
     } catch (e) {

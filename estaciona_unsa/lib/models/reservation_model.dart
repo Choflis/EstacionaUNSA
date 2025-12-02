@@ -6,7 +6,7 @@ class ReservationModel {
   final String spotId;
   final String zoneId;
   final ReservationTime time;
-  final String status; // "active", "used", "expired", "cancelled"
+  final String status; // "active", "used", "completed", "expired", "cancelled"
   final UserLocation location;
   final DateTime createdAt;
   final DateTime updatedAt;
@@ -59,6 +59,7 @@ class ReservationModel {
   bool get isExpired => status == 'expired';
   bool get isUsed => status == 'used';
   bool get isCancelled => status == 'cancelled';
+  bool get isCompleted => status == 'completed';
 
   Duration? get remainingTime {
     if (!isActive) return null;

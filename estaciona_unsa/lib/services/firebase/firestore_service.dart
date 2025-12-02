@@ -128,6 +128,18 @@ class FirestoreService {
     }
   }
 
+  Future<List<ParkingSpotModel>> getAllSpots() async {
+    try {
+      final snapshot = await _firestore
+          .collection('parking_spots')
+          .get();
+      return snapshot.docs.map((doc) => ParkingSpotModel.fromDocument(doc)).toList();
+    } catch (e) {
+      logger.e('Error getting all spots: $e');
+      rethrow;
+    }
+  }
+
   Future<ParkingSpotModel?> getSpot(String spotId) async {
     try {
       final doc = await _firestore.collection('parking_spots').doc(spotId).get();
@@ -205,7 +217,7 @@ class FirestoreService {
       final snapshot = await _firestore
           .collection('reservations')
           .where('userId', isEqualTo: userId)
-          .where('status', isEqualTo: 'active')
+          .where('status', whereIn: ['active', 'used'])
           .get();
       return snapshot.docs.map((doc) => ReservationModel.fromDocument(doc)).toList();
     } catch (e) {
@@ -219,13 +231,21 @@ class FirestoreService {
       final snapshot = await _firestore
           .collection('reservations')
           .where('userId', isEqualTo: userId)
-          .orderBy('createdAt', descending: true)
-          .limit(limit)
+          .where('status', whereIn: ['completed', 'cancelled', 'expired'])
           .get();
-      return snapshot.docs.map((doc) => ReservationModel.fromDocument(doc)).toList();
+      
+      final reservations = snapshot.docs
+          .map((doc) => ReservationModel.fromDocument(doc))
+          .toList();
+      
+      // Ordenar en memoria por fecha
+      reservations.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+      
+      // Limitar resultados
+      return reservations.take(limit).toList();
     } catch (e) {
       logger.e('Error getting reservation history: $e');
-      rethrow;
+      return [];
     }
   }
 
