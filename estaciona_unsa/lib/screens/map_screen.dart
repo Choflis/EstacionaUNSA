@@ -3,6 +3,8 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import '../providers/parking_provider.dart';
 import '../models/parking_zone_model.dart';
 import 'dart:async';
@@ -19,6 +21,8 @@ class _MapScreenState extends State<MapScreen> {
   Position? _currentPosition;
   bool _isLoadingLocation = true;
   final List<Marker> _markers = [];
+  final List<LatLng> _routePoints = [];
+  ParkingZoneModel? _selectedZoneForRoute;
   
   // Coordenadas de la UNSA (Arequipa)
   static const LatLng _unsaLocation = LatLng(-16.403736, -71.526178);
@@ -379,9 +383,220 @@ class _MapScreenState extends State<MapScreen> {
     );
   }
 
-  void _navigateToZone(ParkingZoneModel zone) {
-    final destination = LatLng(zone.location.latitude, zone.location.longitude);
-    _mapController?.move(destination, 18);
+  void _navigateToZone(ParkingZoneModel zone) async {
+    if (_currentPosition == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('No se pudo obtener tu ubicación'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+
+    // Mostrar indicador de carga
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => const Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+
+    try {
+      // Obtener ruta usando OSRM
+      final route = await _getRouteFromOSRM(
+        _currentPosition!.latitude,
+        _currentPosition!.longitude,
+        zone.location.latitude,
+        zone.location.longitude,
+      );
+
+      if (!mounted) return;
+      Navigator.pop(context); // Cerrar loading
+
+      if (route != null) {
+        setState(() {
+          _selectedZoneForRoute = zone;
+          _routePoints.clear();
+          _routePoints.addAll(route['points']);
+        });
+
+        // Calcular el centro y zoom para mostrar toda la ruta
+        final bounds = LatLngBounds.fromPoints(_routePoints);
+        _mapController?.fitCamera(
+          CameraFit.bounds(
+            bounds: bounds,
+            padding: const EdgeInsets.all(50),
+          ),
+        );
+
+        // Mostrar información de la ruta
+        _showRouteInfo(zone, route['distance'], route['duration']);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('No se pudo calcular la ruta'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        Navigator.pop(context); // Cerrar loading
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error al calcular ruta: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
+  }
+
+  Future<Map<String, dynamic>?> _getRouteFromOSRM(
+    double startLat,
+    double startLon,
+    double endLat,
+    double endLon,
+  ) async {
+    try {
+      // URL de OSRM público para obtener la ruta
+      final url = Uri.parse(
+        'https://router.project-osrm.org/route/v1/driving/$startLon,$startLat;$endLon,$endLat?overview=full&geometries=geojson',
+      );
+
+      final response = await http.get(url);
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        
+        if (data['code'] == 'Ok' && data['routes'].isNotEmpty) {
+          final route = data['routes'][0];
+          final geometry = route['geometry']['coordinates'] as List;
+          
+          // Convertir coordenadas de GeoJSON a LatLng
+          final points = geometry.map((coord) {
+            return LatLng(coord[1].toDouble(), coord[0].toDouble());
+          }).toList();
+
+          return {
+            'points': points,
+            'distance': route['distance'].toDouble(), // en metros
+            'duration': route['duration'].toDouble(), // en segundos
+          };
+        }
+      }
+      return null;
+    } catch (e) {
+      print('Error getting route from OSRM: $e');
+      return null;
+    }
+  }
+
+  void _showRouteInfo(ParkingZoneModel zone, double distanceInMeters, double durationInSeconds) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final distanceText = distanceInMeters < 1000
+        ? '${distanceInMeters.toStringAsFixed(0)} m'
+        : '${(distanceInMeters / 1000).toStringAsFixed(2)} km';
+    
+    // Convertir duración de segundos a minutos
+    final timeInMinutes = durationInSeconds / 60;
+    final timeText = timeInMinutes < 1
+        ? 'menos de 1 min'
+        : '${timeInMinutes.toStringAsFixed(0)} min';
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: isDark ? const Color(0xFF1A1F2E) : Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+        title: Row(
+          children: [
+            const Icon(Icons.directions, color: Color(0xFF10B981)),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Text(
+                'Ruta a ${zone.name}',
+                style: const TextStyle(fontSize: 18),
+              ),
+            ),
+          ],
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildRouteInfoRow(Icons.straighten, 'Distancia', distanceText, isDark),
+            const SizedBox(height: 12),
+            _buildRouteInfoRow(Icons.access_time, 'Tiempo estimado', timeText, isDark),
+            const SizedBox(height: 12),
+            _buildRouteInfoRow(Icons.location_on, 'Destino', zone.location.address, isDark),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              setState(() {
+                _routePoints.clear();
+                _selectedZoneForRoute = null;
+              });
+              Navigator.pop(context);
+            },
+            child: const Text('Cerrar'),
+          ),
+          ElevatedButton.icon(
+            onPressed: () {
+              Navigator.pop(context);
+              // Aquí podrías abrir Google Maps o Waze si quieres
+            },
+            icon: const Icon(Icons.navigation),
+            label: const Text('Comenzar'),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF10B981),
+              foregroundColor: Colors.white,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildRouteInfoRow(IconData icon, String label, String value, bool isDark) {
+    return Row(
+      children: [
+        Icon(
+          icon,
+          size: 20,
+          color: isDark ? Colors.grey.shade400 : Colors.grey.shade600,
+        ),
+        const SizedBox(width: 12),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                label,
+                style: TextStyle(
+                  fontSize: 12,
+                  color: isDark ? Colors.grey.shade400 : Colors.grey.shade600,
+                ),
+              ),
+              Text(
+                value,
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                  color: isDark ? Colors.white : Colors.black87,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 
   @override
@@ -410,6 +625,19 @@ class _MapScreenState extends State<MapScreen> {
                 subdomains: isDark ? [] : ['a', 'b', 'c'],
                 userAgentPackageName: 'com.unsa.estaciona_unsa',
               ),
+              // Ruta dibujada
+              if (_routePoints.isNotEmpty)
+                PolylineLayer(
+                  polylines: [
+                    Polyline(
+                      points: _routePoints,
+                      strokeWidth: 4,
+                      color: const Color(0xFF10B981),
+                      borderStrokeWidth: 2,
+                      borderColor: Colors.white,
+                    ),
+                  ],
+                ),
               MarkerLayer(markers: _markers),
               if (_currentPosition != null)
                 MarkerLayer(
@@ -499,23 +727,54 @@ class _MapScreenState extends State<MapScreen> {
           Positioned(
             right: 16,
             bottom: 200,
-            child: FloatingActionButton(
-              onPressed: () {
-                if (_currentPosition != null) {
-                  _mapController?.move(
-                    LatLng(
-                      _currentPosition!.latitude,
-                      _currentPosition!.longitude,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Botón para limpiar ruta (solo visible cuando hay una ruta)
+                if (_routePoints.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 12),
+                    child: FloatingActionButton.extended(
+                      onPressed: () {
+                        setState(() {
+                          _routePoints.clear();
+                          _selectedZoneForRoute = null;
+                        });
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Ruta eliminada'),
+                            duration: Duration(seconds: 2),
+                          ),
+                        );
+                      },
+                      backgroundColor: Colors.red,
+                      icon: const Icon(Icons.clear, color: Colors.white),
+                      label: const Text(
+                        'Limpiar ruta',
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
-                    17,
-                  );
-                }
-              },
-              backgroundColor: isDark ? const Color(0xFF1A1F2E) : Colors.white,
-              child: Icon(
-                Icons.my_location,
-                color: isDark ? Colors.white : Colors.black87,
-              ),
+                  ),
+                // Botón de mi ubicación
+                FloatingActionButton(
+                  onPressed: () {
+                    if (_currentPosition != null) {
+                      _mapController?.move(
+                        LatLng(
+                          _currentPosition!.latitude,
+                          _currentPosition!.longitude,
+                        ),
+                        17,
+                      );
+                    }
+                  },
+                  backgroundColor: isDark ? const Color(0xFF1A1F2E) : Colors.white,
+                  child: Icon(
+                    Icons.my_location,
+                    color: isDark ? Colors.white : Colors.black87,
+                  ),
+                ),
+              ],
             ),
           ),
         ],
