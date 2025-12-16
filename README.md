@@ -112,14 +112,27 @@ start ms-settings:developers
 
 Toda la documentación técnica del proyecto está organizada en la carpeta [`documentacion/`](documentacion/):
 
+### 📖 Documentos Finales
+
+| Documento | Descripción |
+|-----------|-------------|
+| [`MANUAL_USUARIO.md`](documentacion/MANUAL_USUARIO.md) | Manual completo de usuario con guía de todas las funcionalidades |
+| [`INFORME_FINAL.md`](documentacion/INFORME_FINAL.md) | Informe técnico del proyecto con proceso de desarrollo, tecnologías y lecciones aprendidas |
+
+### 🔧 Documentación Técnica
+
 | Documento | Descripción |
 |-----------|-------------|
 | [`SETUP.md`](documentacion/SETUP.md) | Guía completa de configuración (Firebase, Google Sign-In, Firestore) |
 | [`DATABASE.md`](documentacion/DATABASE.md) | Estructura de la base de datos, modelos y relaciones |
 | [`DESARROLLO.md`](documentacion/DESARROLLO.md) | Guía de desarrollo, arquitectura y convenciones de código |
-| [`casosDeUso.md`](documentacion/casosDeUso.md) | Casos de uso y descripción funcional del sistema |
-| [`DATABASE_DESIGN.md`](documentacion/DATABASE_DESIGN.md) | Diseño detallado de la base de datos |
-| [`DATABASE_SUMMARY.md`](documentacion/DATABASE_SUMMARY.md) | Resumen visual de la base de datos |
+| [`GUIA_INTEGRACION_PROVIDERS.md`](documentacion/GUIA_INTEGRACION_PROVIDERS.md) | Guía para integrar providers en la aplicación |
+
+### 🧪 Testing
+
+| Documento | Descripción |
+|-----------|-------------|
+| [`testing/`](documentacion/testing/) | Plan completo de testing en 5 fases con evidencias y resultados |
 
 ---
 
@@ -183,7 +196,15 @@ Por favor, abre issues describiendo bugs o propuestas de mejora antes de PR gran
 - Dennis Javier Quispe Saavedra — Diseño UI/UX  
 - Fernando Miguel Garambel Marín — Backend & Firebase
 
-(Actualiza los nombres y roles según corresponda.)
+---
+
+## Descarga
+
+**APK Android:**  
+El archivo APK compilado (`estaciona-unsa.apk`) está disponible en la carpeta `estaciona_unsa/` del repositorio.
+
+**Video Demostrativo:**  
+Disponible en Google Drive junto con el APK.
 
 ---
 
