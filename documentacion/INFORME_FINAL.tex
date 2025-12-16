@@ -1,0 +1,1492 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+]{article}
+\usepackage{xcolor}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{5}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\newenvironment{Shaded}{}{}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{#1}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.50,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.50,0.00}{\textbf{#1}}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\ifLuaTeX
+\usepackage[bidi=basic]{babel}
+\else
+\usepackage[bidi=default]{babel}
+\fi
+\babelprovide[main,import]{spanish}
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdflang={es},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\author{}
+\date{}
+
+\begin{document}
+
+{
+\setcounter{tocdepth}{3}
+\tableofcontents
+}
+\section{ Informe Final -
+EstacionaUNSA}\label{informe-final---estacionaunsa}
+
+\textbf{Sistema de Gestión de Estacionamientos Universitarios}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\textbf{Universidad Nacional de San Agustín de Arequipa}\\
+\textbf{Escuela Profesional de Ingeniería de Sistemas}\\
+\textbf{Curso:} Construcción de Software
+
+\textbf{Equipo de Desarrollo:} - Luis Guillermo Luque Condori - Líder de
+Proyecto / Desarrollador Flutter - Dennis Javier Quispe Saavedra -
+Diseño UI/UX\\
+- Fernando Miguel Garambel Marín - Backend \& Firebase
+
+\textbf{Versión:} 1.0\\
+\textbf{Fecha:} Diciembre 2025
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{ Índice}\label{uxedndice}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \hyperref[1-resumen-ejecutivo]{Resumen Ejecutivo}
+\item
+  \hyperref[2-enlaces-del-proyecto]{Enlaces del Proyecto}
+\item
+  \hyperref[3-introducciuxf3n]{Introducción}
+\item
+  \hyperref[4-proceso-de-desarrollo]{Proceso de Desarrollo}
+\item
+  \hyperref[5-tecnologuxedas-empleadas]{Tecnologías Empleadas}
+\item
+  \hyperref[6-arquitectura-del-sistema]{Arquitectura del Sistema}
+\item
+  \hyperref[7-funcionalidades-implementadas]{Funcionalidades
+  Implementadas}
+\item
+  \hyperref[8-interfaces-de-usuario]{Interfaces de Usuario}
+\item
+  \hyperref[9-base-de-datos]{Base de Datos}
+\item
+  \hyperref[10-testing-y-calidad]{Testing y Calidad}
+\item
+  \hyperref[11-mantenimiento]{Mantenimiento}
+\item
+  \hyperref[12-lecciones-aprendidas]{Lecciones Aprendidas}
+\item
+  \hyperref[13-conclusiones]{Conclusiones}
+\item
+  \hyperref[14-referencias]{Referencias}
+\end{enumerate}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{1. Resumen Ejecutivo}\label{resumen-ejecutivo}
+
+EstacionaUNSA es una solución móvil multiplataforma desarrollada con
+Flutter para optimizar la gestión de estacionamientos en la Universidad
+Nacional de San Agustín de Arequipa. El proyecto aborda la problemática
+de la falta de información en tiempo real sobre la disponibilidad de
+espacios de estacionamiento, lo que genera pérdida de tiempo y
+congestión vehicular en el campus universitario.
+
+\subsubsection{Objetivos Alcanzados}\label{objetivos-alcanzados}
+
+ \textbf{Visualización en tiempo real} de la disponibilidad de
+espacios en 3 zonas principales\\
+ \textbf{Sistema de reservas} con restricciones de distancia y
+tiempo\\
+ \textbf{Autenticación institucional} exclusiva para la comunidad
+UNSA\\
+ \textbf{Gestión de vehículos} con registro de múltiples unidades\\
+ \textbf{Historial completo} de entradas y salidas\\
+ \textbf{Sistema de notificaciones} push para alertas importantes\\
+ \textbf{Control de penalizaciones} automático para uso responsable
+
+\subsubsection{Resultados Clave}\label{resultados-clave}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{120 espacios} de estacionamiento gestionados en 3 zonas
+\item
+  \textbf{Arquitectura escalable} basada en Clean Architecture y
+  Provider Pattern
+\item
+  \textbf{Base de datos en tiempo real} con Firebase Firestore
+\item
+  \textbf{Plan de testing completo} con 5 fases documentadas
+\item
+  \textbf{30 errores críticos} corregidos durante el análisis estático
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{2. Enlaces del Proyecto}\label{enlaces-del-proyecto}
+
+\subsubsection{Repositorio de Código}\label{repositorio-de-cuxf3digo}
+
+\textbf{GitHub:}\\
+https://github.com/Choflis/EstacionaUNSA.git
+
+El repositorio contiene: - Código fuente completo de la aplicación
+Flutter - Documentación técnica y de desarrollo - Plan de testing y
+evidencias - Configuración de Firebase - Reglas de seguridad de
+Firestore
+
+\subsubsection{Aplicación Compilada y
+Video}\label{aplicaciuxf3n-compilada-y-video}
+
+\textbf{Google Drive:}\\
+{[}Enlace pendiente - Se proporcionará el enlace al Drive con el APK y
+video demostrativo{]}
+
+El Drive incluirá: - \texttt{estaciona-unsa.apk} - Aplicación compilada
+para Android - \texttt{demo-estacionaunsa.mp4} - Video demostrativo de
+las funcionalidades
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{3. Introducción}\label{introducciuxf3n}
+
+\subsubsection{3.1 Contexto y
+Problemática}\label{contexto-y-problemuxe1tica}
+
+La Universidad Nacional de San Agustín de Arequipa cuenta con múltiples
+zonas de estacionamiento distribuidas en su campus. Sin embargo, los
+usuarios (estudiantes, docentes y personal administrativo) enfrentan los
+siguientes problemas:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Falta de información en tiempo real} sobre espacios
+  disponibles
+\item
+  \textbf{Pérdida de tiempo} buscando estacionamiento
+\item
+  \textbf{Congestión vehicular} en horas pico
+\item
+  \textbf{Ausencia de control} sobre el uso de espacios
+\item
+  \textbf{Dificultad para planificar} la llegada al campus
+\end{enumerate}
+
+\subsubsection{3.2 Objetivos del Proyecto}\label{objetivos-del-proyecto}
+
+\paragraph{Objetivo General}\label{objetivo-general}
+
+Desarrollar una aplicación móvil multiplataforma que permita a la
+comunidad UNSA visualizar, reservar y gestionar espacios de
+estacionamiento en tiempo real, mejorando la movilidad interna y el
+control del flujo vehicular.
+
+\paragraph{Objetivos Específicos}\label{objetivos-especuxedficos}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Implementar un sistema de autenticación seguro con correos
+  institucionales
+\item
+  Desarrollar un módulo de visualización en tiempo real de espacios
+  disponibles
+\item
+  Crear un sistema de reservas con restricciones de distancia y tiempo
+\item
+  Diseñar una interfaz intuitiva y moderna basada en Material Design 3
+\item
+  Implementar un sistema de notificaciones push
+\item
+  Desarrollar un módulo de historial y estadísticas de uso
+\item
+  Establecer un sistema de penalizaciones para uso responsable
+\end{enumerate}
+
+\subsubsection{3.3 Alcance}\label{alcance}
+
+\textbf{Incluye:} - Aplicación móvil para Android (iOS en desarrollo
+futuro) - Gestión de 3 zonas principales de estacionamiento (120
+espacios totales) - Sistema de reservas con duración de 15 minutos -
+Autenticación con Firebase Authentication - Base de datos en tiempo real
+con Firestore - Notificaciones push con Firebase Cloud Messaging -
+Historial completo de uso
+
+\textbf{No incluye:} - Integración con cámaras de seguridad - Sensores
+IoT para detección automática de vehículos - Sistema de pagos -
+Aplicación web administrativa (en roadmap futuro) - Integración con
+sistemas académicos de la UNSA
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{4. Proceso de Desarrollo}\label{proceso-de-desarrollo}
+
+\subsubsection{4.1 Metodología
+Utilizada}\label{metodologuxeda-utilizada}
+
+El proyecto se desarrolló utilizando una \textbf{metodología ágil
+adaptada} con sprints de 1-2 semanas, permitiendo iteraciones rápidas y
+ajustes basados en retroalimentación.
+
+\paragraph{Principios Aplicados}\label{principios-aplicados}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Desarrollo iterativo e incremental}
+\item
+  \textbf{Comunicación constante} entre miembros del equipo
+\item
+  \textbf{Documentación continua} de decisiones técnicas
+\item
+  \textbf{Testing desde etapas tempranas}
+\item
+  \textbf{Revisión de código} mediante pull requests
+\end{itemize}
+
+\subsubsection{4.2 Fases del Proyecto}\label{fases-del-proyecto}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gantt}
+\NormalTok{    title Cronograma de Desarrollo EstacionaUNSA}
+\NormalTok{    dateFormat YYYY{-}MM{-}DD}
+\NormalTok{    section Planificación}
+\NormalTok{    Análisis de requisitos       :2025{-}09{-}01, 7d}
+\NormalTok{    Diseño de arquitectura       :2025{-}09{-}08, 7d}
+\NormalTok{    Diseño de base de datos      :2025{-}09{-}15, 5d}
+\NormalTok{    section Desarrollo}
+\NormalTok{    Configuración Firebase        :2025{-}09{-}20, 3d}
+\NormalTok{    Autenticación                :2025{-}09{-}23, 7d}
+\NormalTok{    Gestión de vehículos         :2025{-}09{-}30, 7d}
+\NormalTok{    Sistema de zonas             :2025{-}10{-}07, 10d}
+\NormalTok{    Sistema de reservas          :2025{-}10{-}17, 14d}
+\NormalTok{    Notificaciones               :2025{-}10{-}31, 7d}
+\NormalTok{    Historial                    :2025{-}11{-}07, 7d}
+\NormalTok{    section Testing}
+\NormalTok{    Análisis estático            :2025{-}11{-}14, 3d}
+\NormalTok{    Plan de pruebas              :2025{-}11{-}17, 5d}
+\NormalTok{    Casos de prueba              :2025{-}11{-}22, 5d}
+\NormalTok{    Ejecución de pruebas         :2025{-}11{-}27, 3d}
+\NormalTok{    section Documentación}
+\NormalTok{    Manual de usuario            :2025{-}12{-}01, 5d}
+\NormalTok{    Informe final                :2025{-}12{-}06, 5d}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{4.3 Distribución de
+Tareas}\label{distribuciuxf3n-de-tareas}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.2308}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7692}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Miembro
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Responsabilidades Principales
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Luis Guillermo Luque Condori} & • Líder de proyecto y
+coordinación• Desarrollo de UI/UX con Flutter• Implementación de
+providers• Sistema de navegación• Plan de pruebas y QA \\
+\textbf{Dennis Javier Quispe Saavedra} & • Diseño de interfaces y
+experiencia de usuario• Implementación de widgets personalizados•
+Testing de componentes UI• Diseño de flujos de usuario• Pruebas
+funcionales \\
+\textbf{Fernando Miguel Garambel Marín} & • Configuración y gestión de
+Firebase• Desarrollo de servicios backend• Implementación de Firestore•
+Reglas de seguridad• Testing de integración y backend \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{5. Tecnologías Empleadas}\label{tecnologuxedas-empleadas}
+
+\subsubsection{5.1 Stack Tecnológico
+Completo}\label{stack-tecnoluxf3gico-completo}
+
+\paragraph{Frontend - Aplicación
+Móvil}\label{frontend---aplicaciuxf3n-muxf3vil}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3750}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2812}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3438}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Tecnología
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Versión
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Propósito
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Flutter} & 3.24.5 & Framework principal para desarrollo
+multiplataforma \\
+\textbf{Dart} & 3.5.4 & Lenguaje de programación \\
+\textbf{Material Design 3} & Latest & Sistema de diseño para UI/UX \\
+\textbf{Provider} & 6.1.2 & Gestión de estado \\
+\textbf{Google Maps Flutter} & 2.9.0 & Visualización de mapas \\
+\textbf{Geolocator} & 13.0.2 & Servicios de geolocalización \\
+\end{longtable}
+
+\paragraph{Backend - Firebase}\label{backend---firebase}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.4762}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5238}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Servicio
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Propósito
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Firebase Authentication} & Autenticación de usuarios con
+email/password \\
+\textbf{Cloud Firestore} & Base de datos NoSQL en tiempo real \\
+\textbf{Firebase Cloud Messaging} & Notificaciones push \\
+\textbf{Cloud Storage} & Almacenamiento de imágenes de vehículos \\
+\textbf{Firebase Analytics} & Análisis de uso (opcional) \\
+\end{longtable}
+
+\paragraph{Herramientas de Desarrollo}\label{herramientas-de-desarrollo}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Herramienta & Propósito \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Visual Studio Code} & IDE principal \\
+\textbf{Android Studio} & Emuladores y debugging Android \\
+\textbf{Git / GitHub} & Control de versiones \\
+\textbf{Flutter DevTools} & Debugging y profiling \\
+\textbf{Postman} & Testing de APIs (si aplica) \\
+\textbf{Firebase Console} & Gestión de servicios Firebase \\
+\end{longtable}
+
+\paragraph{Testing y Calidad}\label{testing-y-calidad}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Herramienta & Propósito \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Dart Analyzer} & Análisis estático de código \\
+\textbf{Flutter Test} & Testing unitario y de widgets \\
+\textbf{Integration Test} & Testing de integración \\
+\textbf{Firebase Test Lab} & Testing en dispositivos reales (futuro) \\
+\end{longtable}
+
+\subsubsection{5.2 Justificación de Elecciones
+Tecnológicas}\label{justificaciuxf3n-de-elecciones-tecnoluxf3gicas}
+
+\paragraph{¿Por qué Flutter?}\label{por-quuxe9-flutter}
+
+ \textbf{Multiplataforma:} Un solo código para Android e iOS\\
+ \textbf{Rendimiento nativo:} Compilación directa a código nativo\\
+ \textbf{Hot Reload:} Desarrollo rápido con recarga en caliente\\
+ \textbf{Material Design 3:} Componentes modernos integrados\\
+ \textbf{Comunidad activa:} Gran ecosistema de paquetes\\
+ \textbf{Documentación excelente:} Recursos de aprendizaje abundantes
+
+\paragraph{¿Por qué Firebase?}\label{por-quuxe9-firebase}
+
+ \textbf{Tiempo real:} Sincronización instantánea de datos\\
+ \textbf{Escalabilidad:} Crece con las necesidades del proyecto\\
+ \textbf{Sin servidor:} No requiere infraestructura propia\\
+ \textbf{Seguridad:} Reglas de seguridad robustas\\
+ \textbf{Integración:} SDK oficial para Flutter\\
+ \textbf{Gratuito:} Plan generoso para proyectos académicos
+
+\paragraph{¿Por qué Provider para gestión de
+estado?}\label{por-quuxe9-provider-para-gestiuxf3n-de-estado}
+
+ \textbf{Simplicidad:} Curva de aprendizaje suave\\
+ \textbf{Recomendado:} Solución oficial de Flutter\\
+ \textbf{Eficiencia:} Reconstrucción selectiva de widgets\\
+ \textbf{Escalable:} Adecuado para proyectos medianos\\
+ \textbf{Testeable:} Facilita el testing unitario
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{6. Arquitectura del Sistema}\label{arquitectura-del-sistema}
+
+\subsubsection{6.1 Arquitectura General}\label{arquitectura-general}
+
+EstacionaUNSA implementa \textbf{Clean Architecture} combinada con el
+\textbf{Provider Pattern} para separación de responsabilidades y
+mantenibilidad.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{flowchart TB}
+\NormalTok{    subgraph "Presentation Layer"}
+\NormalTok{        A[Screens] {-}{-}\textgreater{} B[Widgets]}
+\NormalTok{    end}
+    
+\NormalTok{    subgraph "State Management"}
+\NormalTok{        C[Providers]}
+\NormalTok{    end}
+    
+\NormalTok{    subgraph "Business Logic"}
+\NormalTok{        D[Services]}
+\NormalTok{        E[Models]}
+\NormalTok{    end}
+    
+\NormalTok{    subgraph "Data Layer"}
+\NormalTok{        F[Firebase Auth]}
+\NormalTok{        G[Cloud Firestore]}
+\NormalTok{        H[Cloud Messaging]}
+\NormalTok{        I[Cloud Storage]}
+\NormalTok{    end}
+    
+\NormalTok{    A {-}{-}\textgreater{} C}
+\NormalTok{    B {-}{-}\textgreater{} C}
+\NormalTok{    C {-}{-}\textgreater{} D}
+\NormalTok{    D {-}{-}\textgreater{} E}
+\NormalTok{    D {-}{-}\textgreater{} F}
+\NormalTok{    D {-}{-}\textgreater{} G}
+\NormalTok{    D {-}{-}\textgreater{} H}
+\NormalTok{    D {-}{-}\textgreater{} I}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{6.2 Estructura del
+Proyecto}\label{estructura-del-proyecto}
+
+\begin{verbatim}
+estaciona_unsa/
+├── lib/
+│   ├── main.dart                 # Punto de entrada
+│   ├── firebase_options.dart     # Configuración Firebase
+│   ├── config/                   # Configuraciones
+│   │   ├── theme.dart
+│   │   └── routes.dart
+│   ├── models/                   # Modelos de datos
+│   │   ├── user_model.dart
+│   │   ├── vehicle_model.dart
+│   │   ├── parking_zone_model.dart
+│   │   ├── parking_spot_model.dart
+│   │   └── reservation_model.dart
+│   ├── providers/                # Gestión de estado
+│   │   ├── auth_provider.dart
+│   │   ├── parking_provider.dart
+│   │   ├── reservation_provider.dart
+│   │   ├── vehicle_provider.dart
+│   │   └── notification_provider.dart
+│   ├── services/                 # Lógica de negocio
+│   │   ├── firebase/
+│   │   │   ├── auth_service.dart
+│   │   │   ├── firestore_service.dart
+│   │   │   ├── messaging_service.dart
+│   │   │   └── storage_service.dart
+│   │   └── location_service.dart
+│   ├── screens/                  # Pantallas
+│   │   ├── auth_wrapper.dart
+│   │   ├── login_screen.dart
+│   │   ├── home_screen.dart
+│   │   ├── map_screen.dart
+│   │   ├── my_reservation_screen.dart
+│   │   ├── my_vehicle_screen.dart
+│   │   ├── history_screen.dart
+│   │   └── profile/
+│   │       └── profile_screen.dart
+│   ├── widgets/                  # Componentes reutilizables
+│   │   ├── zone_card.dart
+│   │   ├── spot_grid.dart
+│   │   ├── reservation_card.dart
+│   │   └── vehicle_card.dart
+│   └── utils/                    # Utilidades
+│       ├── constants.dart
+│       ├── validators.dart
+│       └── helpers.dart
+├── assets/                       # Recursos
+├── test/                         # Tests
+└── pubspec.yaml                  # Dependencias
+\end{verbatim}
+
+\subsubsection{6.3 Patrones de Diseño
+Utilizados}\label{patrones-de-diseuxf1o-utilizados}
+
+\paragraph{1. Provider Pattern (State
+Management)}\label{provider-pattern-state-management}
+
+Gestión centralizada del estado de la aplicación con notificación
+automática a widgets suscritos.
+
+\textbf{Ejemplo:}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{class}\NormalTok{ ReservationProvider }\KeywordTok{extends}\NormalTok{ ChangeNotifier }\OperatorTok{\{}
+\NormalTok{  ReservationModel}\OperatorTok{?}\NormalTok{ \_activeReservation;}
+  
+  \DataTypeTok{Future}\OperatorTok{\textless{}}\DataTypeTok{void}\OperatorTok{\textgreater{}}\NormalTok{ createReservation(}\DataTypeTok{String}\NormalTok{ spotId) }\AttributeTok{async} \OperatorTok{\{}
+    \CommentTok{// Lógica de creación}
+\NormalTok{    notifyListeners(); }\CommentTok{// Notifica a los widgets}
+  \OperatorTok{\}}
+\OperatorTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\paragraph{2. Repository Pattern (Data
+Access)}\label{repository-pattern-data-access}
+
+Abstracción del acceso a datos para facilitar testing y cambios futuros.
+
+\textbf{Ejemplo:}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{class}\NormalTok{ FirestoreService }\OperatorTok{\{}
+  \DataTypeTok{Future}\OperatorTok{\textless{}}\DataTypeTok{List}\OperatorTok{\textless{}}\NormalTok{ParkingZone}\OperatorTok{\textgreater{}\textgreater{}}\NormalTok{ getAllZones() }\AttributeTok{async} \OperatorTok{\{}
+    \CommentTok{// Acceso a Firestore}
+  \OperatorTok{\}}
+\OperatorTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\paragraph{3. Singleton Pattern}\label{singleton-pattern}
+
+Instancias únicas de servicios críticos.
+
+\textbf{Ejemplo:}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{class}\NormalTok{ LocationService }\OperatorTok{\{}
+  \AttributeTok{static} \AttributeTok{final}\NormalTok{ LocationService \_instance }\OperatorTok{=}\NormalTok{ LocationService}\OperatorTok{.}\NormalTok{\_internal();}
+  \KeywordTok{factory}\NormalTok{ LocationService() }\OperatorTok{=\textgreater{}}\NormalTok{ \_instance;}
+\NormalTok{  LocationService}\OperatorTok{.}\NormalTok{\_internal();}
+\OperatorTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{7. Funcionalidades
+Implementadas}\label{funcionalidades-implementadas}
+
+\subsubsection{7.1 Módulo de
+Autenticación}\label{muxf3dulo-de-autenticaciuxf3n}
+
+\textbf{Funcionalidades:} -  Registro con correo institucional
+(@unsa.edu.pe) -  Inicio de sesión con email/password - 
+Recuperación de contraseña -  Verificación de correo electrónico - 
+Cierre de sesión -  Persistencia de sesión
+
+\textbf{Validaciones:} - Solo correos con dominio @unsa.edu.pe -
+Contraseña mínima de 6 caracteres - Verificación de correo obligatoria
+
+\subsubsection{7.2 Módulo de Gestión de
+Vehículos}\label{muxf3dulo-de-gestiuxf3n-de-vehuxedculos}
+
+\textbf{Funcionalidades:} -  Agregar vehículos (auto/motocicleta) - 
+Editar información de vehículos -  Eliminar vehículos -  Subir foto
+del vehículo -  Validación de placas
+
+\textbf{Campos:} - Placa (obligatorio) - Tipo (auto/motocicleta) -
+Modelo - Color - Foto
+
+\subsubsection{7.3 Módulo de Zonas de
+Estacionamiento}\label{muxf3dulo-de-zonas-de-estacionamiento}
+
+\textbf{Funcionalidades:} -  Visualización de 3 zonas principales - 
+Información en tiempo real de disponibilidad -  Cálculo de distancia
+desde ubicación actual -  Indicadores visuales de capacidad - 
+Horarios de operación
+
+\textbf{Zonas implementadas:} 1. Zona A - Entrada Principal (50
+espacios) 2. Zona B - Biblioteca Central (30 espacios) 3. Zona C -
+Ingenierías (40 espacios)
+
+\subsubsection{7.4 Módulo de Reservas}\label{muxf3dulo-de-reservas}
+
+\textbf{Funcionalidades:} -  Crear reserva (con restricciones) - 
+Cancelar reserva -  Ver reserva activa -  Temporizador de expiración
+-  Validación de distancia (≤500m) -  Validación de disponibilidad
+
+\textbf{Restricciones:} - Máximo 1 reserva activa por usuario - Duración
+de 15 minutos - Distancia máxima de 500 metros - Solo en horarios de
+operación
+
+\subsubsection{7.5 Módulo de Historial}\label{muxf3dulo-de-historial}
+
+\textbf{Funcionalidades:} -  Ver historial completo de reservas - 
+Filtrar por fecha -  Filtrar por estado -  Ver detalles de cada
+reserva -  Estadísticas de uso
+
+\textbf{Estados de reserva:} - Completada - Cancelada - Expirada
+(no-show)
+
+\subsubsection{7.6 Módulo de
+Notificaciones}\label{muxf3dulo-de-notificaciones}
+
+\textbf{Funcionalidades:} -  Notificaciones push -  Confirmación de
+reserva -  Recordatorio (5 min antes de expirar) -  Notificación de
+expiración -  Alertas de sistema
+
+\subsubsection{7.7 Sistema de
+Penalizaciones}\label{sistema-de-penalizaciones}
+
+\textbf{Funcionalidades:} -  Contador automático de no-shows - 
+Advertencias progresivas -  Suspensión temporal (7 días) - 
+Suspensión permanente -  Visualización de estadísticas
+
+\textbf{Niveles:} - 3 no-shows: Advertencia - 5 no-shows: Suspensión 7
+días - 10 no-shows: Suspensión permanente
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{8. Interfaces de Usuario}\label{interfaces-de-usuario}
+
+\subsubsection{8.1 Diseño UI/UX}\label{diseuxf1o-uiux}
+
+El diseño de EstacionaUNSA sigue los principios de \textbf{Material
+Design 3}, priorizando:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Simplicidad:} Interfaces limpias y fáciles de entender
+\item
+  \textbf{Consistencia:} Patrones visuales coherentes
+\item
+  \textbf{Accesibilidad:} Contraste adecuado y tamaños de fuente
+  legibles
+\item
+  \textbf{Feedback visual:} Indicadores claros de estado y acciones
+\end{itemize}
+
+\subsubsection{8.2 Pantallas Principales}\label{pantallas-principales}
+
+\paragraph{1. Pantalla de
+Autenticación}\label{pantalla-de-autenticaciuxf3n}
+
+\begin{itemize}
+\tightlist
+\item
+  Login con email/password
+\item
+  Enlace a registro
+\item
+  Recuperación de contraseña
+\item
+  Validación en tiempo real
+\end{itemize}
+
+\paragraph{2. Pantalla Principal (Home)}\label{pantalla-principal-home}
+
+\begin{itemize}
+\tightlist
+\item
+  Tarjetas de zonas de estacionamiento
+\item
+  Indicadores de disponibilidad
+\item
+  Distancia a cada zona
+\item
+  Acceso rápido a reservas
+\end{itemize}
+
+\paragraph{3. Pantalla de Mapa}\label{pantalla-de-mapa}
+
+\begin{itemize}
+\tightlist
+\item
+  Mapa interactivo con Google Maps
+\item
+  Marcadores de zonas
+\item
+  Ubicación del usuario
+\item
+  Círculo de 500m de radio
+\end{itemize}
+
+\paragraph{4. Pantalla de Detalles de
+Zona}\label{pantalla-de-detalles-de-zona}
+
+\begin{itemize}
+\tightlist
+\item
+  Cuadrícula de espacios
+\item
+  Estados visuales (disponible/ocupado/reservado)
+\item
+  Información de la zona
+\item
+  Botón de reserva
+\end{itemize}
+
+\paragraph{5. Pantalla de Reserva
+Activa}\label{pantalla-de-reserva-activa}
+
+\begin{itemize}
+\tightlist
+\item
+  Temporizador countdown
+\item
+  Información del espacio
+\item
+  Botón de cancelación
+\item
+  Indicaciones para llegar
+\end{itemize}
+
+\paragraph{6. Pantalla de Perfil}\label{pantalla-de-perfil}
+
+\begin{itemize}
+\tightlist
+\item
+  Información del usuario
+\item
+  Estadísticas de uso
+\item
+  Lista de vehículos
+\item
+  Configuración
+\end{itemize}
+
+\paragraph{7. Pantalla de Historial}\label{pantalla-de-historial}
+
+\begin{itemize}
+\tightlist
+\item
+  Lista de reservas pasadas
+\item
+  Filtros por fecha y estado
+\item
+  Detalles de cada reserva
+\end{itemize}
+
+\subsubsection{8.3 Flujos de Navegación}\label{flujos-de-navegaciuxf3n}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{flowchart LR}
+\NormalTok{    A[Login] {-}{-}\textgreater{} B[Home]}
+\NormalTok{    B {-}{-}\textgreater{} C[Mapa]}
+\NormalTok{    B {-}{-}\textgreater{} D[Zona]}
+\NormalTok{    D {-}{-}\textgreater{} E[Reserva]}
+\NormalTok{    B {-}{-}\textgreater{} F[Mis Reservas]}
+\NormalTok{    B {-}{-}\textgreater{} G[Historial]}
+\NormalTok{    B {-}{-}\textgreater{} H[Perfil]}
+\NormalTok{    H {-}{-}\textgreater{} I[Vehículos]}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{8.4 Paleta de Colores}\label{paleta-de-colores}
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule\noalign{}
+Color & Uso & Hex \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Primary} & Botones principales, AppBar & \#1976D2 \\
+\textbf{Secondary} & Acentos, FABs & \#FF6F00 \\
+\textbf{Success} & Espacios disponibles & \#4CAF50 \\
+\textbf{Warning} & Advertencias, reservados & \#FFC107 \\
+\textbf{Error} & Errores, ocupados & \#F44336 \\
+\textbf{Background} & Fondo principal & \#FAFAFA \\
+\textbf{Surface} & Tarjetas, diálogos & \#FFFFFF \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{9. Base de Datos}\label{base-de-datos}
+
+\subsubsection{9.1 Modelo de Datos}\label{modelo-de-datos}
+
+EstacionaUNSA utiliza \textbf{Cloud Firestore}, una base de datos NoSQL
+en tiempo real.
+
+\paragraph{Colecciones Principales}\label{colecciones-principales}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{erDiagram}
+\NormalTok{    USERS ||{-}{-}o\{ VEHICLES : has}
+\NormalTok{    USERS ||{-}{-}o\{ RESERVATIONS : makes}
+\NormalTok{    PARKING\_ZONES ||{-}{-}o\{ PARKING\_SPOTS : contains}
+\NormalTok{    PARKING\_SPOTS ||{-}{-}o\{ RESERVATIONS : "reserved by"}
+\NormalTok{    USERS ||{-}{-}o\{ ENTRY\_EXIT\_LOGS : generates}
+\NormalTok{    USERS ||{-}{-}o\{ INCIDENTS : "involved in"}
+    
+\NormalTok{    USERS \{}
+\NormalTok{        string uid PK}
+\NormalTok{        string email}
+\NormalTok{        string displayName}
+\NormalTok{        string role}
+\NormalTok{        object stats}
+\NormalTok{        timestamp createdAt}
+\NormalTok{    \}}
+    
+\NormalTok{    VEHICLES \{}
+\NormalTok{        string plate PK}
+\NormalTok{        string type}
+\NormalTok{        string model}
+\NormalTok{        string color}
+\NormalTok{        string photoURL}
+\NormalTok{    \}}
+    
+\NormalTok{    PARKING\_ZONES \{}
+\NormalTok{        string zoneId PK}
+\NormalTok{        string name}
+\NormalTok{        object location}
+\NormalTok{        object capacity}
+\NormalTok{        object schedule}
+\NormalTok{    \}}
+    
+\NormalTok{    PARKING\_SPOTS \{}
+\NormalTok{        string spotId PK}
+\NormalTok{        string zoneId FK}
+\NormalTok{        string status}
+\NormalTok{        string type}
+\NormalTok{        object currentReservation}
+\NormalTok{    \}}
+    
+\NormalTok{    RESERVATIONS \{}
+\NormalTok{        string reservationId PK}
+\NormalTok{        string userId FK}
+\NormalTok{        string spotId FK}
+\NormalTok{        string status}
+\NormalTok{        object time}
+\NormalTok{        object location}
+\NormalTok{    \}}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{9.2 Reglas de Seguridad}\label{reglas-de-seguridad}
+
+Las reglas de Firestore garantizan que:
+
+\begin{itemize}
+\tightlist
+\item
+  Solo usuarios autenticados pueden leer datos
+\item
+  Los usuarios solo pueden modificar sus propios datos
+\item
+  Las reservas tienen validaciones de negocio
+\item
+  Los vigilantes tienen permisos especiales para logs
+\item
+  Los administradores tienen acceso completo
+\end{itemize}
+
+\textbf{Ejemplo de regla:}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{match }\OperatorTok{/}\NormalTok{reservations}\OperatorTok{/}\NormalTok{\{reservationId\} \{}
+\NormalTok{  allow }\DataTypeTok{create}\OperatorTok{:} \ControlFlowTok{if}\NormalTok{ request}\OperatorTok{.}\AttributeTok{auth} \OperatorTok{!=} \KeywordTok{null} 
+    \OperatorTok{\&\&}\NormalTok{ request}\OperatorTok{.}\AttributeTok{resource}\OperatorTok{.}\AttributeTok{data}\OperatorTok{.}\AttributeTok{userId} \OperatorTok{==}\NormalTok{ request}\OperatorTok{.}\AttributeTok{auth}\OperatorTok{.}\AttributeTok{uid}
+    \OperatorTok{\&\&} \OperatorTok{!}\FunctionTok{hasActiveReservation}\NormalTok{(request}\OperatorTok{.}\AttributeTok{auth}\OperatorTok{.}\AttributeTok{uid}\NormalTok{)}\OperatorTok{;}
+\NormalTok{  allow }\DataTypeTok{read}\OperatorTok{:} \ControlFlowTok{if}\NormalTok{ request}\OperatorTok{.}\AttributeTok{auth} \OperatorTok{!=} \KeywordTok{null} 
+    \OperatorTok{\&\&}\NormalTok{ resource}\OperatorTok{.}\AttributeTok{data}\OperatorTok{.}\AttributeTok{userId} \OperatorTok{==}\NormalTok{ request}\OperatorTok{.}\AttributeTok{auth}\OperatorTok{.}\AttributeTok{uid}\OperatorTok{;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{9.3 Optimizaciones}\label{optimizaciones}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Índices compuestos} para queries frecuentes
+\item
+  \textbf{Paginación} en listas largas
+\item
+  \textbf{Caché local} para reducir lecturas
+\item
+  \textbf{Listeners selectivos} para actualizaciones en tiempo real
+\item
+  \textbf{Transacciones} para operaciones atómicas
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{10. Testing y Calidad}\label{testing-y-calidad-1}
+
+\subsubsection{10.1 Resumen del Plan de
+Testing}\label{resumen-del-plan-de-testing}
+
+El proyecto implementó un \textbf{plan de testing de 5 fases}
+documentado en \texttt{documentacion/testing/}:
+
+\paragraph{Fase 1: Análisis Estático
+}\label{fase-1-anuxe1lisis-estuxe1tico}
+
+\begin{itemize}
+\tightlist
+\item
+  Herramienta: Dart Analyzer (Flutter)
+\item
+  Hallazgos iniciales: 123 issues
+\item
+  Correcciones aplicadas: 30 errores críticos
+\item
+  Resultado final: 93 issues (mejora del 24\%)
+\end{itemize}
+
+\paragraph{Fase 2: Plan de Pruebas }\label{fase-2-plan-de-pruebas}
+
+\begin{itemize}
+\tightlist
+\item
+  Alcance y objetivos definidos
+\item
+  Tipos de pruebas: unitarias, integración, componentes, funcionales,
+  sistema, UAT
+\item
+  Roles asignados al equipo
+\item
+  Herramientas justificadas
+\end{itemize}
+
+\paragraph{Fase 3: Casos de Prueba }\label{fase-3-casos-de-prueba}
+
+\begin{itemize}
+\tightlist
+\item
+  22 casos de prueba diseñados
+\item
+  Formato estandarizado con ID, precondiciones, pasos, resultados
+  esperados
+\item
+  Distribución: 5 unitarias, 3 integración, 5 componentes, 3
+  funcionales, 3 sistema, 2 UAT
+\end{itemize}
+
+\paragraph{Fase 4: Ejecución y Evidencias
+}\label{fase-4-ejecuciuxf3n-y-evidencias}
+
+\begin{itemize}
+\tightlist
+\item
+  Capturas de pantalla
+\item
+  Logs de ejecución
+\item
+  Videos demostrativos
+\item
+  Re-ejecución de pruebas corregidas
+\end{itemize}
+
+\paragraph{Fase 5: Defectos y Reporte
+}\label{fase-5-defectos-y-reporte}
+
+\begin{itemize}
+\tightlist
+\item
+  Registro de defectos encontrados
+\item
+  Matriz de trazabilidad
+\item
+  Informe final consolidado
+\end{itemize}
+
+\subsubsection{10.2 Resultados de Pruebas}\label{resultados-de-pruebas}
+
+\begin{longtable}[]{@{}lllll@{}}
+\toprule\noalign{}
+Tipo de Prueba & Total & Aprobadas & Fallidas & Tasa de Éxito \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Unitarias & 5 & 5 & 0 & 100\% \\
+Integración & 3 & 3 & 0 & 100\% \\
+Componentes UI & 5 & 5 & 0 & 100\% \\
+Funcionales & 3 & 3 & 0 & 100\% \\
+Sistema & 3 & 3 & 0 & 100\% \\
+UAT & 2 & 2 & 0 & 100\% \\
+\textbf{TOTAL} & \textbf{22} & \textbf{22} & \textbf{0} &
+\textbf{100\%} \\
+\end{longtable}
+
+\subsubsection{10.3 Defectos Encontrados y
+Corregidos}\label{defectos-encontrados-y-corregidos}
+
+Durante el análisis estático y las pruebas se encontraron y corrigieron:
+
+\textbf{Críticos (19):} - Dependencia faltante:
+\texttt{flutter\_local\_notifications} - Errores de importación en
+\texttt{messaging\_service.dart} - Variables no utilizadas
+
+\textbf{Altos (1):} - Importación no utilizada en
+\texttt{home\_screen.dart}
+
+\textbf{Medios (3):} - Warnings de análisis estático - Code smells
+menores
+
+\textbf{Deprecaciones (6):} - Uso de \texttt{withOpacity} en lugar de
+\texttt{Color.fromRGBO}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{11. Mantenimiento}\label{mantenimiento}
+
+\subsubsection{11.1 Plan de Mantenimiento}\label{plan-de-mantenimiento}
+
+\paragraph{Mantenimiento Correctivo}\label{mantenimiento-correctivo}
+
+\textbf{Responsabilidades:} - Monitoreo de errores en producción -
+Corrección de bugs reportados por usuarios - Actualización de
+dependencias con vulnerabilidades
+
+\textbf{Frecuencia:} Según necesidad (reactivo)
+
+\paragraph{Mantenimiento Preventivo}\label{mantenimiento-preventivo}
+
+\textbf{Actividades:} - Actualización mensual de dependencias de Flutter
+- Revisión trimestral de reglas de seguridad de Firebase - Optimización
+de queries de Firestore - Limpieza de datos obsoletos
+
+\textbf{Frecuencia:} Mensual/Trimestral
+
+\paragraph{Mantenimiento Evolutivo}\label{mantenimiento-evolutivo}
+
+\textbf{Mejoras planificadas:} - Integración con sensores IoT -
+Aplicación web para administradores - Sistema de pagos - Reservas
+programadas - Integración con cámaras de seguridad
+
+\textbf{Frecuencia:} Según roadmap
+
+\subsubsection{11.2 Actualizaciones
+Futuras}\label{actualizaciones-futuras}
+
+\paragraph{Corto Plazo (3-6 meses)}\label{corto-plazo-3-6-meses}
+
+\begin{itemize}
+\tightlist
+\item[$\square$]
+  Versión iOS de la aplicación
+\item[$\square$]
+  Panel web para vigilantes
+\item[$\square$]
+  Reportes y estadísticas avanzadas
+\item[$\square$]
+  Notificaciones por email
+\end{itemize}
+
+\paragraph{Mediano Plazo (6-12 meses)}\label{mediano-plazo-6-12-meses}
+
+\begin{itemize}
+\tightlist
+\item[$\square$]
+  Integración con sistema académico UNSA
+\item[$\square$]
+  Reservas programadas (con anticipación)
+\item[$\square$]
+  Sistema de favoritos de zonas
+\item[$\square$]
+  Modo oscuro (dark mode)
+\end{itemize}
+
+\paragraph{Largo Plazo (12+ meses)}\label{largo-plazo-12-meses}
+
+\begin{itemize}
+\tightlist
+\item[$\square$]
+  Sensores IoT para detección automática
+\item[$\square$]
+  Integración con cámaras de seguridad
+\item[$\square$]
+  Sistema de pagos para visitantes
+\item[$\square$]
+  Análisis predictivo de ocupación
+\end{itemize}
+
+\subsubsection{11.3 Escalabilidad}\label{escalabilidad}
+
+\textbf{Capacidad actual:} - 120 espacios en 3 zonas -
+\textasciitilde500-1000 usuarios estimados - Firebase Spark Plan
+(gratuito)
+
+\textbf{Escalabilidad:} -  Arquitectura preparada para más zonas - 
+Firestore escala automáticamente -  Código modular y extensible - 
+Requiere migración a plan de pago con \textgreater50K lecturas/día
+
+\subsubsection{11.4 Backup y
+Recuperación}\label{backup-y-recuperaciuxf3n}
+
+\textbf{Estrategia:} - Backups automáticos de Firestore (diarios) -
+Exportación mensual de datos críticos - Versionado de código en GitHub -
+Documentación de configuración de Firebase
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{12. Lecciones Aprendidas}\label{lecciones-aprendidas}
+
+\subsubsection{12.1 Desafíos Enfrentados}\label{desafuxedos-enfrentados}
+
+\paragraph{1. Gestión de Estado en Tiempo
+Real}\label{gestiuxf3n-de-estado-en-tiempo-real}
+
+\textbf{Desafío:} Mantener sincronizados múltiples widgets con datos de
+Firestore en tiempo real.
+
+\textbf{Solución:} Implementación de Provider Pattern con streams de
+Firestore, permitiendo actualizaciones automáticas sin refrescos
+manuales.
+
+\textbf{Aprendizaje:} La combinación de Provider + Firestore Streams es
+poderosa pero requiere manejo cuidadoso de listeners para evitar memory
+leaks.
+
+\paragraph{2. Validación de Distancia}\label{validaciuxf3n-de-distancia}
+
+\textbf{Desafío:} Calcular con precisión la distancia del usuario a las
+zonas de estacionamiento para validar reservas.
+
+\textbf{Solución:} Uso del paquete \texttt{geolocator} con cálculo de
+distancia haversine y manejo de permisos de ubicación.
+
+\textbf{Aprendizaje:} Los servicios de ubicación pueden ser imprecisos
+en interiores; se implementó un margen de tolerancia.
+
+\paragraph{3. Transacciones Atómicas}\label{transacciones-atuxf3micas}
+
+\textbf{Desafío:} Garantizar que las reservas no generen condiciones de
+carrera (dos usuarios reservando el mismo espacio).
+
+\textbf{Solución:} Uso de transacciones de Firestore para operaciones
+atómicas de verificación y creación.
+
+\textbf{Aprendizaje:} Las transacciones son esenciales para operaciones
+críticas, aunque añaden complejidad al código.
+
+\paragraph{4. Manejo de Notificaciones}\label{manejo-de-notificaciones}
+
+\textbf{Desafío:} Configurar Firebase Cloud Messaging para funcionar en
+diferentes estados de la app (foreground, background, terminated).
+
+\textbf{Solución:} Implementación de handlers específicos para cada
+estado y uso de local notifications.
+
+\textbf{Aprendizaje:} Las notificaciones push requieren configuración
+detallada en Android (permisos, canales) y testing exhaustivo.
+
+\paragraph{5. Testing de Código
+Asíncrono}\label{testing-de-cuxf3digo-asuxedncrono}
+
+\textbf{Desafío:} Escribir tests para código que depende de Firebase y
+operaciones asíncronas.
+
+\textbf{Solución:} Uso de mocks y fakes para simular servicios de
+Firebase en tests unitarios.
+
+\textbf{Aprendizaje:} El testing de código asíncrono requiere paciencia
+y comprensión profunda de Futures y Streams en Dart.
+
+\subsubsection{12.2 Soluciones
+Implementadas}\label{soluciones-implementadas}
+
+\paragraph{Arquitectura Limpia}\label{arquitectura-limpia}
+
+La separación en capas (UI, Providers, Services, Data) facilitó: -
+Testing independiente de cada capa - Cambios sin afectar otras partes
+del código - Onboarding más rápido de nuevos desarrolladores
+
+\paragraph{Documentación Continua}\label{documentaciuxf3n-continua}
+
+Mantener documentación actualizada en \texttt{documentacion/} permitió:
+- Referencia rápida durante el desarrollo - Facilitar la colaboración
+del equipo - Base para este informe final
+
+\paragraph{Code Reviews}\label{code-reviews}
+
+Las revisiones de código mediante pull requests ayudaron a: - Detectar
+errores tempranamente - Compartir conocimiento entre el equipo -
+Mantener calidad y consistencia del código
+
+\subsubsection{12.3 Conocimientos
+Adquiridos}\label{conocimientos-adquiridos}
+
+\paragraph{Técnicos}\label{tuxe9cnicos}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Flutter avanzado:} Gestión de estado, navegación, widgets
+  personalizados
+\item
+  \textbf{Firebase:} Firestore, Authentication, Cloud Messaging, reglas
+  de seguridad
+\item
+  \textbf{Arquitectura de software:} Clean Architecture, patrones de
+  diseño
+\item
+  \textbf{Testing:} Estrategias de testing para aplicaciones móviles
+\item
+  \textbf{Git/GitHub:} Flujo de trabajo colaborativo con branches y PRs
+\end{itemize}
+
+\paragraph{Blandas}\label{blandas}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Trabajo en equipo:} Coordinación y comunicación efectiva
+\item
+  \textbf{Gestión de tiempo:} Priorización de tareas y cumplimiento de
+  deadlines
+\item
+  \textbf{Resolución de problemas:} Debugging y búsqueda de soluciones
+\item
+  \textbf{Documentación:} Importancia de documentar decisiones y
+  procesos
+\end{itemize}
+
+\subsubsection{12.4 Mejoras Futuras
+Sugeridas}\label{mejoras-futuras-sugeridas}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Implementar CI/CD:} Automatizar testing y deployment
+\item
+  \textbf{Añadir más tests:} Aumentar cobertura de código
+\item
+  \textbf{Mejorar UX:} Animaciones y transiciones más fluidas
+\item
+  \textbf{Optimizar rendimiento:} Reducir tiempo de carga inicial
+\item
+  \textbf{Accesibilidad:} Mejorar soporte para lectores de pantalla
+\item
+  \textbf{Internacionalización:} Soporte para múltiples idiomas
+\end{enumerate}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{13. Conclusiones}\label{conclusiones}
+
+\subsubsection{13.1 Logros del Proyecto}\label{logros-del-proyecto}
+
+EstacionaUNSA ha cumplido exitosamente con sus objetivos, entregando una
+solución funcional y escalable para la gestión de estacionamientos
+universitarios. Los principales logros incluyen:
+
+ \textbf{Aplicación funcional} con todas las características
+planificadas\\
+ \textbf{Arquitectura sólida} que facilita mantenimiento y extensión\\
+ \textbf{Base de datos en tiempo real} con sincronización
+instantánea\\
+ \textbf{Sistema de testing completo} con alta cobertura\\
+ \textbf{Documentación exhaustiva} técnica y de usuario\\
+ \textbf{Experiencia de usuario intuitiva} basada en Material Design 3
+
+\subsubsection{13.2 Impacto Esperado}\label{impacto-esperado}
+
+La implementación de EstacionaUNSA en la UNSA puede generar:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Ahorro de tiempo:} Reducción de 10-15 minutos en búsqueda de
+  estacionamiento
+\item
+  \textbf{Reducción de congestión:} Menor tráfico vehicular en horas
+  pico
+\item
+  \textbf{Mejor experiencia:} Mayor satisfacción de la comunidad
+  universitaria
+\item
+  \textbf{Control mejorado:} Datos para toma de decisiones sobre
+  infraestructura
+\item
+  \textbf{Uso eficiente:} Optimización de espacios disponibles
+\end{itemize}
+
+\subsubsection{13.3 Viabilidad de
+Implementación}\label{viabilidad-de-implementaciuxf3n}
+
+El proyecto es viable para implementación real considerando:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Costo bajo:} Firebase ofrece plan gratuito generoso
+\item
+  \textbf{Mantenimiento simple:} No requiere servidores propios
+\item
+  \textbf{Escalabilidad:} Puede crecer con la demanda
+\item
+  \textbf{Tecnología probada:} Flutter y Firebase son tecnologías
+  maduras
+\item
+  \textbf{Soporte disponible:} Equipo capacitado para mantenimiento
+\end{itemize}
+
+\subsubsection{13.4 Reflexión Final}\label{reflexiuxf3n-final}
+
+El desarrollo de EstacionaUNSA ha sido una experiencia enriquecedora que
+nos permitió aplicar conocimientos teóricos en un proyecto real con
+impacto potencial en nuestra comunidad universitaria.
+
+Hemos aprendido que el desarrollo de software va más allá de escribir
+código: requiere planificación, diseño cuidadoso, testing riguroso,
+documentación clara y trabajo en equipo efectivo.
+
+Este proyecto sienta las bases para futuras mejoras y extensiones, y
+demuestra que con las herramientas y metodologías adecuadas, es posible
+crear soluciones tecnológicas de calidad que resuelvan problemas reales.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{14. Referencias}\label{referencias}
+
+\subsubsection{Documentación Técnica}\label{documentaciuxf3n-tuxe9cnica}
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://docs.flutter.dev/}{Flutter Documentation}
+\item
+  \href{https://dart.dev/guides/language/language-tour}{Dart Language
+  Tour}
+\item
+  \href{https://firebase.flutter.dev/}{Firebase for Flutter}
+\item
+  \href{https://m3.material.io/}{Material Design 3}
+\item
+  \href{https://pub.dev/packages/provider}{Provider Package}
+\end{itemize}
+
+\subsubsection{Recursos Utilizados}\label{recursos-utilizados}
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://pub.dev/packages/google_maps_flutter}{Google Maps
+  Flutter Plugin}
+\item
+  \href{https://pub.dev/packages/geolocator}{Geolocator Package}
+\item
+  \href{https://firebase.google.com/docs/cloud-messaging}{Firebase Cloud
+  Messaging}
+\item
+  \href{https://firebase.google.com/docs/firestore}{Cloud Firestore}
+\end{itemize}
+
+\subsubsection{Repositorio del Proyecto}\label{repositorio-del-proyecto}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{GitHub:} https://github.com/Choflis/EstacionaUNSA.git
+\end{itemize}
+
+\end{document}

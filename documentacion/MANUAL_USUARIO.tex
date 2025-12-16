@@ -1,0 +1,1650 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+]{article}
+\usepackage{xcolor}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{5}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\ifLuaTeX
+\usepackage[bidi=basic]{babel}
+\else
+\usepackage[bidi=default]{babel}
+\fi
+\babelprovide[main,import]{spanish}
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdflang={es},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\author{}
+\date{}
+
+\begin{document}
+
+{
+\setcounter{tocdepth}{3}
+\tableofcontents
+}
+\section{ Manual de Usuario -
+EstacionaUNSA}\label{manual-de-usuario---estacionaunsa}
+
+\textbf{Sistema de Gestión de Estacionamientos Universitarios}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\textbf{Universidad Nacional de San Agustín de Arequipa}\\
+\textbf{Escuela Profesional de Ingeniería de Sistemas}\\
+\textbf{Curso:} Construcción de Software
+
+\textbf{Equipo de Desarrollo:} - Luis Guillermo Luque Condori - Dennis
+Javier Quispe Saavedra - Fernando Miguel Garambel Marín
+
+\textbf{Versión:} 1.0\\
+\textbf{Fecha:} Diciembre 2025
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{ Índice}\label{uxedndice}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \hyperref[1-introducciuxf3n]{Introducción}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    1.1 \hyperref[11-quuxe9-es-estacionaunsa]{¿Qué es EstacionaUNSA?}
+  \item
+    1.2 \hyperref[12-caracteruxedsticas-principales]{Características
+    Principales}
+  \item
+    1.3 \hyperref[13-requisitos-del-sistema]{Requisitos del Sistema}
+  \item
+    1.4 \hyperref[14-instalaciuxf3n-de-la-aplicaciuxf3n]{Instalación de
+    la Aplicación}
+  \end{itemize}
+\item
+  \hyperref[2-primeros-pasos]{Primeros Pasos}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    2.1 \hyperref[21-registro-de-cuenta]{Registro de Cuenta}
+  \item
+    2.2 \hyperref[22-inicio-de-sesiuxf3n]{Inicio de Sesión}
+  \item
+    2.3 \hyperref[23-recuperaciuxf3n-de-contraseuxf1a]{Recuperación de
+    Contraseña}
+  \end{itemize}
+\item
+  \hyperref[3-gestiuxf3n-de-perfil]{Gestión de Perfil}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    3.1 \hyperref[31-ver-y-editar-perfil]{Ver y Editar Perfil}
+  \item
+    3.2 \hyperref[32-agregar-vehuxedculos]{Agregar Vehículos}
+  \item
+    3.3 \hyperref[33-editar-y-eliminar-vehuxedculos]{Editar y Eliminar
+    Vehículos}
+  \end{itemize}
+\item
+  \hyperref[4-sistema-de-estacionamiento]{Sistema de Estacionamiento}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    4.1 \hyperref[41-visualizar-zonas-disponibles]{Visualizar Zonas
+    Disponibles}
+  \item
+    4.2 \hyperref[42-mapa-de-estacionamiento]{Mapa de Estacionamiento}
+  \item
+    4.3 \hyperref[43-estados-de-los-espacios]{Estados de los Espacios}
+  \end{itemize}
+\item
+  \hyperref[5-realizar-reservas]{Realizar Reservas}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    5.1 \hyperref[51-cuxf3mo-hacer-una-reserva]{Cómo Hacer una Reserva}
+  \item
+    5.2 \hyperref[52-restricciones-de-reserva]{Restricciones de Reserva}
+  \item
+    5.3 \hyperref[53-cancelar-una-reserva]{Cancelar una Reserva}
+  \item
+    5.4 \hyperref[54-quuxe9-hacer-al-llegar]{Qué Hacer al Llegar}
+  \end{itemize}
+\item
+  \hyperref[6-historial-y-notificaciones]{Historial y Notificaciones}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    6.1 \hyperref[61-ver-historial-de-uso]{Ver Historial de Uso}
+  \item
+    6.2 \hyperref[62-gestionar-notificaciones]{Gestionar Notificaciones}
+  \item
+    6.3 \hyperref[63-sistema-de-penalizaciones]{Sistema de
+    Penalizaciones}
+  \end{itemize}
+\item
+  \hyperref[7-preguntas-frecuentes-faq]{Preguntas Frecuentes (FAQ)}
+\item
+  \hyperref[8-soluciuxf3n-de-problemas]{Solución de Problemas}
+\item
+  \hyperref[9-contacto-y-soporte]{Contacto y Soporte}
+\end{enumerate}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{1. Introducción}\label{introducciuxf3n}
+
+\subsubsection{1.1 ¿Qué es
+EstacionaUNSA?}\label{quuxe9-es-estacionaunsa}
+
+EstacionaUNSA es una aplicación móvil diseñada para optimizar la gestión
+de estacionamientos en la Universidad Nacional de San Agustín de
+Arequipa (UNSA). La aplicación permite a estudiantes, docentes y
+personal administrativo visualizar la disponibilidad de espacios de
+estacionamiento en tiempo real, realizar reservas y consultar su
+historial de uso.
+
+\textbf{Beneficios principales:} -  Ahorro de tiempo al buscar
+estacionamiento -  Visualización en tiempo real de espacios
+disponibles -  Sistema de reservas para garantizar tu espacio - 
+Notificaciones automáticas -  Control de acceso institucional
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio]{documentacion/imagenes/manual_usuario/01_pantalla_principal.png}}
+\caption{Pantalla principal de EstacionaUNSA}
+\end{figure}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsubsection{1.2 Características
+Principales}\label{caracteruxedsticas-principales}
+
+EstacionaUNSA ofrece las siguientes funcionalidades:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5517}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.4483}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Característica
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Descripción
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Autenticación Segura} & Acceso exclusivo con correos
+institucionales @unsa.edu.pe \\
+\textbf{Gestión de Vehículos} & Registra y administra múltiples
+vehículos (autos y motocicletas) \\
+\textbf{Visualización en Tiempo Real} & Consulta la disponibilidad de
+espacios al instante \\
+\textbf{Sistema de Reservas} & Reserva un espacio por hasta 15
+minutos \\
+\textbf{Mapa Interactivo} & Visualiza las zonas de estacionamiento en un
+mapa \\
+\textbf{Historial Completo} & Revisa todas tus entradas y salidas \\
+\textbf{Notificaciones Push} & Recibe alertas sobre tus reservas y
+espacios disponibles \\
+\textbf{Sistema de Penalizaciones} & Control automático de no-shows para
+uso justo \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsubsection{1.3 Requisitos del Sistema}\label{requisitos-del-sistema}
+
+\paragraph{Requisitos Mínimos}\label{requisitos-muxednimos}
+
+\textbf{Para Android:} - Sistema operativo: Android 6.0 (Marshmallow) o
+superior - Espacio de almacenamiento: 50 MB libres - Conexión a
+Internet: WiFi o datos móviles - GPS activado (para funciones de
+ubicación)
+
+\textbf{Para iOS:} - Sistema operativo: iOS 11.0 o superior - Espacio de
+almacenamiento: 50 MB libres - Conexión a Internet: WiFi o datos móviles
+- Servicios de ubicación activados
+
+\paragraph{Requisitos de Cuenta}\label{requisitos-de-cuenta}
+
+\begin{itemize}
+\tightlist
+\item
+  Correo electrónico institucional válido (@unsa.edu.pe)
+\item
+  Ser miembro activo de la comunidad UNSA (estudiante, docente o
+  personal administrativo)
+\item
+  Tener al menos un vehículo registrado para usar el sistema de reservas
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsubsection{1.4 Instalación de la
+Aplicación}\label{instalaciuxf3n-de-la-aplicaciuxf3n}
+
+\paragraph{Instalación en Android}\label{instalaciuxf3n-en-android}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Descarga el archivo APK:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Accede al enlace proporcionado por la universidad
+  \item
+    Descarga el archivo \texttt{estaciona-unsa.apk}
+  \end{itemize}
+\item
+  \textbf{Habilita instalación de fuentes desconocidas:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Ve a \textbf{Configuración} \textgreater{} \textbf{Seguridad}
+  \item
+    Activa \textbf{Fuentes desconocidas} o \textbf{Instalar aplicaciones
+    desconocidas}
+  \end{itemize}
+\item
+  \textbf{Instala la aplicación:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Abre el archivo APK descargado
+  \item
+    Toca \textbf{Instalar}
+  \item
+    Espera a que finalice la instalación
+  \item
+    Toca \textbf{Abrir} para iniciar la aplicación
+  \end{itemize}
+\item
+  \textbf{Concede permisos necesarios:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Ubicación (para detectar proximidad a las zonas)
+  \item
+    Notificaciones (para recibir alertas)
+  \item
+    Almacenamiento (para guardar fotos de vehículos)
+  \end{itemize}
+\end{enumerate}
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio]{documentacion/imagenes/manual_usuario/02_instalacion_android.png}}
+\caption{Instalación en Android}
+\end{figure}
+
+\paragraph{Instalación en iOS}\label{instalaciuxf3n-en-ios}
+
+La aplicación estará disponible próximamente en la App Store. Por ahora,
+la versión está disponible solo para Android.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{2. Primeros Pasos}\label{primeros-pasos}
+
+\subsubsection{2.1 Registro de Cuenta}\label{registro-de-cuenta}
+
+Para usar EstacionaUNSA, primero debes crear una cuenta con tu correo
+institucional.
+
+\textbf{Pasos para Ingresar:}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Abre la aplicación} EstacionaUNSA en tu dispositivo
+\item
+  \textbf{En la pantalla de inicio}, toca el botón \textbf{``Iniciar
+  cuenta con Google''}
+\item
+  \textbf{¡Listo!} Tu cuenta ha sido creada exitosamente
+\end{enumerate}
+
+\begin{quote}
+\textbf{ Importante:} Solo se permiten correos con dominio
+@unsa.edu.pe. Si intentas iniciar sesión con otro correo, el sistema
+mostrará un error.
+\end{quote}
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio]{documentacion/imagenes/manual_usuario/03_registro_cuenta.png}}
+\caption{Registro de cuenta}
+\end{figure}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsubsection{2.2 Inicio de Sesión}\label{inicio-de-sesiuxf3n}
+
+Una vez que hayas creado tu cuenta, puedes iniciar sesión en cualquier
+momento.
+
+\textbf{Pasos para iniciar sesión:}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Abre la aplicación} EstacionaUNSA
+\item
+  \textbf{En la pantalla de inicio}, ingresa:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{Correo electrónico:} Tu correo institucional
+  \item
+    \textbf{Contraseña:} La contraseña que creaste
+  \end{itemize}
+\item
+  \textbf{Toca el botón ``Iniciar Sesión''}
+\item
+  \textbf{La aplicación te llevará a la pantalla principal} donde podrás
+  ver las zonas de estacionamiento disponibles
+\end{enumerate}
+
+\textbf{Opciones adicionales:} -  \textbf{Recordar sesión:} Marca esta
+opción para no tener que iniciar sesión cada vez -  \textbf{Modo
+seguro:} Si usas un dispositivo compartido, no marques ``Recordar
+sesión''
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio]{documentacion/imagenes/manual_usuario/04_inicio_sesion.png}}
+\caption{Inicio de sesión}
+\end{figure}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsubsection{2.3 Recuperación de
+Contraseña}\label{recuperaciuxf3n-de-contraseuxf1a}
+
+Si olvidaste tu contraseña, puedes recuperarla fácilmente.
+
+\textbf{Pasos para recuperar tu contraseña:}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{En la pantalla de inicio de sesión}, toca \textbf{``¿Olvidaste
+  tu contraseña?''}
+\item
+  \textbf{Ingresa tu correo electrónico} institucional
+\item
+  \textbf{Toca ``Enviar enlace de recuperación''}
+\item
+  \textbf{Revisa tu correo electrónico:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Abre el correo de recuperación
+  \item
+    Haz clic en el enlace proporcionado
+  \end{itemize}
+\item
+  \textbf{Crea una nueva contraseña:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Ingresa tu nueva contraseña
+  \item
+    Confírmala
+  \item
+    Guarda los cambios
+  \end{itemize}
+\item
+  \textbf{Inicia sesión} con tu nueva contraseña
+\end{enumerate}
+
+\begin{quote}
+\textbf{ Consejo:} Usa una contraseña segura que incluya letras
+mayúsculas, minúsculas, números y símbolos.
+\end{quote}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{3. Gestión de Perfil}\label{gestiuxf3n-de-perfil}
+
+\subsubsection{3.1 Ver y Editar Perfil}\label{ver-y-editar-perfil}
+
+Tu perfil contiene tu información personal y estadísticas de uso del
+sistema.
+
+\textbf{Acceder a tu perfil:}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Desde la pantalla principal}, toca el ícono de \textbf{perfil}
+  () en la barra de navegación inferior
+\item
+  \textbf{Visualiza tu información:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Foto de perfil
+  \item
+    Nombre completo
+  \item
+    Correo electrónico
+  \item
+    Estadísticas de uso (reservas totales, completadas, etc.)
+  \item
+    Lista de vehículos registrados
+  \end{itemize}
+\end{enumerate}
+
+\textbf{Editar tu perfil:}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{En la pantalla de perfil}, toca el botón \textbf{``Editar
+  perfil''} o el ícono de lápiz ()
+\item
+  \textbf{Modifica la información que desees:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Cambiar foto de perfil (toca la foto actual)
+  \item
+    Actualizar nombre
+  \item
+    Cambiar contraseña
+  \end{itemize}
+\item
+  \textbf{Toca ``Guardar cambios''} para aplicar las modificaciones
+\end{enumerate}
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio]{documentacion/imagenes/manual_usuario/05_perfil_usuario.png}}
+\caption{Perfil de usuario}
+\end{figure}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsubsection{3.2 Agregar Vehículos}\label{agregar-vehuxedculos}
+
+Para poder hacer reservas, necesitas tener al menos un vehículo
+registrado en tu cuenta.
+
+\textbf{Pasos para agregar un vehículo:}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Ve a tu perfil} tocando el ícono de perfil ()
+\item
+  \textbf{En la sección ``Mis Vehículos''}, toca el botón
+  \textbf{``Agregar vehículo''} o el ícono de más (+)
+\item
+  \textbf{Completa la información del vehículo:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{Placa:} Número de matrícula del vehículo (obligatorio)
+  \item
+    \textbf{Tipo:} Selecciona Auto o Motocicleta
+  \item
+    \textbf{Modelo:} Marca y modelo del vehículo (opcional)
+  \item
+    \textbf{Color:} Color del vehículo (opcional)
+  \item
+    \textbf{Foto:} Toma o selecciona una foto del vehículo (opcional
+    pero recomendado)
+  \end{itemize}
+\item
+  \textbf{Toca ``Guardar vehículo''}
+\item
+  \textbf{El vehículo aparecerá en tu lista} de vehículos registrados
+\end{enumerate}
+
+\begin{quote}
+\textbf{ Importante:} La placa debe ser válida y estar asociada a un
+vehículo real. El personal de vigilancia verificará esta información al
+momento de tu ingreso.
+\end{quote}
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio]{documentacion/imagenes/manual_usuario/06_agregar_vehiculo.png}}
+\caption{Agregar vehículo}
+\end{figure}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsubsection{3.3 Editar y Eliminar
+Vehículos}\label{editar-y-eliminar-vehuxedculos}
+
+Puedes modificar o eliminar vehículos registrados en cualquier momento.
+
+\textbf{Editar un vehículo:}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{En la sección ``Mis Vehículos''} de tu perfil, toca el
+  vehículo que deseas editar
+\item
+  \textbf{Modifica la información} que necesites cambiar
+\item
+  \textbf{Toca ``Guardar cambios''}
+\end{enumerate}
+
+\textbf{Eliminar un vehículo:}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{En la lista de vehículos}, desliza el vehículo hacia la
+  izquierda o toca el ícono de opciones ()
+\item
+  \textbf{Selecciona ``Eliminar''}
+\item
+  \textbf{Confirma la eliminación} en el diálogo que aparece
+\end{enumerate}
+
+\begin{quote}
+\textbf{ Nota:} No puedes eliminar un vehículo si tiene una reserva
+activa. Primero debes cancelar la reserva.
+\end{quote}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{4. Sistema de
+Estacionamiento}\label{sistema-de-estacionamiento}
+
+\subsubsection{4.1 Visualizar Zonas
+Disponibles}\label{visualizar-zonas-disponibles}
+
+EstacionaUNSA gestiona tres zonas principales de estacionamiento en el
+campus de la UNSA.
+
+\textbf{Las tres zonas son:}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1667}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2222}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.3056}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.3056}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Zona
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Nombre
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Ubicación
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Capacidad
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Zona A} & Entrada Principal & Puerta principal de la UNSA & 50
+espacios \\
+\textbf{Zona B} & Biblioteca Central & Junto a la biblioteca & 30
+espacios \\
+\textbf{Zona C} & Ingenierías & Facultad de Ingeniería & 40 espacios \\
+\end{longtable}
+
+\textbf{Ver zonas disponibles:}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{En la pantalla principal}, verás tarjetas con información de
+  cada zona:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Nombre de la zona
+  \item
+    Espacios disponibles / Total de espacios
+  \item
+    Distancia desde tu ubicación actual
+  \item
+    Estado (Abierta / Cerrada)
+  \end{itemize}
+\item
+  \textbf{Los colores indican disponibilidad:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+     \textbf{Verde:} Muchos espacios disponibles (\textgreater30\%)
+  \item
+     \textbf{Amarillo:} Disponibilidad media (10-30\%)
+  \item
+     \textbf{Rojo:} Pocos espacios disponibles (\textless10\%)
+  \item
+     \textbf{Gris:} Zona cerrada o sin espacios
+  \end{itemize}
+\item
+  \textbf{Toca una zona} para ver más detalles y espacios específicos
+\end{enumerate}
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio]{documentacion/imagenes/manual_usuario/07_zonas_disponibles.png}}
+\caption{Zonas disponibles}
+\end{figure}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsubsection{4.2 Mapa de
+Estacionamiento}\label{mapa-de-estacionamiento}
+
+El mapa interactivo te permite visualizar la ubicación exacta de cada
+zona y tu distancia a ellas.
+
+\textbf{Usar el mapa:}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Desde la pantalla principal}, toca el ícono de \textbf{mapa}
+  () en la barra de navegación
+\item
+  \textbf{El mapa mostrará:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Tu ubicación actual (punto azul)
+  \item
+    Las tres zonas de estacionamiento (marcadores)
+  \item
+    Círculo de 500m de radio (área de reserva permitida)
+  \end{itemize}
+\item
+  \textbf{Interactúa con el mapa:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{Zoom:} Pellizca para acercar o alejar
+  \item
+    \textbf{Desplazar:} Arrastra para mover el mapa
+  \item
+    \textbf{Toca un marcador:} Ver información de la zona
+  \end{itemize}
+\item
+  \textbf{Toca ``Ver detalles''} en la información de la zona para
+  acceder a los espacios disponibles
+\end{enumerate}
+
+\begin{quote}
+\textbf{ Consejo:} El mapa se actualiza automáticamente con tu
+ubicación. Asegúrate de tener el GPS activado.
+\end{quote}
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio]{documentacion/imagenes/manual_usuario/08_mapa_estacionamiento.png}}
+\caption{Mapa de estacionamiento}
+\end{figure}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsubsection{4.3 Estados de los
+Espacios}\label{estados-de-los-espacios}
+
+Cada espacio de estacionamiento puede tener uno de los siguientes
+estados:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1702}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1489}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2766}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.4043}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Estado
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Color
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Descripción
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Acción Disponible
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Disponible} &  Verde & El espacio está libre y puede ser
+reservado & Reservar \\
+\textbf{Reservado} &  Amarillo & Alguien ha reservado este espacio &
+No disponible \\
+\textbf{Ocupado} &  Rojo & Hay un vehículo estacionado actualmente &
+No disponible \\
+\textbf{Inactivo} &  Gris & El espacio está fuera de servicio & No
+disponible \\
+\end{longtable}
+
+\textbf{Ver espacios de una zona:}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Toca una zona} desde la pantalla principal o el mapa
+\item
+  \textbf{Verás una cuadrícula o lista} con todos los espacios de esa
+  zona
+\item
+  \textbf{Cada espacio muestra:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Número del espacio (ej: A-001, B-015)
+  \item
+    Estado actual (color)
+  \item
+    Tipo (Auto / Motocicleta)
+  \item
+    Características especiales (techado, para discapacitados, etc.)
+  \end{itemize}
+\item
+  \textbf{Toca un espacio disponible} para ver la opción de reservar
+\end{enumerate}
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio]{documentacion/imagenes/manual_usuario/09_estados_espacios.png}}
+\caption{Estados de los espacios}
+\end{figure}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{5. Realizar Reservas}\label{realizar-reservas}
+
+\subsubsection{5.1 Cómo Hacer una
+Reserva}\label{cuxf3mo-hacer-una-reserva}
+
+El sistema de reservas te permite asegurar un espacio antes de llegar a
+la universidad.
+
+\textbf{Pasos para hacer una reserva:}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Asegúrate de estar dentro del rango permitido:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Debes estar a 500 metros o menos de la zona que deseas reservar
+  \item
+    La aplicación mostrará tu distancia actual
+  \end{itemize}
+\item
+  \textbf{Selecciona una zona} desde la pantalla principal
+\item
+  \textbf{Elige un espacio disponible} (marcado en verde)
+\item
+  \textbf{Toca el botón ``Reservar''}
+\item
+  \textbf{Confirma tu reserva:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Verifica el espacio seleccionado
+  \item
+    Selecciona el vehículo que usarás
+  \item
+    Lee las condiciones de la reserva
+  \item
+    Toca ``Confirmar reserva''
+  \end{itemize}
+\item
+  \textbf{¡Reserva confirmada!}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Recibirás una notificación de confirmación
+  \item
+    El espacio se marcará como reservado
+  \item
+    Tienes \textbf{15 minutos} para llegar
+  \end{itemize}
+\item
+  \textbf{Dirígete al espacio reservado:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    El vigilante verificará tu reserva
+  \item
+    Muestra la aplicación con tu reserva activa
+  \item
+    Estaciona en el espacio asignado
+  \end{itemize}
+\end{enumerate}
+
+\begin{quote}
+\textbf{ Importante:} Tienes exactamente 15 minutos desde que haces la
+reserva para llegar. Si no llegas a tiempo, la reserva expirará y se
+contará como ``no-show''.
+\end{quote}
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio]{documentacion/imagenes/manual_usuario/10_hacer_reserva.png}}
+\caption{Proceso de reserva}
+\end{figure}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsubsection{5.2 Restricciones de
+Reserva}\label{restricciones-de-reserva}
+
+Para garantizar un uso justo del sistema, existen las siguientes
+restricciones:
+
+\paragraph{Restricción de Distancia}\label{restricciuxf3n-de-distancia}
+
+\begin{itemize}
+\tightlist
+\item
+   \textbf{Permitido:} Estar a 500 metros o menos de la zona
+\item
+  ❌ \textbf{No permitido:} Reservar desde casa o lugares lejanos
+\end{itemize}
+
+\textbf{¿Por qué?} Para evitar reservas anticipadas que bloqueen
+espacios innecesariamente.
+
+\paragraph{Restricción de Tiempo}\label{restricciuxf3n-de-tiempo}
+
+\begin{itemize}
+\tightlist
+\item
+   \textbf{Duración máxima:} 15 minutos
+\item
+   \textbf{No renovable:} No puedes extender una reserva activa
+\end{itemize}
+
+\textbf{¿Por qué?} Para mantener la rotación de espacios y dar
+oportunidad a todos.
+
+\paragraph{Restricción de Cantidad}\label{restricciuxf3n-de-cantidad}
+
+\begin{itemize}
+\tightlist
+\item
+  1️⃣ \textbf{Máximo:} 1 reserva activa por usuario
+\item
+  ❌ \textbf{No permitido:} Reservar múltiples espacios simultáneamente
+\end{itemize}
+
+\textbf{¿Por qué?} Para evitar acaparamiento de espacios.
+
+\paragraph{Restricción de Horario}\label{restricciuxf3n-de-horario}
+
+\begin{itemize}
+\tightlist
+\item
+  🕐 \textbf{Horario de operación:} Lunes a Viernes, 6:00 AM - 10:00 PM
+\item
+  🕐 \textbf{Sábados:} 6:00 AM - 2:00 PM
+\item
+  ❌ \textbf{Domingos y feriados:} Cerrado
+\end{itemize}
+
+\paragraph{Restricción por
+Penalizaciones}\label{restricciuxf3n-por-penalizaciones}
+
+\begin{itemize}
+\tightlist
+\item
+   \textbf{3 no-shows:} Advertencia
+\item
+  🚫 \textbf{5 no-shows:} Suspensión de 7 días
+\item
+  🔒 \textbf{10 no-shows:} Suspensión permanente
+\end{itemize}
+
+\begin{quote}
+\textbf{ Consejo:} Sé responsable con tus reservas. Solo reserva
+cuando estés seguro de que llegarás a tiempo.
+\end{quote}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsubsection{5.3 Cancelar una Reserva}\label{cancelar-una-reserva}
+
+Si por alguna razón no puedes llegar, es importante que canceles tu
+reserva para liberar el espacio.
+
+\textbf{Pasos para cancelar una reserva:}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Ve a la sección ``Mis Reservas''} tocando el ícono de reservas
+  () en la barra de navegación
+\item
+  \textbf{Verás tu reserva activa} con:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Espacio reservado
+  \item
+    Tiempo restante
+  \item
+    Zona y ubicación
+  \end{itemize}
+\item
+  \textbf{Toca el botón ``Cancelar reserva''}
+\item
+  \textbf{Confirma la cancelación} en el diálogo que aparece
+\item
+  \textbf{La reserva se cancelará inmediatamente:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    El espacio quedará disponible para otros
+  \item
+    No se contará como no-show
+  \item
+    Recibirás una notificación de confirmación
+  \end{itemize}
+\end{enumerate}
+
+\begin{quote}
+\textbf{ Buena práctica:} Si sabes que no llegarás, cancela tu reserva
+lo antes posible. Esto ayuda a otros usuarios y evita penalizaciones en
+tu cuenta.
+\end{quote}
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio]{documentacion/imagenes/manual_usuario/11_cancelar_reserva.png}}
+\caption{Cancelar reserva}
+\end{figure}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsubsection{5.4 Qué Hacer al Llegar}\label{quuxe9-hacer-al-llegar}
+
+Una vez que llegues a la universidad con una reserva activa:
+
+\textbf{Proceso de entrada:}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Dirígete a la zona reservada} (Zona A, B o C)
+\item
+  \textbf{Muestra tu reserva al vigilante:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Abre la aplicación
+  \item
+    Ve a ``Mis Reservas''
+  \item
+    Muestra la pantalla con tu reserva activa
+  \end{itemize}
+\item
+  \textbf{El vigilante verificará:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Tu identidad (CUI o carnet universitario)
+  \item
+    La placa de tu vehículo coincide con la registrada
+  \item
+    La reserva está activa y no ha expirado
+  \end{itemize}
+\item
+  \textbf{Estaciona en el espacio asignado:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Busca el número de espacio (ej: A-015)
+  \item
+    Estaciona correctamente dentro de las líneas
+  \end{itemize}
+\item
+  \textbf{El vigilante registrará tu entrada:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Tu reserva cambiará a estado ``Completada''
+  \item
+    El espacio se marcará como ``Ocupado''
+  \item
+    Se iniciará el registro de tu tiempo de estacionamiento
+  \end{itemize}
+\end{enumerate}
+
+\textbf{Proceso de salida:}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Cuando vayas a salir}, dirígete a la caseta de vigilancia
+\item
+  \textbf{El vigilante registrará tu salida:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Verificará tu placa
+  \item
+    Registrará la hora de salida
+  \item
+    Liberará el espacio
+  \end{itemize}
+\item
+  \textbf{El espacio quedará disponible} para otros usuarios
+\end{enumerate}
+
+\begin{quote}
+\textbf{ Importante:} Siempre estaciona en el espacio exacto que
+reservaste. Estacionar en otro espacio puede resultar en una incidencia.
+\end{quote}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{6. Historial y
+Notificaciones}\label{historial-y-notificaciones}
+
+\subsubsection{6.1 Ver Historial de Uso}\label{ver-historial-de-uso}
+
+El historial te permite revisar todas tus reservas y usos del
+estacionamiento.
+
+\textbf{Acceder al historial:}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Toca el ícono de historial} () en la barra de navegación
+\item
+  \textbf{Verás una lista de todas tus reservas:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Reservas completadas
+  \item
+    Reservas canceladas
+  \item
+    Reservas expiradas (no-shows)
+  \end{itemize}
+\item
+  \textbf{Cada entrada muestra:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Fecha y hora
+  \item
+    Zona y espacio utilizado
+  \item
+    Duración del estacionamiento
+  \item
+    Estado final (Completada, Cancelada, Expirada)
+  \end{itemize}
+\item
+  \textbf{Toca una entrada} para ver detalles completos:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Hora de reserva
+  \item
+    Hora de entrada (si aplica)
+  \item
+    Hora de salida (si aplica)
+  \item
+    Tiempo total estacionado
+  \item
+    Vehículo utilizado
+  \end{itemize}
+\end{enumerate}
+
+\textbf{Filtrar el historial:}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Por fecha:} Selecciona un rango de fechas
+\item
+  \textbf{Por estado:} Filtra por completadas, canceladas o expiradas
+\item
+  \textbf{Por zona:} Muestra solo una zona específica
+\end{itemize}
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio]{documentacion/imagenes/manual_usuario/12_historial.png}}
+\caption{Historial de reservas}
+\end{figure}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsubsection{6.2 Gestionar
+Notificaciones}\label{gestionar-notificaciones}
+
+EstacionaUNSA envía notificaciones para mantenerte informado sobre tus
+reservas.
+
+\textbf{Tipos de notificaciones:}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1875}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.5312}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2812}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Tipo
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Cuándo se envía
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Ejemplo
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Confirmación de reserva} & Al hacer una reserva & ``Reserva
+confirmada en Zona A, espacio A-015'' \\
+\textbf{Recordatorio} & 5 minutos antes de expirar & ``Tu reserva expira
+en 5 minutos'' \\
+\textbf{Expiración} & Cuando la reserva expira & ``Tu reserva ha
+expirado'' \\
+\textbf{Espacio disponible} & Cuando se libera un espacio en tu zona
+favorita & ``Espacio disponible en Zona B'' \\
+\textbf{Incidencia} & Cuando se reporta una incidencia & ``Se ha
+reportado una incidencia en tu cuenta'' \\
+\textbf{Sistema} & Mensajes importantes del sistema & ``Mantenimiento
+programado el sábado'' \\
+\end{longtable}
+
+\textbf{Configurar notificaciones:}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Ve a tu perfil} y toca \textbf{``Configuración''} o el ícono
+  de engranaje (⚙️)
+\item
+  \textbf{En la sección ``Notificaciones''}, activa o desactiva:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Notificaciones push
+  \item
+    Notificaciones de recordatorio
+  \item
+    Notificaciones de espacios disponibles
+  \item
+    Notificaciones de sistema
+  \end{itemize}
+\item
+  \textbf{Guarda los cambios}
+\end{enumerate}
+
+\begin{quote}
+\textbf{ Recomendación:} Mantén activadas al menos las notificaciones
+de recordatorio para evitar no-shows.
+\end{quote}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsubsection{6.3 Sistema de
+Penalizaciones}\label{sistema-de-penalizaciones}
+
+Para garantizar el uso responsable del sistema, existe un sistema de
+penalizaciones por no-shows.
+
+\textbf{¿Qué es un no-show?}
+
+Un ``no-show'' ocurre cuando: - Haces una reserva - No cancelas la
+reserva - No llegas al espacio reservado en 15 minutos
+
+\textbf{Niveles de penalización:}
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule\noalign{}
+No-shows & Consecuencia & Duración \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{1-2} & Sin penalización & - \\
+\textbf{3} &  Advertencia oficial & Permanente en tu historial \\
+\textbf{5} & 🚫 Suspensión temporal & 7 días sin poder reservar \\
+\textbf{10} & 🔒 Suspensión permanente & Cuenta bloqueada \\
+\end{longtable}
+
+\textbf{Ver tus penalizaciones:}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{En tu perfil}, revisa la sección \textbf{``Estadísticas''}
+\item
+  \textbf{Verás:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Total de reservas realizadas
+  \item
+    Reservas completadas
+  \item
+    Reservas canceladas
+  \item
+    \textbf{No-shows acumulados}
+  \item
+    Estado de tu cuenta (Activa, Advertencia, Suspendida)
+  \end{itemize}
+\end{enumerate}
+
+\textbf{Cómo evitar penalizaciones:}
+
+ \textbf{Haz reservas solo cuando estés cerca} de la universidad\\
+ \textbf{Cancela tu reserva} si no puedes llegar\\
+ \textbf{Llega a tiempo} dentro de los 15 minutos\\
+ \textbf{Verifica tu ubicación} antes de reservar
+
+\begin{quote}
+\textbf{ Importante:} Las penalizaciones son automáticas y no se
+pueden eliminar. Sé responsable con tus reservas.
+\end{quote}
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio]{documentacion/imagenes/manual_usuario/13_penalizaciones.png}}
+\caption{Penalizaciones}
+\end{figure}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{7. Preguntas Frecuentes
+(FAQ)}\label{preguntas-frecuentes-faq}
+
+\subsubsection{General}\label{general}
+
+\textbf{P: ¿Quién puede usar EstacionaUNSA?}\\
+R: Cualquier miembro de la comunidad UNSA (estudiantes, docentes,
+personal administrativo) con un correo institucional @unsa.edu.pe.
+
+\textbf{P: ¿La aplicación es gratuita?}\\
+R: Sí, EstacionaUNSA es completamente gratuita para toda la comunidad
+UNSA.
+
+\textbf{P: ¿Necesito internet para usar la aplicación?}\\
+R: Sí, necesitas conexión a internet (WiFi o datos móviles) para ver la
+disponibilidad en tiempo real y hacer reservas.
+
+\subsubsection{Registro y Cuenta}\label{registro-y-cuenta}
+
+\textbf{P: ¿Puedo usar un correo personal?}\\
+R: No, solo se permiten correos institucionales con dominio
+@unsa.edu.pe.
+
+\textbf{P: ¿Qué hago si no recibo el correo de verificación?}\\
+R: Revisa tu carpeta de spam. Si no lo encuentras, intenta registrarte
+nuevamente o contacta al soporte.
+
+\textbf{P: ¿Puedo tener múltiples cuentas?}\\
+R: No, cada persona debe tener solo una cuenta asociada a su correo
+institucional.
+
+\subsubsection{Vehículos}\label{vehuxedculos}
+
+\textbf{P: ¿Cuántos vehículos puedo registrar?}\\
+R: Puedes registrar múltiples vehículos en tu cuenta.
+
+\textbf{P: ¿Puedo usar el vehículo de otra persona?}\\
+R: Sí, pero debes registrar ese vehículo en tu cuenta antes de hacer una
+reserva.
+
+\textbf{P: ¿Qué pasa si cambio de vehículo?}\\
+R: Puedes editar o eliminar vehículos en cualquier momento desde tu
+perfil.
+
+\subsubsection{Reservas}\label{reservas}
+
+\textbf{P: ¿Puedo reservar con anticipación desde mi casa?}\\
+R: No, debes estar a 500 metros o menos de la zona para poder reservar.
+
+\textbf{P: ¿Puedo extender mi reserva de 15 minutos?}\\
+R: No, las reservas no son renovables. Tienes 15 minutos para llegar.
+
+\textbf{P: ¿Qué pasa si llego tarde?}\\
+R: Si no llegas en 15 minutos, la reserva expirará y se contará como
+no-show.
+
+\textbf{P: ¿Puedo reservar para otra persona?}\\
+R: No, las reservas son personales y deben coincidir con el vehículo
+registrado en tu cuenta.
+
+\textbf{P: ¿Cuánto tiempo puedo estar estacionado?}\\
+R: No hay límite de tiempo una vez que ingresas. El límite de 15 minutos
+es solo para la reserva.
+
+\subsubsection{Problemas Técnicos}\label{problemas-tuxe9cnicos}
+
+\textbf{P: La aplicación no detecta mi ubicación}\\
+R: Asegúrate de tener el GPS activado y haber concedido permisos de
+ubicación a la aplicación.
+
+\textbf{P: No puedo hacer una reserva}\\
+R: Verifica que: - Estés a 500m o menos de la zona - No tengas otra
+reserva activa - Tu cuenta no esté suspendida - Haya espacios
+disponibles
+
+\textbf{P: Mi reserva no aparece}\\
+R: Cierra y vuelve a abrir la aplicación. Si el problema persiste,
+contacta al soporte.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{8. Solución de Problemas}\label{soluciuxf3n-de-problemas}
+
+\subsubsection{Problema: No puedo iniciar
+sesión}\label{problema-no-puedo-iniciar-sesiuxf3n}
+
+\textbf{Posibles causas y soluciones:}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Contraseña incorrecta}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Verifica que estás escribiendo correctamente
+  \item
+    Usa la opción ``Olvidé mi contraseña''
+  \end{itemize}
+\item
+  \textbf{Cuenta no verificada}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Revisa tu correo y verifica tu cuenta
+  \item
+    Solicita un nuevo correo de verificación
+  \end{itemize}
+\item
+  \textbf{Correo no institucional}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Asegúrate de usar tu correo @unsa.edu.pe
+  \end{itemize}
+\end{enumerate}
+
+\subsubsection{Problema: No puedo hacer una
+reserva}\label{problema-no-puedo-hacer-una-reserva}
+
+\textbf{Posibles causas y soluciones:}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Fuera del rango de 500m}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Acércate más a la universidad
+  \item
+    Verifica que tu GPS esté activado
+  \end{itemize}
+\item
+  \textbf{Ya tienes una reserva activa}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Cancela tu reserva actual primero
+  \item
+    Espera a que expire tu reserva actual
+  \end{itemize}
+\item
+  \textbf{Cuenta suspendida}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Revisa tus penalizaciones en el perfil
+  \item
+    Espera a que termine el período de suspensión
+  \end{itemize}
+\item
+  \textbf{No hay espacios disponibles}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Intenta en otra zona
+  \item
+    Espera a que se libere un espacio
+  \end{itemize}
+\end{enumerate}
+
+\subsubsection{Problema: La aplicación se cierra
+inesperadamente}\label{problema-la-aplicaciuxf3n-se-cierra-inesperadamente}
+
+\textbf{Soluciones:}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Actualiza la aplicación} a la última versión
+\item
+  \textbf{Limpia la caché} de la aplicación en configuración del sistema
+\item
+  \textbf{Reinicia tu dispositivo}
+\item
+  \textbf{Reinstala la aplicación} si el problema persiste
+\end{enumerate}
+
+\subsubsection{Problema: No recibo
+notificaciones}\label{problema-no-recibo-notificaciones}
+
+\textbf{Soluciones:}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Verifica los permisos:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Ve a Configuración del sistema
+  \item
+    Busca EstacionaUNSA
+  \item
+    Asegúrate de que las notificaciones estén activadas
+  \end{itemize}
+\item
+  \textbf{Revisa la configuración de la app:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Abre EstacionaUNSA
+  \item
+    Ve a Configuración
+  \item
+    Activa las notificaciones
+  \end{itemize}
+\item
+  \textbf{Verifica tu conexión a internet}
+\end{enumerate}
+
+\subsubsection{Problema: El mapa no
+carga}\label{problema-el-mapa-no-carga}
+
+\textbf{Soluciones:}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Verifica tu conexión a internet}
+\item
+  \textbf{Activa los servicios de ubicación}
+\item
+  \textbf{Concede permisos de ubicación} a la aplicación
+\item
+  \textbf{Reinicia la aplicación}
+\end{enumerate}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{9. Contacto y Soporte}\label{contacto-y-soporte}
+
+\subsubsection{Canales de Soporte}\label{canales-de-soporte}
+
+Si tienes problemas técnicos o preguntas que no están cubiertas en este
+manual:
+
+\textbf{ Correo Electrónico:}\\
+soporte.estacionaunsa@unsa.edu.pe
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Información del Proyecto}\label{informaciuxf3n-del-proyecto}
+
+\textbf{Repositorio GitHub:}\\
+https://github.com/Choflis/EstacionaUNSA.git
+
+\textbf{Descarga de la aplicación:}\\
+El enlace de descarga del APK y el video demostrativo estarán
+disponibles en Google Drive.
+
+\textbf{Equipo de Desarrollo:} - Luis Guillermo Luque Condori - Líder de
+Proyecto / Desarrollador Flutter - Dennis Javier Quispe Saavedra -
+Diseño UI/UX - Fernando Miguel Garambel Marín - Backend \& Firebase
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Licencia y Términos de
+Uso}\label{licencia-y-tuxe9rminos-de-uso}
+
+EstacionaUNSA es un proyecto académico desarrollado en la Universidad
+Nacional de San Agustín de Arequipa con fines educativos. El uso de esta
+aplicación está sujeto a las políticas y reglamentos de la UNSA.
+
+\end{document}
